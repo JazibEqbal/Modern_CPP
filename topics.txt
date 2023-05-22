@@ -1,0 +1,21 @@
+1) default,delete, auto keywords
+2) explicit keyword
+3) enum classes
+4) reference collapsing (universalreference / forward reference)
+5) perfect forwarding
+
+6) smart pointers
+7) lambda functions with capture parameters e.g[](int n1){return n1* 10};
+8) thread header file functionalities
+   a) std::thread
+   b) unique_lock
+   c) recurrisve_lock
+   d) mutex
+   e) lock_guard
+   f) try_lock
+9) std::chrono library features
+10) std::async & std::future
+
+advanced modern c++
+
+1) std::variant, std::any, std::optional, constexpr,switch & if initializers

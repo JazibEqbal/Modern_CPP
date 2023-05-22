@@ -1,0 +1,15 @@
+A class Doctor
+
+    -doctorID of type string
+    -doctorName of type string
+    -doctorSpeciality of type "enum class Speciality"
+
+    -disabled default constructor
+    -a copy constructor that is also disabled
+    - a parameterized constructor that takes id and name
+    - a parameterized constructor that takes id, name & Speciality
+    - a destructor method
+
+    a) create at list 3 objects of this class and store them in an array inside Main.cpp file
+    b) use.h and .cppformats properly
+    c) use heap allocations wherever possible
