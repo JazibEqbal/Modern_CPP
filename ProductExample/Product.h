@@ -15,14 +15,10 @@ public:
     Product(const Product &obj) = default;
     ~Product();
     Product(T id, float price,enum class ProductCategory category);
-    //friend std::ostream &operator<<(std::ostream &os, Product &pro);
 
-    T getProductId(){
-        return productId;
-    }
-    void setProductId(T id){
-        productId = id;
-    }
+    T getProductId() const { return productId; }
+    void setProductId(const T &productId_) { productId = productId_; }
+
 
     float getProductPrice() const { return productPrice; }
     void setProductPrice(float productPrice_) { productPrice = productPrice_; }
@@ -46,6 +42,24 @@ public:
             this->productCategory = ProductCategory::STATIONERY;
         }
     }
+    friend std::ostream &operator<<(std::ostream &os, Product<T> &prod);
 };
 
+template <typename T>
+inline Product<T>::~Product()
+{
+    std::cout<<"Destructor called\n";
+}
+
+template <typename T>
+inline Product<T>::Product(T id, float price, ProductCategory category) : productId{id}, productPrice{price} ,productCategory{category} {}
+
+template <typename T>
+std::ostream &operator<<(std::ostream &os, Product<T> &prod)
+{
+    os<<"Product Id: "<<prod.getProductId()<<"\n"
+      <<"Product price: "<<prod.getProductPrice()<<"\n"
+      <<"Product Category: "<<prod.getProductCategory()<<"\n";
+}
 #endif // PRODUCT_H
+
