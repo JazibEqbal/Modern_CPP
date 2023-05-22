@@ -1,7 +1,7 @@
 #ifndef STUDENTBRANCH_H
 #define STUDENTBRANCH_H
 
-enum class Branch: int{
+enum class Branch: char {
     SCIENCE,
     COMMERCE,
     ARTS,

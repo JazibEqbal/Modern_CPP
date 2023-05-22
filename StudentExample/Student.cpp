@@ -15,5 +15,5 @@ std::ostream &operator<<(std::ostream &os, Student &s)
     os<<"Student Branch is: "<<s.getStudentBranch()<<"\n"
       <<"Student Erp Number is: "<<s.getStudentErpNumber()<<"\n"
       <<"Student Practical Marks is: "<<s.getStudentPracticalMarks()<<"\n"
-      <<"Student Theory Marks is: "<<s.getStudentTheorymarks();
+      <<"Student Theory Marks is: "<<s.getStudentTheorymarks()<<"\n";
 }

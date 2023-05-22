@@ -1,4 +1,5 @@
 #include "Student.h"
+
 Student *arr[2];
 
 enum class Branch getBranch(){
@@ -30,11 +31,8 @@ int FindTotalMarks(Student& obj){
 
 bool CheckStudent(std::string str){
      for(int i=0;i<2;i++){
-        if(arr[i]->getStudentErpNumber() == str){
-            return true;
-        }
+        return (arr[i]->getStudentErpNumber() == str);
     }
-    return false;
 }
 
 int main(){
@@ -44,6 +42,12 @@ int main(){
     // Student *s4 = new Student(Branch::SCIENCE, "4x",15,20);
     // Student *s5 = new Student(Branch::SCIENCE, "5x",55,40);
 
+    // arr[0] = {s1};
+    // arr[1] = {s2};
+    // arr[2] = {s3};
+    // arr[3] = {s4};
+    // arr[4] = {s5};
+    
     for(int i=0;i<2;i++){
         enum Branch ans = getBranch();
         std::string id;
@@ -55,17 +59,16 @@ int main(){
         arr[i]=new Student(ans,id,pracMarks,theoryMarks);
     }
 
-    // arr[0] = {s1};
-    // arr[1] = {s2};
-    // arr[2] = {s3};
-    // arr[3] = {s4};
-    // arr[4] = {s5};
-
     std::cout<<"The Total marks of student with ERP Number : "<<arr[1]->getStudentErpNumber()<<" is "<<FindTotalMarks(*arr[1])<<"\n";
     std::cout<<"Enter Erp Number of student\n";
     std::string erpNumber;
     std::cin.ignore();
     std::getline(std::cin,erpNumber);
     std::cout<<CheckStudent(erpNumber)<<"\n";
-    //delete []arr;
+
+    std::cout<<*arr[1];
+
+    for(int i=0;i<2;i++){
+        delete arr[i];
+    }
 }
