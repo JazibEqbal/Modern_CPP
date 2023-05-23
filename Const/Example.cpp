@@ -31,4 +31,5 @@ int main(){
 
     std::cout<<*ptr;   //prints value
     std::cout<<ptr;    //prints address
-}
+
+    // we can 

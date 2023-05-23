@@ -1,0 +1,6 @@
+int* arr[5];  // arr is an array of size 5 of pointer to an integer
+
+
+int* [5]arr;  // not a valid declaration 
+
+int *ptr[5];  // ptr is a pointer to 5 integers

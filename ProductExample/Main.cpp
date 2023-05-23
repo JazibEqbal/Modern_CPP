@@ -1,6 +1,8 @@
 #include "Product.h"
 #include <iostream>
 
+Product<int> *arr[5];
+
 enum class ProductCategory category()
 {
     std::cout << "Choose 1 for FOOD\n"
@@ -25,8 +27,6 @@ enum class ProductCategory category()
     }
 };
 
-Product<int> *arr[5];
-
 void Initializer()
 {
     Product<int> *p1 = new Product<int>(1, 240.5, ProductCategory::FOOD);
@@ -42,7 +42,7 @@ void Initializer()
     arr[4] = {p5};
 }
 
-float CalculateTotalPrice(Product<int> *a)
+float CalculateTotalPrice()
 {
     float sum = 0;
     for (int i = 0; i < 5; i++){
@@ -63,7 +63,7 @@ int main()
     // }
     Initializer();
 
-    std::cout << CalculateTotalPrice(*arr) << "\n";
+    std::cout << CalculateTotalPrice() << "\n";
 
     for(int i=0;i<5;i++){
         delete arr[i];

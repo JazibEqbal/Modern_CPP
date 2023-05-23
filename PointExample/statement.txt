@@ -1,0 +1,15 @@
+a class point with following attributes-
+ xCordinate of type int
+ yCordinate of type int
+ a defaulted copy constructor
+ a deleted default constructor
+
+ an overloaded plus to add two point with 
+ xCordinate + xCordinate and yCordinate + yCordinate
+
+  an overloaded minus to subtract two point with 
+ xCordinate - xCordinate and yCordinate - yCordinate
+
+  an overloaded ++ operator to add 1 to  xCordinate and yCordinate
+
+ an overloaded ostream operator
