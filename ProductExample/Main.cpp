@@ -42,11 +42,11 @@ void Initializer()
     arr[4] = {p5};
 }
 
-float CalculateTotalPrice()
+float CalculateTotalPrice(Product<int> **a)
 {
     float sum = 0;
     for (int i = 0; i < 5; i++){
-        sum += arr[i]->getProductPrice();
+        sum += a[i]->getProductPrice();
     }
     return sum;
 }
@@ -63,7 +63,7 @@ int main()
     // }
     Initializer();
 
-    std::cout << CalculateTotalPrice() << "\n";
+    std::cout << CalculateTotalPrice(arr) << "\n";
 
     for(int i=0;i<5;i++){
         delete arr[i];

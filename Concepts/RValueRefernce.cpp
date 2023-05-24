@@ -21,3 +21,5 @@ int main(){
     square(10);
     return 0;
 }
+
+//with rvalue refernces move c-mantics is possible...allows transfer of ownership

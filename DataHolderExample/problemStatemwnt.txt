@@ -1,0 +1,21 @@
+create a class called as DataHolder
+
+it must contain following attributes:
+
+- a parameter called dataValues of type standard list of type T dataValues\
+- a constructor to inititalize the dataValues with a reference to a standard list of type T argument
+- a destructor method
+- a deleted default constructor
+- a defaulted copy constructor
+
+
+create a seperate file called functionalities.cpp with following functionalities
+A) a function called displayFirst that takes a reference to a standard list of type T values
+   and returns the first element from this list
+
+B) a function called findElementAtivenPosition that takes reference to a standard list of type T values
+   and an integer parameter "position". It must return the element at the given position from the list
+
+C) a function called searchElement that takes reference to a standard list of type T values along with a parameter 
+   of type T called "item" as 2 arguments. It must return true if item is found in the list else, it must 
+   return false.
