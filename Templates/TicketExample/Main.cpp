@@ -4,8 +4,9 @@
 
 int main(){
     Ticket<enum class TicketStatus,int> *ticket = new Ticket<enum class TicketStatus,int>
-    (TicketStatus::CONFIRMED,1800,"Gaya","NDLS");
+    (TicketStatus::VIP_RESERVED,1800,"Gaya","NDLS");
     std::cout<<*ticket<<"\n";
+    std::cout<<ticket->getTicketPrice()<<"\n";
     delete ticket; 
     return 0;
 }

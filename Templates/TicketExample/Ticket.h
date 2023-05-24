@@ -1,6 +1,8 @@
 #ifndef TICKET_H
 #define TICKET_H
 #include<iostream>
+#include "TicketCategory.h"
+#include "TicketStatus.h"
 
 template<typename T,typename U>
 class Ticket
@@ -35,6 +37,7 @@ public:
     return os;
     }    
 };
+
 template <typename T, typename U>
 inline Ticket<T, U>::Ticket(T type, U price, std::string startLocation, std::string endLocation) 
  : ticketType{type}, ticketPrice{price}, ticketStartLocation{startLocation}, ticketEndLocation{endLocation} {}
@@ -43,13 +46,7 @@ template <typename T, typename U>
 inline Ticket<T, U>::Ticket(T type, std::string startLocation, std::string endLocation)
  : ticketType{type}, ticketStartLocation{startLocation}, ticketEndLocation{endLocation} {}
 
-template <typename T, typename U>
-inline Ticket<T, U>::~Ticket()
-{
-    std::cout<<"Ticket destroyed\n";
-};
-     template<typename T>
-    std::string setTicketType(enum class TicketCategory type){
+std::string setTicketType(enum class TicketCategory type){
         if(type == TicketCategory::GENERAL){
             return "GENERAL";
         } else if(type == TicketCategory::AC){
@@ -58,8 +55,7 @@ inline Ticket<T, U>::~Ticket()
             return "SLEEPER";
         }
     };
-    template<typename T>
-    std::string setTicketType(enum class TicketStatus type){
+std::string setTicketType(enum class TicketStatus type){
         if(type == TicketStatus::CONFIRMED){
             return "CONFIRMED";
         } else if(type == TicketStatus::WAITING){
@@ -68,14 +64,10 @@ inline Ticket<T, U>::~Ticket()
             return "VIP_RESERVED";
         }
     }
-// template<typename T>
-// std::string displayTicketType(T type){
-//     if(type == TicketCategory::AC){
-//         return "AC";
-//     } else if(type == TicketCategory::GENERAL){
-//         return "GENERAL";
-//     } else {
-//         return "SLEEPER";
-//     }
-// }
+template <typename T, typename U>
+inline Ticket<T, U>::~Ticket()
+{
+    std::cout<<"Ticket destroyed\n";
+};
+
 #endif // TICKET_H
