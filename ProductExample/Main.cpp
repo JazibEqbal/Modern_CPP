@@ -29,11 +29,11 @@ enum class ProductCategory category()
 
 void Initializer()
 {
-    Product<int> *p1 = new Product<int>(1, 240.5, ProductCategory::FOOD);
+    Product<int> *p1 = new Product<int>(1, 240.5f, ProductCategory::FOOD);
     Product<int> *p2 = new Product<int>(2, 530, ProductCategory::KITCHEN_SUPPLIES);
-    Product<int> *p3 = new Product<int>(3, 540.5, ProductCategory::FOOD);
-    Product<int> *p4 = new Product<int>(13, 20.5, ProductCategory::FOOD);
-    Product<int> *p5 = new Product<int>(32, 40.5, ProductCategory::FOOD);
+    Product<int> *p3 = new Product<int>(3, 540.5f, ProductCategory::FOOD);
+    Product<int> *p4 = new Product<int>(13, 40.15f, ProductCategory::FOOD);
+    Product<int> *p5 = new Product<int>(32, 40.51f, ProductCategory::FOOD);
 
     arr[0] = {p1};
     arr[1] = {p2};
