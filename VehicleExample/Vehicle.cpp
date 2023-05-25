@@ -2,9 +2,8 @@
 
 Vehicle::Vehicle(std::string name, VehicleType type, float price): vehicleName{name}, vehicleType{type}, vehiclePrice{price} {}
 
-Vehicle::~Vehicle()
-{
-std::cout<<"Vehicle Destructor\n";
+Vehicle::~Vehicle(){
+    std::cout<<"Vehicle Destructor\n";
 }
 
 std::ostream &operator<<(std::ostream &os, const Vehicle &rhs) {

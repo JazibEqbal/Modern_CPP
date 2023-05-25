@@ -63,7 +63,7 @@ std::string setTicketType(enum class TicketStatus type){
         } else {
             return "VIP_RESERVED";
         }
-    }
+    };
 template <typename T, typename U>
 inline Ticket<T, U>::~Ticket()
 {
