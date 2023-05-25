@@ -37,6 +37,8 @@ int main(){
     operation(std::list<int> {1,2,3,4}, f);
     operation(std::list<int> {1,2,3,4}, [] (int num){return num*num*num;});
 
+    // operation(std::list<int> {2,4,6} , [] (int num) {for(int data: num){if(data %2 != 0) return true;}})
+
     auto f = [] (int num) { return num*num;};
    
     return 0;

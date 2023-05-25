@@ -13,9 +13,19 @@ void sum(std::list<int> &&data){
     std::cout<<total<<"\n";
 }
 
+bool checkOdd(std::list<int> &&data){
+    for(int value: data){
+        if(value % 2 !=0){
+            return true;
+        }
+    }
+    return false;
+}
+
 int main(){
     sum(std::list<int>{1,2,3,4,5});
     sum(std::list<int>{-10,-20,-30});
     sum(std::list<int>{-20});
     sum(std::list<int>{10,20});
+    std::cout<<checkOdd(std::list<int>{12,2,32,4})<<"\n";
 }
