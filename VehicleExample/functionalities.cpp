@@ -9,7 +9,7 @@
 float averageVehicleType(std::list<Vehicle*> &obj){
     float avgPrice=0;
     int count=0;
-    for(Vehicle *it: obj){
+    for(auto *it: obj){
         avgPrice += it->getVehiclePrice();
         count++;
     }

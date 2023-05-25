@@ -30,3 +30,7 @@ as a parameter and returns the average price for all vehicles stored in the list
 a function called findGivenVehicleType that takes a reference of standard list of vehicle objects
 and a enum VEHICLE_TYPE as parameters. it must display all vehicle of this passed VEHICLE_TYPE
 that are stored in the list passed.
+
+a function called countOfGiventypes that takes a reference of standard list of vehicle objects and 
+a another standard list of VEHICLE_TYPE enum literrals.
+Find how many units in your data list are from the passed type and print their count.

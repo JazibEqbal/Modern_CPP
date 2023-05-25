@@ -12,7 +12,7 @@ public:
     Car(const Car &obj) = delete;
     Car(std::string name,enum class VehicleType type, float price, std::string brand);
     ~Car();
-    float RtoTax();
+    float RtoTax() override;
 
     std::string getCarBrand() const { return carBrand; }
     void setCarBrand(const std::string &carBrand_) { carBrand = carBrand_; }
