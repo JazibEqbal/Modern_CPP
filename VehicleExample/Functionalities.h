@@ -12,6 +12,6 @@ float averageVehicleType(std::list<Vehicle*> &obj);
 
 void findGivenVehicleType(std::list<Vehicle*> &obj, enum class VehicleType type);
 
-int countOfGiventypes(std::list<Vehicle*> &obj, std::list<VehicleType*> &type);
+int countOfGiventypes(std::list<Vehicle*> &obj, std::list<VehicleType> &type);
 
 #endif // FUNCTIONALITIES_H

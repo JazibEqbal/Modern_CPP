@@ -24,12 +24,12 @@ void findGivenVehicleType(std::list<Vehicle*> &obj, enum class VehicleType type)
     }
 }
 
-int countOfGiventypes(std::list<Vehicle*> &obj, std::list<VehicleType*> &type)
+int countOfGiventypes(std::list<Vehicle*> &obj, std::list<VehicleType> &type)
 {
     int count=0;
     for(Vehicle* it: obj){
-        for(VehicleType* ty: type){
-              if(*ty == it->getvehicleType() ){
+        for(VehicleType ty: type){
+              if(ty == it->getvehicleType() ){
                 count++;
             }
         }
