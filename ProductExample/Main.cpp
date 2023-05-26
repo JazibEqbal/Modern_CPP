@@ -40,6 +40,9 @@ void Initializer()
     arr[2] = {p3};
     arr[3] = {p4};
     arr[4] = {p5};
+    
+    //arr[0] = new Product<int>(1, 240.5f, ProductCategory::FOOD);
+
 }
 
 float CalculateTotalPrice(Product<int> **a)
