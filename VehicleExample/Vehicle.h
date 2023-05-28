@@ -9,13 +9,14 @@ private:
     std::string vehicleName;
     enum class VehicleType vehicleType;
     float vehiclePrice;
-    virtual float RtoTax()=0;
 public:
     Vehicle() = default;
     Vehicle(const Vehicle &obj) = delete;
     Vehicle(std::string name,enum class VehicleType type, float price);
     virtual ~Vehicle();
 
+    virtual float RtoTax()=0;
+    
     std::string getVehicleName() const { return vehicleName; }
     void setVehicleName(const std::string &vehicleName_) { vehicleName = vehicleName_; }
 

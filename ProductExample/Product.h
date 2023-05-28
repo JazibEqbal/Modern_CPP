@@ -23,15 +23,16 @@ public:
     float getProductPrice() const { return productPrice; }
     void setProductPrice(float productPrice_) { productPrice = productPrice_; }
     
-    std::string getProductCategory(){
-        if(productCategory == ProductCategory::FOOD){
-            return "FOOD";
-        } else if(productCategory == ProductCategory::KITCHEN_SUPPLIES){
-            return "KITCHEN_SUPPLIES";
-        } else {
-            return "STATIONERY";
-        }
-    }
+    // std::string getProductCategory(){
+    //     if(productCategory == ProductCategory::FOOD){
+    //         return "FOOD";
+    //     } else if(productCategory == ProductCategory::KITCHEN_SUPPLIES){
+    //         return "KITCHEN_SUPPLIES";
+    //     } else {
+    //         return "STATIONERY";
+    //     }
+    // }
+    enum class ProductCategory getProductCategory() const {return productCategory;};
 
     void setProductCategory(enum ProductCategory category){
         if(this->productCategory == ProductCategory::FOOD){
