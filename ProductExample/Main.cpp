@@ -1,7 +1,7 @@
 #include "Product.h"
 #include <iostream>
 
-Product<int> *arr[5];
+Product<int> *arr[5];  //5 product type pointer of array 
 
 enum class ProductCategory category()
 {
