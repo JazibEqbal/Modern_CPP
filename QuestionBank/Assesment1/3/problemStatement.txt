@@ -1,0 +1,22 @@
+Create a class MYQUEUE which is an implementation of Simple Queue data structure to hold data values of any type T using an STL list with the following attributes
+    • A data member called myQueueValues of type standard list of type T
+    • A data member called myQueueSize of type integer.
+    • A data member called myQueueCapacity of type integer.
+    • A constructor that takes a reference to a standard list of type T elements and copies the elements into myQueueValues parameter.
+    • A constructor that takes a capacity parameter of type integer and creates an empty MyQueue instance with myQueueCapacity set to the capacity parameter.
+    • A defaulted copy constructor to copy data from an existing MyQueue instance.
+    • A deleted default constructor.
+    • A function IsEmpty to check if the queue is empty.
+    • A function PushBack that takes a parameter of type T by value and adds it to the back of the queue.
+    • A function PopFront that removes a value from the front of the queue.
+    • A function PeekFront to check the element at the front of the queue.
+    • A function PeekBack to check the element at the back of the queue.
+    • An overload of << operator must be added to display data of an object.
+
+Create a functionalities.h file with the following features
+
+    • A function FindValueAtGivenPosition that takes an instance of MyQueue of type T elements as a parameter and an integer for position as parameter. The function must return the element at the index location specified by the position parameter.
+    • A function MakeCombinedQueue that takes 2 parameters - each an instance of MyQueue of type T elements. The function must return a copy of the MyQueue instance created by combining the elements of the 2 MyQueue instances passed. (Create a new MyQueue object by combining elements of 2 parameters passed.
+    • A function FindCommonQueueElements that takes 2 parameters - each an instance of MyQueue of type T elements. The function must return a copy of the MyQueue instance created by finding common elements from the 2 MyQueue instances passed. (Create a new MyQueue object by identifying overlapping/common elements from 2 parameters passed.)
+
+Create a Main.cpp file with code to demonstrate each function from the functionalities.cpp file.

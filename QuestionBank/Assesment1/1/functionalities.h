@@ -7,4 +7,4 @@ int FindAverageFuelCapacity(std::list<Car*> &obj);
 
 int FindCountOfGivenBrands(std::list<Car*> &obj, enum class CAR_CATEGORY category);
 
-void FindBestPassengerCar(std::list<Car*> &obj, enum class CAR_CATEGORY cat);
+void FindBestPassengerCar(std::list<Car*> &obj, enum class CAR_CATEGORY);

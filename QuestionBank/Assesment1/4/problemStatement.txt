@@ -1,0 +1,41 @@
+Create an abstract class Exam with the following attributes
+
+    • examType of type enum class. It should contain one of the following literals 
+        ◦ UNIT_TEST
+        ◦ MID-TERM
+        ◦ END_SEM
+    • examCode of type string that stores the code of the exam to be conducted.
+    • timeDuration of type short that stores duration for the exam in minutes.
+    • A pure virtual method DisplayAttributes that accepts a parameter with no arguments.
+    • A parameterized constructor that accepts all parameters and creates the object.
+
+Create a child class OnlineExam that inherits from Exam class and has the following unique attributes
+    • examPlatform of type enum class. It should contain one of the following literals.
+        ◦ MEET
+        ◦ TEAMS
+        ◦ ZOOM
+    • A method AverageMarks that can take an argument of type pointer to an array of 5 integers corresponding to 5 exams taken by a student. The method should print the average of 5 values.
+    • Create an overridden method DisplayAttributes to print all data members of this class.(Note: Create your own display format. 
+    • A parameterized constructor that accepts all parameters and creates the object.
+    • A copy constructor that copies values from an existing object of this class to create the object.
+
+Create a child class OfflineExam that inherits from Exam class and has the following unique attributes
+
+    • examLocation of type string that stores the area name where the exam will be held.
+    • examTopic of type enum class. It should contain one of the following literals
+        ◦ C++
+        ◦ DS
+        ◦ ALGORITHMS
+    • A method changeLocation that accepts a parameter newLocation of type string and changes the location of the current object to this new location value.
+    • Create an overridden method DisplayAttributes to print all data members of this class.(Note: Create your own display format. 
+    • A parameterized constructor that accepts all parameters and creates the object.
+
+In the main section , make provisions for the following
+    • Accept an input for variable N that indicates the number of OnlineExam objects to be created.
+    • For the number of inputs N, accept necessary attributes to initialize the OnlineExam objects.
+    • Accept an input for variable NUM that indicates the number of OfflineExam objects to be created.
+    • For the number of inputs NUM, accept necessary attributes to initialize the OfflineExam objects.
+    • Store objects of OfflineExam and OnlineExam in separate arrays. 
+    • For each object in the 2 arrays created, print all the attributes of these objects.
+
+Create a Main.cpp file with code to demonstrate each function from the functionalities.cpp file.
