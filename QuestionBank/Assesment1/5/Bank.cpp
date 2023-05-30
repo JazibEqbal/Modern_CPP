@@ -13,18 +13,11 @@ std::ostream &operator<<(std::ostream &os, const Bank &rhs) {
        << " bankIfscCode: " << rhs.bankIfscCode
        << " bankcategory: " << displayBankcategory(rhs.bankcategory)
         << " bankAccount: ";
-       
        for(auto* it : rhs.bankAccount){     //{b1,b2}
         os << it->getAccountHolderName();
        }
     return os;
 }
-
-
-
-// std::string displayBankAccount(std::list<Account*> &obj){
-
-// }
 
 std::string displayBankcategory(enum class BANK_CATEGORY category){
     if(category == BANK_CATEGORY::COOPERATIVE){

@@ -1,7 +1,8 @@
 #ifndef DEBITCARD_H
 #define DEBITCARD_H
+#include <iostream>
 #include "Account.h"
-#include <ostream>
+#include "Bank.h"
 
 class DebitCard
 {

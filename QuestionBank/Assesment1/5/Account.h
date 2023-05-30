@@ -1,11 +1,8 @@
 #ifndef ACCOUNT_H
 #define ACCOUNT_H
-
 #include<iostream>
-#include "AccountType.h"
 #include "DebitCard.h"
-#include "Bank.h"
-
+#include "AccountType.h"
 class Account
 {
 private:

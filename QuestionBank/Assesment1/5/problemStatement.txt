@@ -1,0 +1,49 @@
+Create a class Bank with the following attributes
+
+    • bankName of type string
+    • bankIfscCode of type string
+    • bankCategory of type enum class BANK_CATEGORY which has the following literals
+        ◦ NATIONALIZED
+        ◦ COOPERATIVE
+        ◦ SEMI_GOVERNMENT
+    • bankAccount of type standard list of Account.
+    • Create a parameterized constructor to initialize the object.
+    • Delete the default and copy constructors.
+    • Create getters & setters for all attributes
+    • Overload the left shift operator << for displaying the object properties.
+
+Create a class Account. Identify the relationship between Bank and Account class and create Account class with the following attributes
+
+    • accountHolderName of type string
+    • accountBalance of type float
+    • accountType of enum class ACCOUNT_TYPE which has the following literals
+        ◦ SAVINGS
+        ◦ SALARY
+        ◦ CURRENT
+    • accountDebitCard of type DebitCard
+    • Getter and setter methods
+    • Left shift << operator overload to display the object properties.
+
+Create a class DebitCard. Identify the relationship between Account and DebitCard class and create DebitCard class 
+with the following attributes
+
+    • debitCardNumber of type unsigned long long.
+    • debitCardCVV number of type int.
+    • Create a parameterized constructor to initialize the object.
+    • Delete the default and copy constructors.
+    • Create getters & setters for all attributes
+    • Overload the left shift operator << for displaying the object properties.
+
+
+Create a functionalities.cpp file with the following functions
+
+    • FindAccountByDebitCardNumber that accepts a standard list of Account type pointers 
+      along with a debitCardNumber of type unsigned long long. The function must return true or false 
+      based on whether an account with DebitCard matching the number passed was found in the list or not.
+
+    • FindHighestAccountBalance that accepts a standard list of Account type pointers and 
+      returns the value of highest accountBalance among the accounts whose pointers are stored in the list.
+      
+    • FindCountOfAccountBelowThreshold that accepts a standard list of Account type pointers and 
+      an amount parameter of type float. The function should return an integer that is the count of accounts 
+      whose accountBalance is below the threshold amount passed as the second parameter.
