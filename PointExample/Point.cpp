@@ -22,8 +22,8 @@ Point Point::operator-(const Point &c)
 }
 Point Point::operator++(int)
 {
-    xCordinate = ++xCordinate;
-    yCordinate = ++yCordinate;
+    xCordinate++;
+    yCordinate++;
     return Point(xCordinate,yCordinate);
 };
 
