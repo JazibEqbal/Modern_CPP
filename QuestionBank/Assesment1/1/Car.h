@@ -18,7 +18,8 @@ public:
     Car(const Car &obj) = default;   // a defaulted copy constructor
 
     //a parameterized constructor which takes all data members as argument
-    Car(std::string chasNumber, std::string brand,std::string model,float price,enum class CAR_CATEGORY category,int seats,int fuel);
+    Car(std::string chasNumber, std::string brand,std::string model,float price,
+    enum class CAR_CATEGORY category,int seats,int fuel);
     // a parameterized constructor which takes 4 arguments namely chassisNumber, brand ,model and price
     Car(std::string chasNumber, std::string brand,std::string model,float price);
     

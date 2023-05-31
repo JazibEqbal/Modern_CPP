@@ -1,12 +1,11 @@
-#include<iostream>
+#include <iostream>
 #include "Account.h"
 #include "Bank.h"
-#include "DebitCard.h"
 #include <list>
 #include "AccountType.h"
-#include "BankCategory.h"
 #include "functionalities.h"
 
+<<<<<<< Updated upstream
 int main(){
     DebitCard *d1 = new DebitCard(123456789,123);
     DebitCard *d2 = new DebitCard(786868686,786);
@@ -26,6 +25,12 @@ int main(){
     }
     delete bank;
 
+=======
+int main()
+{
+    // DebitCard *d1 = new DebitCard(123456789,123);
+
+    // std::cout<<d1->getDebitCardCVV();
+>>>>>>> Stashed changes
     return 0;
 }
-
