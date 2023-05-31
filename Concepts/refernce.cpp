@@ -18,7 +18,9 @@ void magic(int data){
 }
 
 void magic_refernce(int &data){
-
+    int temp =1000;
+    data = temp;
+    std::cout<<data;
 }
 
 void magic_pointer_arg(int *ptr){
@@ -31,6 +33,18 @@ void magic_rvalue_reference(int&& data){
 
 int main(){
     int n1=10;
+    int n2=100;
+
+    int *ptr = &n1;
+    ptr = &n2; //reassigned ptr to n2
+    std::cout<<"n1 is:"<<n1<<"\n";
+    std::cout<<"n2 is:"<<n2<<"\n";  //no effect on n1 and n2
+
+    int &data = n1; //an integer reference //data is referening to n1
+    data = n2;
+    std::cout<<"n1 is:"<<n1<<"\n";
+    std::cout<<"n2 is:"<<n2<<"\n"; //references cannot be assigned --it does not have its own memory address
+    //cannot store references in any conatiner
 
     magic(n1);    // copied n1 into the magic function local variable data
 

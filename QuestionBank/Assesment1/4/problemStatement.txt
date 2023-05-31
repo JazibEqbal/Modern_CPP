@@ -14,8 +14,11 @@ Create a child class OnlineExam that inherits from Exam class and has the follow
         ◦ MEET
         ◦ TEAMS
         ◦ ZOOM
-    • A method AverageMarks that can take an argument of type pointer to an array of 5 integers corresponding to 5 exams taken by a student. The method should print the average of 5 values.
-    • Create an overridden method DisplayAttributes to print all data members of this class.(Note: Create your own display format. 
+    • A method AverageMarks that can take an argument of type pointer to an array of 5 integers 
+        corresponding to 5 exams taken by a student. The method should print the average of 5 values.
+
+    • Create an overridden method DisplayAttributes to print all data members of this class.
+     (Note: Create your own display format.)
     • A parameterized constructor that accepts all parameters and creates the object.
     • A copy constructor that copies values from an existing object of this class to create the object.
 

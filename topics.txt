@@ -18,3 +18,13 @@
 advanced modern c++
 
 1) std::variant, std::any, std::optional, constexpr,switch & if initializers
+
+
+PRINCIPLES OF FUNCTIONAL PORGRAMMING   
+
+functions are supposed to be treated as a variable of another type
+   1) variables have a type
+   2) variables can be passed to a function
+   3) variables can be returned from the function            //all 5 points is applicable for functions
+   4) variables can be stored in a collection of some type
+   5) variables can be copied

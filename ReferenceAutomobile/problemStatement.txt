@@ -1,0 +1,14 @@
+create a class AutoMobile which has following atrributes:
+    - a data member autoMobileNumber to store number that may contain alphabets & number as well
+    - a data member called "autoMobileReadings" that can store mileage readings which are float values.
+      There are multiple readings to be recorded for an autoMobileNumber. 
+      This data member should refer to readings coming from a different file or location.
+    - a constructor that can take both parameters
+    - way to gain read/write access
+    - ability to display all members of an instance
+
+create a function in functionalities.cpp file
+that accepts a autoMobileReadings & a operation to be performed.
+
+Note: all operations are supposed to work on 1 value at a time return original value
+--operations are square, cube
