@@ -1,11 +1,12 @@
 #ifndef DEBITCARD_H
 #define DEBITCARD_H
-#include<iostream>
+#include <iostream>
 class DebitCard
 {
 private:
     unsigned long long debitCardNumber;
     int debitCardCVV;
+
 public:
     DebitCard() = delete;
     DebitCard(const DebitCard &obj) = delete;
@@ -19,7 +20,6 @@ public:
     void setDebitCardCVV(int debitCardCVV_) { debitCardCVV = debitCardCVV_; }
 
     friend std::ostream &operator<<(std::ostream &os, const DebitCard &rhs);
-
 };
 
 

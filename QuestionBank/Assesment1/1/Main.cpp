@@ -2,23 +2,22 @@
 #include "CarCategory.h"
 #include "functionalities.h"
 
-int main()
-{
-    Car *c1 = new Car("1", "BMW", "007x", 43.5, CAR_CATEGORY::SUV, 96, 20);
-    Car *c2 = new Car("2", "AUDI", "0x", 23.5, CAR_CATEGORY::SUV, 67, 120);
 
-    // creating standard list of car objects
-    std::list<Car *> list = {c1, c2};
+int main(){
+    Car *c1= new Car("1","BMW","007x",43.5f,CAR_CATEGORY::SEDAN,2,20);
+    Car *c2= new Car("2","AUDI","0x",23.5f,CAR_CATEGORY::SEDAN,4,120);\
 
-    // std::cout<<"Count of given brand: "<<FindCountOfGivenBrands(list,CAR_CATEGORY::SEDAN)<<"\n";
+    //creating standard list of car objects
+    std::list<Car *> list= {c1,c2};
 
-    // std::cout<<"Average fuel capacity of cars is: "<<FindAverageFuelCapacity(list)<<"\n";
+    std::cout<<"Count of given brand: "<<FindCountOfGivenBrands(list,CAR_CATEGORY::SEDAN)<<"\n";
 
-    // Finding best car for a passenger
-    FindBestPassengerCar(list, CAR_CATEGORY::SUV);
+    std::cout<<"Average fuel capacity of cars is: "<<FindAverageFuelCapacity(list)<<"\n";
 
-    for (auto it : list)
-    { // freeing the memory of eachcar objects
+    //Finding best car for a passenger
+    FindBestPassengerCar(list,CAR_CATEGORY::SEDAN);
+
+    for(auto it: list){    //freeing the memory of eachcar objects
         delete it;
     }
 }
