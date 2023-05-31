@@ -13,7 +13,7 @@ public:
     Exam() = delete;
     Exam(const Exam &obj) = default;
     Exam(enum class EXAM_TYPE type,std::string code,short duration);
-    ~Exam();
+    virtual ~Exam();
     virtual void DisplayAttributes() = 0;
 
     std::string getExamCode() const { return examCode; }
@@ -24,5 +24,6 @@ public:
 
     enum class EXAM_TYPE getExamType() const { return examType;};
 };
+std::string displayExamType(enum class EXAM_TYPE examType);
 
 #endif // EXAM_H

@@ -13,7 +13,11 @@ public:
     ~OnlineExam();
 
     void AverageMarks(int *arr[5]);
-    void DisplayAttributes();
+    void DisplayAttributes() override;
+
+    enum class EXAM_PLATFORM getExamPlatform() const { return  examPlatform;};
+
 };
+std::string displayExamPlatform(enum class EXAM_PLATFORM platform);
 
 #endif // ONLINEEXAM_H
