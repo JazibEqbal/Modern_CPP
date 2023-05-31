@@ -50,6 +50,7 @@ void FindBestPassengerCar(std::list<Car *> &obj, CAR_CATEGORY cat)
             if (max < it->getCarSeatCount())
             {
                 max = it->getCarSeatCount(); // finding maximum seat count and if max is greater than seat count then updating max to seat
+                //it->setCarBrand() = it->getCarBrand();
             }
         }
         if (cat==it->getCategory() && max == it->getCarSeatCount())

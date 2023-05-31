@@ -7,4 +7,5 @@ enum class BANK_CATEGORY {
     SEMI_GOVERNMENT
 };
 
+
 #endif // BANKCATEGORY_H

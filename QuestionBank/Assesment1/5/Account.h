@@ -1,8 +1,8 @@
 #ifndef ACCOUNT_H
 #define ACCOUNT_H
 #include<iostream>
-#include "DebitCard.h"
 #include "AccountType.h"
+#include "DebitCard.h"
 class Account
 {
 private:
@@ -32,5 +32,6 @@ public:
 };
 
 std::string displayEnumForAccount(enum class ACCOUNT_TYPE accType);
+
 
 #endif // ACCOUNT_H

@@ -7,4 +7,5 @@ enum class ACCOUNT_TYPE{
     CURRENT
 };
 
+
 #endif // ACCOUNTTYPE_H

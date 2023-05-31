@@ -1,9 +1,6 @@
 #ifndef DEBITCARD_H
 #define DEBITCARD_H
-#include <iostream>
-#include "Account.h"
-#include "Bank.h"
-
+#include<iostream>
 class DebitCard
 {
 private:
@@ -24,5 +21,6 @@ public:
     friend std::ostream &operator<<(std::ostream &os, const DebitCard &rhs);
 
 };
+
 
 #endif // DEBITCARD_H

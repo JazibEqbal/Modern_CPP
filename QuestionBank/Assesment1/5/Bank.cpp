@@ -1,5 +1,4 @@
 #include "Bank.h"
-
 Bank::Bank(std::string name, std::string code, BANK_CATEGORY category, std::list<Account *> &obj)
 : bankName{name}, bankIfscCode{code}, bankcategory{category}, bankAccount{obj} {}
 

@@ -1,9 +1,9 @@
 #ifndef BANK_H
 #define BANK_H
-#include <iostream>
-#include "BankCategory.h"
-#include <list>
+#include<iostream>
+#include<list>
 #include "Account.h"
+#include "BankCategory.h"
 class Bank
 {
 private:
@@ -32,5 +32,6 @@ public:
     friend std::ostream &operator<<(std::ostream &os, const Bank &rhs);
 };
 std::string displayBankcategory(enum class BANK_CATEGORY category);
+
 
 #endif // BANK_H
