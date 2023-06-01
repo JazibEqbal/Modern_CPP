@@ -1,0 +1,16 @@
+Sequential Containers
+    -std::array
+    -std::list
+    -std::queue
+    -std::forward_list
+
+Associative Containers
+    -unordered_map
+    -map
+    -set
+    -multiset
+    -multimap
+
+Conatiner Adapters
+    -stack
+    -queue

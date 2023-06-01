@@ -1,0 +1,19 @@
+create a class Employee with following atrributes
+
+    -alphanumberic employeeID;
+    -employeeSalary;
+    Department (with 4 options IT,HR,ADMIN,SALES)
+
+    -relevant constructors
+    - ability to add 2 employee objects and return their comibined employeeSalary
+
+create a functionality.cpp file with following functions:
+    A) a function FindEmployeeAboveThreshold that takes a data conatiner of employee objects 
+       and a threshold salary. it should return a conatiner conatining employees whose salary is above threshold.
+       (deal with null return case as you see appropriate)
+
+    B) a function FindEmployeeWithGivenId that finds employee from a data container of employee 
+       with matching ID passed as a parameter to this funtion too
+
+    C) a function FindCombinedSalary that finds total combined salary of all employees from a given conatiner
+       of employees
