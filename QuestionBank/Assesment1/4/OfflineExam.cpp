@@ -25,8 +25,8 @@ void OfflineExam::changeLocation(std::string newLocation)
 
 void OfflineExam::DisplayAttributes()
 {
-    std::cout<<"Exam Type:"<<displayExamType(getExamType());
+    std::cout<<"Exam Type:"<<displayExamType(getExamType())<<"\n";
     std::cout<<"Exam Code: "<<getExamCode()<<"\n";
     std::cout<<"Time duration: "<<getTimeDuration()<<"\n";
-    std::cout<<"Exam Platform: "<<displayExamTopic(getExamTopic())<<"\n";
+    std::cout<<"Exam Platform: "<<displayExamTopic(getExamTopic())<<"\n\n";
 }

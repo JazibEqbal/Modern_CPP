@@ -1,9 +1,7 @@
-#include "Exam.h"
-#include "OnlineExam.h"
-#include "OfflineExam.h"
 #include<iostream>
-
+#include "functionalities.h"
 
 int main(){
+    menu();
     return 0;
 }

@@ -20,8 +20,8 @@ std::string displayExamPlatform(enum class EXAM_PLATFORM platform){
 
 void OnlineExam::DisplayAttributes()
 {
-    std::cout<<"Exam Type:"<<displayExamType(getExamType());
+    std::cout<<"Exam Type:"<<displayExamType(getExamType())<<"\n";
     std::cout<<"Exam Code: "<<getExamCode()<<"\n";
     std::cout<<"Time duration: "<<getTimeDuration()<<"\n";
-    std::cout<<"Exam Platform: "<<displayExamPlatform(getExamPlatform())<<"\n";
+    std::cout<<"Exam Platform: "<<displayExamPlatform(getExamPlatform())<<"\n\n";
 }
