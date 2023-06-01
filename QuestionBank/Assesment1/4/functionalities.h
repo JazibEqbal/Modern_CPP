@@ -8,4 +8,6 @@
 #include "ExamPlatform.h"
 #include "ExamTopics.h"
 
+void menu();
+
 #endif // FUNCTIONALITIES_H
