@@ -1,0 +1,24 @@
+create a class called VehicleData
+    - alphanumeric vehicleId;
+    - string for vehicleModel
+    - enumeration literals of SEDAN,SUV & HATCHBACK fro vehicleType;
+    - integer value for fuelTankCapacity;
+    - decimal number for mileage(expected as per company)
+
+    - required constructors
+    - ability to gain read and write access pf data members
+    - ability to display all data members
+    - ability to add 2 vechicleData objects to return combined fuel capacity
+
+create 2 lambda functions to do following
+
+    a) calculate AVerageFuelCapacity from all VehicleData objects passed in a container and return the answer.
+
+    b) find mileage of vehcile with a given vehicleId and return the answer.
+
+Store both function into a list of std::function vehicleType
+
+create a function operation that takes VehicleData objects in a container and a container
+containing all the function objects.
+
+apply each function on collection of VehicleData objects

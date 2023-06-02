@@ -1,0 +1,25 @@
+create a class Account
+    
+    - accountId that is alphaNumeric
+    - accountBalance that can be decimal
+    - accountType that may be one of these types {SAVINGS,CURRENT}
+    - accountHolderName of string types
+    - accountLast5Transactions that stores data of type transactions
+    - an ability to read and write acccess
+    - ability to display all members
+    - appropriate constructors
+
+create a class transactions wiht following
+    -transactionAmount
+    -transactionReceiptName
+    -transactionType which could be NETBANKING,UPI<RTGS,NEFT\
+
+
+create a functionalities.cpp file with following
+
+    - a function operation that takes a conatiner of accounts and a function wrapper (of type
+       return float,accept container of accounts). It must map the function on to the data conatiner.
+
+create lambdas to
+    a) find accountBalance of account with highest total transactionAmount
+    b) find highest transaction Amount 

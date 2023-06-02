@@ -10,9 +10,17 @@ int main(){
 
     std::list<Employe*> list = {e1,e2,e3};
 
-    FindEmployeeAboveThreshold(list,60);
-    std::cout<<FindCombinedSalary(list)<<"\n";
-    FindEmployeeWithGivenId(list,"1x");
+    auto res = FindEmployeeAboveThreshold(list,60);
+    if(res.has_value()){
+        for(auto *it: res.value()){
+            std::cout<<*it<<"\n";
+        }
+    }else {
+        std::cout<<"No one above threshold\n";
+    }
+    //std::cout<<FindCombinedSalary(list)<<"\n";
+    auto res2 = FindEmployeeWithGivenId(list,"1x");
+    //std::cout<<*res2.value()<<"\n";
 
     for(auto *it: list){
         delete it;
@@ -20,8 +28,3 @@ int main(){
     return 0;
 }
 
-    // if(res.has_value()){
-    //     std::cout<<res.value().size()<<"\n";
-    // }else {
-    //     std::cout<<"No one above threshold\n";
-    // }
