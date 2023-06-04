@@ -18,10 +18,10 @@ int main(){
     }else {
         std::cout<<"No one above threshold\n";
     }
-    //std::cout<<FindCombinedSalary(list)<<"\n";
+    std::cout<<"Combined salary is: "<<FindCombinedSalary(list)<<"\n";
     auto res2 = FindEmployeeWithGivenId(list,"1x");
-    //std::cout<<*res2.value()<<"\n";
-
+    std::cout<<"Employee is: "<<*res2.value()<<"\n";
+    std::cout<<e2->operator+(*e3)<<"\n";
     for(auto *it: list){
         delete it;
     }

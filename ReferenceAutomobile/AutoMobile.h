@@ -21,8 +21,6 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const AutoMobile &rhs);
 
-
-  
 };
 
 #endif // AUTOMOBILE_H
