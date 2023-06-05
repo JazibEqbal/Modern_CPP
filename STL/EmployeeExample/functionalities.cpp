@@ -3,7 +3,7 @@
 
 std::optional<std::list<Employe *>> FindEmployeeAboveThreshold(std::list<Employe *> &obj, float threshold)
 {
-    std::list<Employe *> list(2);
+    std::list<Employe *> list(obj.size());
     if (obj.size() <= 0)
     {
         throw std::runtime_error("List is empty");
@@ -12,8 +12,9 @@ std::optional<std::list<Employe *>> FindEmployeeAboveThreshold(std::list<Employe
     {
         throw std::runtime_error("Threshold can't be a negative value!");
     }
-     std::copy_if(obj.begin(), obj.end(), list.begin(), [&](Employe *obj)
-                 { return obj->getEmployeeSalary() > threshold; });
+    auto itr = std::copy_if(obj.begin(), obj.end(), list.begin(), [&](Employe *obj)
+                 { return obj->getEmployeeSalary() > threshold; }); //std::copy_if returns an iterator poinitng to the last element which it has inserted
+    list.resize(std::distance(list.begin(),itr));
     // for(auto *it : obj){
     //     if(it->getEmployeeSalary() > threshold){
     //         list.push_back(it);

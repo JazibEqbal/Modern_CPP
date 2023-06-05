@@ -29,6 +29,6 @@ int main(){
 
     return 0;
 }
-
-//rvalue cannot be used for std::ref as itis a temporary value
+//std::ref cannot take rvalue
+//rvalue cannot be used for std::ref as it is a temporary value
 //any funct that does notaccdept a reference can be used with a lvalue reference if we use std::ref(item_name);

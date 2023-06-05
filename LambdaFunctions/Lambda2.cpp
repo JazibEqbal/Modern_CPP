@@ -18,8 +18,7 @@ int main(){
 }
 
 //The type of lambda function is same as the signature
-
-
+//lambda is a rvalue...it's temporary as it is not assigned to any variable
 //void (*ptr)(int) = &square;         // pointer to a function square
 // void operation(std::list<int> &data, void(*fun)(int)){ //FUNCTION POINTER DECLARATION
 //     for(auto &val: data){
