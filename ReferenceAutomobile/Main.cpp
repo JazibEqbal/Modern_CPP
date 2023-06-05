@@ -2,6 +2,8 @@
 #include<iostream>
 #include "functionalities.h"
 #include<algorithm>
+
+
 int main(){
     std::list<float> list = {2.3f,10.7f};
     //AutoMobile *a = new AutoMobile("112",list);
@@ -18,10 +20,12 @@ int main(){
     std::list<float> result;
     //WAYS 1
     std::copy_if(list2.begin(),list2.end(),result.begin(),[] (float reading){return reading <4.5;});
-    //2
+    
+    //2 BEST WAY
     std::copy_if(a->getAutoMobileReadings().get().begin(),
     a->getAutoMobileReadings().get().end(),result.begin(),
     [] (float reading){return reading <4.5;});
+
     //3 old way
     for(const auto &it: a->getAutoMobileReadings().get()){
         if(it < 4.5){

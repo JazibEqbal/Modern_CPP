@@ -1,5 +1,4 @@
-create a class Account
-    
+create a class Account    
     - accountId that is alphaNumeric
     - accountBalance that can be decimal
     - accountType that may be one of these types {SAVINGS,CURRENT}
@@ -14,12 +13,11 @@ create a class transactions wiht following
     -transactionReceiptName
     -transactionType which could be NETBANKING,UPI<RTGS,NEFT\
 
-
 create a functionalities.cpp file with following
 
     - a function operation that takes a conatiner of accounts and a function wrapper (of type
-       return float,accept container of accounts). It must map the function on to the data conatiner.
+        float,accept container of accounts). It must map the function on to the data conatiner.
 
 create lambdas to
     a) find accountBalance of account with highest total transactionAmount
-    b) find highest transaction Amount 
+    b) find highest transaction Amount among all transactions
