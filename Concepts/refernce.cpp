@@ -37,7 +37,7 @@ int main(){
 
     int *ptr = &n1;
     ptr = &n2; //reassigned ptr to n2
-    std::cout<<"n1 is:"<<n1<<"\n";
+    std::cout<<"n1 is:"<<n1<<"\n";   // normal reassignment is not possible...we use std::ref for this to mske it happen
     std::cout<<"n2 is:"<<n2<<"\n";  //no effect on n1 and n2
 
     int &data = n1; //an integer reference //data is referening to n1
@@ -48,7 +48,7 @@ int main(){
 
     magic(n1);    // copied n1 into the magic function local variable data
 
-    magic_refernce(n1);   //refernce of n1 is passed
+    //magic_refernce(n1);   //refernce of n1 is passed
 
     magic_pointer_arg(&n1); // passing through address
 

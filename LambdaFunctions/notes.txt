@@ -1,0 +1,16 @@
+capture by value (copy)
+
+1) if we use = in capture parameter brackets [], we get access to all variables declared before this statement 
+   in the enclosing function but this access by default is read only. We can use "mutalble" keyword to gain write 
+   access.
+
+2) If we don't want all variables to get copied but only specific variables, you can write them directly inside
+   []. for e.g: [n1]. Mutablewill still be required for write modification.
+
+capture by reference (original data referenced)
+
+3) If we use & in capture parameter brackets[], we get access to all variables declared before this statement
+   in the enclosing function.This access is both read and write.
+
+   If we don't want all variables to get referenced but only specific variables, you can write them directly 
+   inside[], for e.g: [&n1].
