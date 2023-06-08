@@ -9,18 +9,27 @@
 auto FindSensorId = [](std::list<SensorReading *> &obj)
 {
     float max = INT16_MIN;
-    auto it = obj.begin();
+    auto itr = obj.begin();
     auto type = obj.front()->getReadingId();
-    for (auto itr= obj.begin(); itr != obj.end(); itr++)
-    {
-        std::visit([](auto arg)
-                   {
-                if((*itr)->getReadingValue() > max){
-                    max = (*itr)->getReadingValue();
-                    type = arg->getSensorId();
-                    it=itr;
-            } });
-    };
+    // for (auto itr= obj.begin(); itr != obj.end(); itr++)
+    // {
+    //     std::visit([](auto arg)
+    //                {
+    //             if((*itr)->getReadingValue() > max){
+    //                 max = (*itr)->getReadingValue();
+    //                 type = arg->getSensorId();
+    //                 it=itr;
+    //         } },itr);
+    // };
+    while(itr != obj.end()){
+        std::visit([](auto arg){
+            if((*itr)->getReadingValue() > max){
+                max = (*itr)->getReadingValue();
+                type = arg->getSensorId();
+            }
+        });
+        itr++;
+    }
     return type;
 };
 
@@ -57,8 +66,8 @@ auto FindReadingType = [](std::array<SensorReading *, 5> &obj, TypeSensor id)
 auto FindSensorReadingAboveThreshold = [](std::array<SensorReading *, 5> &obj, float threshold)
 {
     std::list<SensorReading *> list(obj.size());
-    for (auto &it : obj)
-    {
+    // for (auto &it : obj)
+    // {
         std::visit([](auto arg)
                    { std::copy_if(list.begin(),
                                   list.end(),
@@ -66,8 +75,8 @@ auto FindSensorReadingAboveThreshold = [](std::array<SensorReading *, 5> &obj, f
                                   {
                                       return s->getReadingValue() > threshold;
                                   }); },
-                   it);
-    }
+                   obj);
+    //}
     return list;
 };
 
