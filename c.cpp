@@ -2,11 +2,10 @@
 #include<functional>
 #include<list>
 
-
 void operation(){
     int n=2;
-    auto f1 = [&]() mutable { return n = n*n;};
-    f1();
+    auto f1 = [](int n) { return n= n*n;};
+    std::cout<<f1(n);
     std::cout<<n<<"\n";
 }
 

@@ -1,0 +1,26 @@
+create a class SensonReading
+a) a sensorId could be int or string
+b) a readingId could be int or string
+c) a type or reading (acceptable,ERROR,DEFAULT)
+d) ability to default construct the instance of this class
+e) ability to copy the instance into another
+f) ability to move the instance into another
+g) ability to gain read, write access & display attributes
+h) a reading value (could be float)
+
+create 5 instances of SensonReading class.
+
+create lambda functions to do the following
+
+a) find sensor id for the sensor with the highest reading
+
+b) find avg sensor reading value for all sensors whose IDs are passed in a 
+   data container to the lambda function
+
+c) find the reading type for ONE Sensor whose ID is passed as a paramter
+
+d) find and return instances of SensonReading whose sensor reading value is above a threshold
+   paramter passed as an argument to the lambda
+
+e) find the first N sensors amongst the Data container where 0<=N<=size of the container
+   and N is provided as an argument to the lambda

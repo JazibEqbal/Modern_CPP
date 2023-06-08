@@ -14,7 +14,7 @@
    f) try_lock
 9) std::chrono library features
 10) std::async & std::future
-
+11) std::ref (wrapper for references)
 advanced modern c++
 
 1) std::variant, std::any, std::optional, constexpr,switch & if initializers
