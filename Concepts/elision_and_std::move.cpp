@@ -1,7 +1,7 @@
 #include<iostream>
 
 class elision  //omitting something
-{
+{//when it accepts rvalue or return a rvalue
 private:
     int id;
     std::string data;
@@ -31,5 +31,6 @@ elision magic(){
 
 int main(){
     elision ans = magic();
-}//std::move --moves content of obj1 completely to obj2
+}
+//std::move --moves content of obj1 completely to obj2
 //actual data is never transfered from one location to another, just it's refernce changes (like pointer)

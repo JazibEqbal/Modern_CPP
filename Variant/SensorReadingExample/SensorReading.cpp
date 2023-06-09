@@ -1,6 +1,6 @@
 #include "SensorReading.h"
 
-SensorReading::SensorReading(TypeSensor id, TypeReading reading, READING_TYPE type, float value)
+SensorReading::SensorReading(Type id, Type reading, READING_TYPE type, float value)
 : sensorId{id}, readingId{reading}, readingType{type}, readingValue{value} {}
 
 SensorReading::~SensorReading()
@@ -15,8 +15,6 @@ std::ostream &operator<<(std::ostream &os, const SensorReading &rhs) {
        << " readingValue: " << rhs.readingValue;
     return os;
 }
-
-
 
 std::string displayType(enum class READING_TYPE type){
     if(type == READING_TYPE::ACCEPTABLE){

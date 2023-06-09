@@ -12,9 +12,13 @@ auto HighestBalanceAmount = [](std::list<Account *> &data)
     float max = INT16_MIN;
     std::vector<float> vector;
     for(auto *it: data){
+        float total=0;
+        total += it->getAccountLast5Transactions()->getTransactionAmount();
         vector.push_back(it->getAccountLast5Transactions()->getTransactionAmount());
     }
-    //std::cout<<vector.size()<<"\n";
+    // for(auto &it: vector){
+    //     int max = 0;
+    // }
     float maxTransactionAmount = *std::max_element(vector.begin(),vector.end());
     for(auto *it: data){
         if(it->getAccountLast5Transactions()->getTransactionAmount() == maxTransactionAmount){
@@ -27,7 +31,7 @@ auto HighestBalanceAmount = [](std::list<Account *> &data)
 // std::function<float(std::list<Account*>&obj)> funcname = [];
 
 
-auto HighestTransactionAmount = [](std::list<Transaction *> acc)
+auto HighestTransactionAmount = [](std::list<Account *> acc)
 {
     float max = INT16_MIN;
     for (auto *it : acc)
@@ -57,8 +61,8 @@ int main()
 
     //std::cout << HighestBalanceAmount(acc) << "\n";
     //std::cout << HighestTransactionAmount(acc) << "\n";
-    std::list<std::function<float(std::list<Account*> &v)>> fun = {HighestBalanceAmount};
-    std::list<std::function<float(std::list<Transaction*> &v)>> fun2 = {HighestTransactionAmount};
+    std::list<std::function<float(std::list<Account*> &v)>> fun = {HighestBalanceAmount,HighestTransactionAmount};
+    //std::list<std::function<float(std::list<Transaction*> &v)>> fun2 = {HighestTransactionAmount};
 
     operation(acc,fun);
     //operation2(t,fun2);

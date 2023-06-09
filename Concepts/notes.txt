@@ -7,3 +7,28 @@ int *ptr[5];  // ptr is a pointer to 5 integers
 
 
 final class can not be inherited
+
+USES
+
+std::optional
+        a) a function may or may not return a value
+        b) it is totally normal for a function to not return an answer
+           i.e it is not considered "EXCEPTIONAL CASE"
+        c) it is well known among all users of function that there is only one properly defined scenario
+           where function may not return an answer.
+
+std::any (with std::any_cast)
+        a) if you use case involves work with void* pointers and casting them to specific types
+
+std::variant(with std::visit)
+        a) if you want to work with a limit/finite set of types for a data value
+
+fold expressions
+        a) if you are using templates with recurssive logic for e.g Variadic templates
+
+if & switch initializers
+        a) whenever we want to create variables that are useful only in the scope of is-else block or switch 
+           blocks and are guaranteed to not be used after the block
+
+Guaranteed copy elisions
+        a) compiler may skip the copy. Do not add any logic inside copy contructor

@@ -6,7 +6,18 @@
 //paramter pack
 template<typename T,typename... A> //this is called as VARIADIC TEMPLATES
 T add(T arg,A... args){
-    return (arg + ...);
+    return (arg + ... + args); //binary fold
+}
+
+template<typename T,typename... A> //this is called as VARIADIC TEMPLATES
+T mul(T arg,A... args){
+    return (arg * ... * args); //binary fold (fold expression)
+}
+
+int main(){
+    //This is called as CTAD: template argument expression --add<int,int> removing this
+    std::cout<<add(1,2,3,4)<<"\n";
+    std::cout<<mul(1,2,3,4)<<"\n";
 }
 
 //base case
@@ -14,7 +25,3 @@ T add(T arg,A... args){
 // T add(T arg1){
 //     return arg1;
 // }
-
-int main(){
-    std::cout<<add<int,int>(1,2,3,4);
-}
