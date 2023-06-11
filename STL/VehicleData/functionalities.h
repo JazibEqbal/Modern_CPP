@@ -7,8 +7,10 @@
 #include<iostream>
 #include "VehcileData.h"
 
-std::optional<int> AverageFuelCapacity(std::list<VehcileData*> &data);
+void operation(std::list<VehcileData *> &v,std::list<std::function<float(std::list<VehcileData*> &veh)>> fun);
 
-std::optional<const VehcileData*> FindMileage(std::list<VehcileData*> &data, std::string id);
+extern std::function<float(std::list<VehcileData*> obj) > AverageFuelCapacity;
+
+extern std::function<float(std::list<VehcileData*> obj) > FindMileage;
 
 #endif // FUNCTIONALITIES_H

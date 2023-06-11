@@ -17,6 +17,7 @@ Create a functionalities.h file with the following features
 
     • A function FindValueAtGivenPosition that takes an instance of MyQueue of type T elements as a parameter and an integer for position as parameter. The function must return the element at the index location specified by the position parameter.
     • A function MakeCombinedQueue that takes 2 parameters - each an instance of MyQueue of type T elements. The function must return a copy of the MyQueue instance created by combining the elements of the 2 MyQueue instances passed. (Create a new MyQueue object by combining elements of 2 parameters passed.
-    • A function FindCommonQueueElements that takes 2 parameters - each an instance of MyQueue of type T elements. The function must return a copy of the MyQueue instance created by finding common elements from the 2 MyQueue instances passed. (Create a new MyQueue object by identifying overlapping/common elements from 2 parameters passed.)
+    • A function FindCommonQueueElements that takes 2 parameters - each an instance of MyQueue of type T elements. 
+    The function must return a copy of the MyQueue instance created by finding common elements from the 2 MyQueue instances passed. (Create a new MyQueue object by identifying overlapping/common elements from 2 parameters passed.)
 
 Create a Main.cpp file with code to demonstrate each function from the functionalities.cpp file.
