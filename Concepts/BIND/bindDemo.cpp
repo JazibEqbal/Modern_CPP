@@ -18,23 +18,23 @@ auto fn1 = [](int num)
 auto fn2 = [](int num, int factor)
 { return num * factor; };
 
-int main()
-{
-    auto f1 = product(20);
-    auto f2 = std::bind(&formula, _1, _2, 10, 100); // z and are fixed
+// int main()
+// {
+//     auto f1 = product(20);
+//     auto f2 = std::bind(&formula, _1, _2, 10, 100); // z and a are fixed
 
-    // USE CASE
-    // don't use & with lambda when passing
-    auto fn3 = std::bind(fn2, _1, 4); // factor fixed to 4
-    fn3(10);
-    // creating a function wrapper
-    std::vector<std::function<int(int)>> v1 = {fn1, fn3};
+//     // USE CASE
+//     // don't use & with lambda when passing
+//     auto fn3 = std::bind(fn2, _1, 4); // factor fixed to 4
+//     fn3(10);
+//     // creating a function wrapper
+//     std::vector<std::function<int(int)>> v1 = {fn1, fn3};
 
-    std::cout << f1 << "\n";
-    // in class
-    bindDemo obj;
-    auto ans = std::bind(&bindDemo::magic, &obj, 100, 2);
-}
+//     std::cout << f1 << "\n";
+//     // in class
+//     bindDemo obj;
+//     auto ans = std::bind(&bindDemo::magic, &obj, 100, 2);
+// }
 // remap
 int fun(int x, int y, int z)
 {
@@ -63,50 +63,30 @@ public:
     ~bindDemo(){};
 };
 
+auto sq = [](int n){return n*n;};
+auto cu = [](int n){return n*n*n;};
+
+
+void magic(int x,int y,int z){
+    std::cout<<"X: "<<x<<" Y: "<<y<<" Z: "<<z<<"\n";
+}
+
+
+void magic2(std::function<int(int)> s,std::function<int(int)> c,int z){
+    std::cout<<s(z);
+}
+
+int main(){
+    ///[                           x                           y                   z             ]
+    //auto ans = std::bind(&magic,std::placeholders::_2,std::placeholders::_3,std::placeholders::_1);
+    //ans(1,2,3);
+    auto ans = std::bind(&magic2,std::placeholders::_2,std::placeholders::_1,std::placeholders::_3);
+    //magic(sq,cu,2);
+    ans(sq,cu,3);
 /*
-create a function that takes 2 parameters
-a) a function from int to int (a fun thattakes int as argument and returns int)
-b) a list of integer numbers
-
-the operation function returns void
-
-bind this function to create partial functions for the following
-
-a) squareoperation that binds a lambda function to compute and return square of integer
-   as first parameter
-b) cubeoperation that binds a lambda function to compute and return cube of integer
-   as first parameter
-c) first5PositiveIntegerOperation that binds a standard list of 1 to 5 as second paramter
-
-d) swappedInput that binds second argument as first and vice versa
+    x = what placeholder _2 is pointing which is second parameter of ans; so x =2
+    y = what placeholder _3 is pointing which is third parameter of ans; so y =3
+    z = what placeholder _1 is pointing which is first parameter of ans; so z =1
 */
 
-std::function<void(std::function<int(int)>, std::list<int>)> operation(std::function<int(int)> fn, std::list<int> data)
-{
-    for (int &val : data)
-    {
-        fn(val);
-    }
 }
-
-void operation2(std::function<int(int)> fn, std::list<int> data)
-{
-    for (int &val : data)
-    {
-        fn(val);
-    }
-}
-
-auto squareOperstion = std::bind(
-    operation2, [](int n)
-    { return n * n; },
-    _2);
-
-auto cubeOperstion = std::bind(
-    operation2, [](int n)
-    { return n * n * n; },
-    _2);
-
-auto first5PositiveIntegerOperation = std::bind(operation2, _1, std::list<int>{1, 2, 3, 4, 5});
-
-auto swapp = std::bind(operation2, _2, _1);

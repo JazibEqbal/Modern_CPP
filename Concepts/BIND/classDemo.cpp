@@ -42,5 +42,7 @@ int main() {
     // Perform stop action
     driver.performStopAction(stopAction);
 
+    driveAction(23);
+
     return 0;
 }
