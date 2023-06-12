@@ -7,64 +7,57 @@
 #include <list>
 #include "functionalities.h"
 
-auto HighestBalanceAmount = [](std::list<Account *> &data)
-{
-    float max = INT16_MIN;
-    std::vector<float> vector;
-    for(auto *it: data){
-        float total=0;
-        total += it->getAccountLast5Transactions()->getTransactionAmount();
-        vector.push_back(it->getAccountLast5Transactions()->getTransactionAmount());
-    }
-    // for(auto &it: vector){
-    //     int max = 0;
-    // }
-    float maxTransactionAmount = *std::max_element(vector.begin(),vector.end());
-    for(auto *it: data){
-        if(it->getAccountLast5Transactions()->getTransactionAmount() == maxTransactionAmount){
-            max = it->getAccountBalance();
-        }
-    }
-    return max;
-};
 
-// std::function<float(std::list<Account*>&obj)> funcname = [];
+int main() {
+    // Create a list of Account instances
+    std::list<Account> accounts;
 
+    // Create transactions for account 1
+    std::vector<Transaction> transactions1;
+    transactions1.emplace_back(100.0, "Receipt1", "NETBANKING");
+    transactions1.emplace_back(200.0, "Receipt2", "UPI");
+    transactions1.emplace_back(300.0, "Receipt3", "RTGS");
 
-auto HighestTransactionAmount = [](std::list<Account *> acc)
-{
-    float max = INT16_MIN;
-    for (auto *it : acc)
-    {
-        if(it->getTransactionAmount() > max)
-            max = it->getTransactionAmount();
-    }
-    return max;
-};
+    // Create an account with the transactions
+    Account account1("A12345", 1000.0, ACCOUNT_TYPE::SAVINGS, "John Doe", transactions1);
 
-int main()
-{
-    Transaction *t1 = new Transaction(10.5f, "Main", TRANSACTION_TYPE::NET_BANKING);
-    Transaction *t2 = new Transaction(1.5f, "Halo", TRANSACTION_TYPE::NEFT);
-    Transaction *t3 = new Transaction(25.5f, "jhj", TRANSACTION_TYPE::RTGS);
-    Transaction *t4 = new Transaction(33.5f, "Bolo", TRANSACTION_TYPE::UPI);
+    // Add account1 to the accounts list
+    accounts.push_back(account1);
 
+    // Create transactions for account 2
+    std::vector<Transaction> transactions2;
+    transactions2.emplace_back(500.0, "Receipt4", "NEFT");
+    transactions2.emplace_back(600.0, "Receipt5", "UPI");
 
-    Transaction *trans1[5] = {t1,t2,t3,t4};
-    Transaction *trans2[2] = {t3,t4};
-    std::list<Transaction*> t = {t1,t2,t3,t4};
+    // Create an account with the transactions
+    Account account2("B67890", 2000.0, ACCOUNT_TYPE::CURRENT, "Jane Smith", transactions2);
+    accounts.push_back(account2);
 
-    Account *a1 = new Account("22", 323.5f, ACCOUNT_TYPE::CURRENT, "SBI", *trans1);
-    Account *a2 = new Account("2", 123.5f, ACCOUNT_TYPE::SAVINGS, "BOB", *trans2);
+    // Create transactions for account 3
+    std::vector<Transaction> transactions3;
+    transactions3.emplace_back(700.0, "Receipt6", "RTGS");
+    transactions3.emplace_back(800.0, "Receipt7", "NEFT");
 
-    std::list<Account *> acc = {a1,a2};
+    // Create an account with the transactions
+    Account account3("C24680", 3000.0, ACCOUNT_TYPE::SAVINGS, "Bob Johnson", transactions3);
+    accounts.push_back(account3);
 
-    //std::cout << HighestBalanceAmount(acc) << "\n";
-    //std::cout << HighestTransactionAmount(acc) << "\n";
-    std::list<std::function<float(std::list<Account*> &v)>> fun = {HighestBalanceAmount,HighestTransactionAmount};
-    //std::list<std::function<float(std::list<Transaction*> &v)>> fun2 = {HighestTransactionAmount};
+    // Create a list of lambdas (functions)
+    std::list<std::function<float(const std::list<Account>&)>> functions;
+    functions.push_back(findAccountBalanceWithHighestTotalTransactionAmountLambda);
+    functions.push_back(findHighestTransactionAmountLambda);
 
-    operation(acc,fun);
-    //operation2(t,fun2);
+    // Call the operation function to map the lambdas on the data container (list of accounts)
+    operation(accounts, functions);
+
     return 0;
+
 }
+
+    // //std::cout << HighestBalanceAmount(acc) << "\n";
+    // //std::cout << HighestTransactionAmount(acc) << "\n";
+    // std::list<std::function<float(std::list<Account*> &v)>> fun = {HighestBalanceAmount,HighestTransactionAmount};
+    // //std::list<std::function<float(std::list<Transaction*> &v)>> fun2 = {HighestTransactionAmount};
+
+    // operation(acc,fun);
+    //operation2(t,fun2);

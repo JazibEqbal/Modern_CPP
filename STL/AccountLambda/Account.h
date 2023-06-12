@@ -4,6 +4,7 @@
 #include "AccountType.h"
 #include "Transaction.h"
 #include<list>
+#include<vector>
 class Account
 {
 private:
@@ -11,11 +12,11 @@ private:
     float accountBalance;
     enum class ACCOUNT_TYPE accountType;
     std::string accountHolderName;
-    Transaction* accountLast5Transactions;
+    std::vector<Transaction> accountLast5Transactions;
 public:
     Account() = delete;
     Account(const Account &obj) = default;
-    Account(std::string id,float balance,enum class ACCOUNT_TYPE type,std::string name,Transaction* trans);
+    Account(std::string id,float balance,enum class ACCOUNT_TYPE type,std::string name,std::vector<Transaction> accountLast5Transactions);
     ~Account();
 
     std::string getAccountId() const { return accountId; }
@@ -29,8 +30,8 @@ public:
 
     enum class ACCOUNT_TYPE getAccountType() const {return accountType;};
 
-    Transaction* getAccountLast5Transactions() const { return accountLast5Transactions; }
-    void setAccountLast5Transactions(Transaction* accountLast5Transactions_) { accountLast5Transactions = accountLast5Transactions_; }
+    std::vector<Transaction> getAccountLast5Transactions() const { return accountLast5Transactions; }
+    void setAccountLast5Transactions(const std::vector<Transaction> &accountLast5Transactions_) { accountLast5Transactions = accountLast5Transactions_; }
 
     friend std::ostream &operator<<(std::ostream &os, const Account &rhs);
 };

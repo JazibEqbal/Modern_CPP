@@ -11,7 +11,7 @@ create a class Account
 create a class transactions wiht following
     -transactionAmount
     -transactionReceiptName
-    -transactionType which could be NETBANKING,UPI<RTGS,NEFT\
+    -transactionType which could be NETBANKING,UPI,RTGS,NEFT
 
 create a functionalities.cpp file with following
 

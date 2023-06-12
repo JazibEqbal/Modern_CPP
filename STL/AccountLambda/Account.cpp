@@ -1,6 +1,6 @@
 #include "Account.h"
 
-Account::Account(std::string id, float balance, ACCOUNT_TYPE type, std::string name,Transaction* trans)
+Account::Account(std::string id, float balance, ACCOUNT_TYPE type, std::string name,std::vector<Transaction> trans)
     :accountId{id}, accountBalance{balance}, accountType{type}, accountHolderName{name}, accountLast5Transactions{trans} {}
 
 Account::~Account()
@@ -14,12 +14,9 @@ std::ostream &operator<<(std::ostream &os, const Account &rhs) {
        << " accountType: " <<displayEnum(rhs.accountType)
        << " accountHolderName: " << rhs.accountHolderName
        << " accountLast5Transactions: ";
-    //    for(auto* it: rhs.accountLast5Transactions){
-    //         os<<it<<" ";
-    //    }
-    while(rhs.getAccountLast5Transactions()){
-        os<<rhs.getAccountLast5Transactions()->getTransactionAmount();
-    }
+       for(auto &it: rhs.accountLast5Transactions){
+            os<<it<<" ";
+       }
     return os;
 }
 
