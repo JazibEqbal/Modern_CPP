@@ -1,0 +1,36 @@
+create a class called Vehicle
+
+it has following attributes- 
+a) a member vehicleName of type string
+b) a member vehicleType of type enum class "VEHICLE_TYPE" which can have the following
+   literrals{SUV,SEDAN,ELECTRIC_SUV, ICE_TWO_WHEELER,ELECTRIC_TWO_WHEELER}
+c) a vehiclePrice attribute of type float
+d) a parameterized constructor for all members
+e) a deleted copy and default constructors
+f) getters and setters for all attributes
+g) a pure virtual calledRtoTax
+
+create a class car with following attributes
+
+- a data member called carBrand of type string
+- a parameterized constructor for applicable data members
+- a member function calledRtoTax that calculates tax as per as following rules
+  - if carType is ELECTRIC_SUV, tax is 0
+  - if carType is SUV or SEDAN tax is 10% of car carPrice
+- getters and setters functions for all data members
+- overloaded left shift operator
+- deleted copy and default constructor
+
+
+create a file called functionalities.cpp with following functions
+
+a function called averageVehicleType that takes a reference of standard list of vehicle objects
+as a parameter and returns the average price for all vehicles stored in the list
+
+a function called findGivenVehicleType that takes a reference of standard list of vehicle objects
+and a enum VEHICLE_TYPE as parameters. it must display all vehicle of this passed VEHICLE_TYPE
+that are stored in the list passed.
+
+a function called countOfGiventypes that takes a reference of standard list of vehicle objects and 
+a another standard list of VEHICLE_TYPE enum literrals.
+Find how many units in your data list are from the passed type and print their count.
