@@ -79,3 +79,59 @@ std::function<int(std::list<Flight *> &obj)> combinedSeat = [](std::list<Flight 
 };
 
 // ALGORITHM WAY STL
+std::function<int(std::list<Flight *> &obj)> countSeat = [](std::list<Flight *> &obj)
+{
+    if (obj.empty())
+    {
+        throw std::runtime_error("List passed is empty");
+    }
+    int count = std::count_if(obj.begin(), obj.end(), [](Flight *f)
+                              { return f->getFlightSeatCount() > 50; });
+    return count;
+};
+
+std::function<std::string(std::list<Flight *> &obj)> highestFlightDistance = [](std::list<Flight *> obj)
+{
+    if (obj.empty())
+    {
+        throw std::runtime_error("List passed is empty");
+    }
+    float max = 0.0f;
+    auto id = obj.front()->getFlightId();
+    std::for_each(obj.begin(), obj.end(), [&](Flight *f){
+        if (f->getFlightDistance() > max){
+            max = f->getFlightDistance();     
+            id = f->getFlightId();            
+        }
+    });
+    return id;
+};
+
+std::function<float(std::list<Flight *> &obj)> highestSeatCount = [](std::list<Flight *> &obj)
+{
+    if (obj.empty())
+    {
+        throw std::runtime_error("List passed is empty"); // throwing error if passed list is empty
+    }
+    int seat = obj.front()->getFlightDistance(); // setting first object as my highest flight distance
+    int max = 0;
+
+    std::for_each(obj.begin(),obj.end(),[&](Flight *f){
+        if (f->getFlightSeatCount() > max) 
+        {
+            max = f->getFlightSeatCount();
+            seat = f->getFlightDistance(); 
+        }
+    });
+    return seat; 
+};
+
+std::function<int(std::list<Flight *> &obj)> combinedSeat = [](std::list<Flight *> &obj)
+{
+    if (obj.empty())
+    {
+        throw std::runtime_error("List passed is empty"); // throwing error if passed list is empty
+    }
+    int total = std::accumulate(obj.begin(),obj.end(),0);
+    return total;
+};

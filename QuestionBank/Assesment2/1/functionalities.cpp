@@ -74,7 +74,6 @@ std::function<void(std::list<User *> &obj)>
 };
 
 //ALGORITHM WAY
-
 std::function<float(std::list<User *> &obj)> avergaeUserIncome = [](std::list<User *> &obj)
 {
     if (obj.empty())
