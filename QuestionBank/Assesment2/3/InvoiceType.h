@@ -1,0 +1,10 @@
+#ifndef INVOICETYPE_H
+#define INVOICETYPE_H
+
+enum class INVOICE_TYPE{
+    E_BILL,
+    PAPER_SLIP,
+    SMS_GENERATED
+};
+
+#endif // INVOICETYPE_H

@@ -1,0 +1,10 @@
+#ifndef FLIGHTTYPE_H
+#define FLIGHTTYPE_H
+
+enum class FLIGHT_TYPE{
+    COMMERCIAL,
+    COURIER,
+    SPECIAL_OPS
+};
+
+#endif // FLIGHTTYPE_H

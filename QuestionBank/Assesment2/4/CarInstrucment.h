@@ -1,0 +1,10 @@
+#ifndef CARINSTRUCMENT_H
+#define CARINSTRUCMENT_H
+
+enum class CAR_INSTRUCMENT {
+    ANALOG,
+    DIGITAL,
+    HYBRID
+};
+
+#endif // CARINSTRUCMENT_H
