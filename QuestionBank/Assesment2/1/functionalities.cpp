@@ -37,7 +37,7 @@ std::function<std::list<std::string>(std::list<User *>, int)> userAge = [](std::
     return list;
 };
 // function to calculate minimum age
-std::function<User(std::list<User *>)> mimimumUserAge = [](std::list<User *> obj)
+std::function<User*(std::list<User*> &obj) > mimimumUserAge = [](std::list<User *> obj)
 {
     int min = INT16_MAX;
     User *user;
@@ -53,7 +53,7 @@ std::function<User(std::list<User *>)> mimimumUserAge = [](std::list<User *> obj
             user = it;
         }
     }
-    return *user;
+    return user;
 };
 
 // function to print details of users

@@ -5,6 +5,7 @@
 #include <list>
 #include <iostream>
 #include <functional>
+#include<numeric>
 
 void operation(std::list<Flight *> &acc, std::list<std::function<int(std::list<Flight *> &v)>> fun);
 
