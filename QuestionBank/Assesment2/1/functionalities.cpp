@@ -37,7 +37,7 @@ std::function<std::list<std::string>(std::list<User *>, int)> userAge = [](std::
     return list;
 };
 // function to calculate minimum age
-std::function<User(std::list<User *>)> mimimumUserAge = [](std::list<User *> obj)
+std::function<User*(std::list<User*> &obj) > mimimumUserAge = [](std::list<User *> obj)
 {
     int min = INT16_MAX;
     User *user;
@@ -53,7 +53,7 @@ std::function<User(std::list<User *>)> mimimumUserAge = [](std::list<User *> obj
             user = it;
         }
     }
-    return *user;
+    return user;
 };
 
 // function to print details of users
@@ -71,4 +71,69 @@ std::function<void(std::list<User *> &obj)>
             std::cout << *it << "\n";
         }
     }
+};
+
+//ALGORITHM WAY
+
+std::function<float(std::list<User *> &obj)> avergaeUserIncome = [](std::list<User *> &obj)
+{
+    if (obj.empty())
+    {
+        throw std::runtime_error("List passed is empty"); 
+    }
+    float sum = std::accumulate(obj.begin(),obj.end(),0);
+    return (sum / obj.size());
+};
+
+// function to return all userId whose age matches passed argument
+std::function<std::list<std::string>(std::list<User *>, int)> userAge = [](std::list<User *> obj, int age)
+{
+    // Checking exceptions
+    if (obj.empty())
+    {
+        throw std::runtime_error("List is empty operation cannot be performed"); // throwing error if list passed is empty
+    }
+    if (age < 0)
+    {
+        throw std::runtime_error("No value passed\n");
+    }
+    std::list<std::string> list;
+    std::find_if(obj.begin(),obj.end(),[&](User *u){
+        if(u->getUserAge() == age) {
+            list.push_back(u->getUserId());
+        }
+    });
+    return list;
+};
+
+std::function<User*(std::list<User*> &obj) > mimimumUserAge = [](std::list<User *> obj)
+{
+    int min = INT16_MAX;
+    User *user;
+    if (obj.empty())
+    {
+        throw std::runtime_error("List passed is empty"); // throwing error if list passed is empty
+    }
+    std::for_each(obj.begin(),obj.end(),[&](User *u){
+        if(min > u->getUserAge()){
+            min = u->getUserAge();
+            user = u;
+        }
+    });
+    return user;
+};
+
+std::function<void(std::list<User *> &obj)>
+    printDetails = [](std::list<User *> &obj)
+{
+    if (obj.empty())
+    {
+        throw std::runtime_error("List passed is empty"); // throwing errorm if list is empty
+    }
+    std::for_each(obj.begin(),obj.end(),[&](User *u){
+        if (u->getUserAge() > 30 && u->getUserIncome() >= 40000 && u->getUserIncome() == 1000 * (1.5 * u->getUserAge()))
+        {
+            std::cout << *u << "\n";
+        }
+    });
 };

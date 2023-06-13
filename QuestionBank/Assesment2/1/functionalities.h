@@ -5,6 +5,7 @@
 #include<functional>
 #include<algorithm>
 #include<list>
+#include <numeric>
 
 extern std::function<float(std::list<User*> &obj) > avergaeUserIncome;
 
