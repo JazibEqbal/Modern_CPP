@@ -15,7 +15,6 @@
         "cwchar": "cpp",
         "cwctype": "cpp",
         "deque": "cpp",
-        "list": "cpp",
         "unordered_map": "cpp",
         "vector": "cpp",
         "exception": "cpp",
@@ -44,21 +43,6 @@
         "sstream": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
-        "typeinfo": "cpp",
-        "compare": "cpp",
-        "concepts": "cpp",
-        "numbers": "cpp",
-        "chrono": "cpp",
-        "ctime": "cpp",
-        "ratio": "cpp",
-        "thread": "cpp",
-        "condition_variable": "cpp",
-        "mutex": "cpp",
-        "variant": "cpp",
-        "any": "cpp",
-        "semaphore": "cpp",
-        "stop_token": "cpp",
-        "unordered_set": "cpp",
-        "future": "cpp"
+        "typeinfo": "cpp"
     }
 }
