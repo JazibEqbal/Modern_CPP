@@ -1,0 +1,7 @@
+Two statements can run asynchronously if execution of one statement till end is not important
+
+Thread is a smaller unit of execution inside a process that can be executed independently.
+Thread at system have their own state.
+
+synchronous - MULTITHREADING
+asynchronous - SAME THREAD OR SEPARATE THREAD

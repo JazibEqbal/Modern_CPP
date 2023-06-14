@@ -1,0 +1,11 @@
+#ifndef VEHICLEMODELTYPE_H
+#define VEHICLEMODELTYPE_H
+
+enum class VEHICLE_MODEL_TYPE{
+    BASE,
+    EXTENDED,
+    TOP_MODEL,
+    SPORTS
+};
+
+#endif // VEHICLEMODELTYPE_H

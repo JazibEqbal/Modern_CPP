@@ -47,4 +47,6 @@ int main()
 }
 
 // for multithreading concurrency should be possible which means program should have scope of
-// context switching
+// context switching -- concurrency
+
+//threads can be ran parallely if it has multiple cores
