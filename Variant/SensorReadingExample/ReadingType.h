@@ -1,0 +1,10 @@
+#ifndef READINGTYPE_H
+#define READINGTYPE_H
+
+enum class READING_TYPE{
+    ACCEPTABLE,
+    DEFAULT,
+    ERROR
+};
+
+#endif // READINGTYPE_H

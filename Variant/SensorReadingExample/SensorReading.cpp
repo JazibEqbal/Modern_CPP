@@ -1,7 +1,6 @@
 #include "SensorReading.h"
-
-SensorReading::SensorReading(Type id, Type reading, READING_TYPE type, float value)
-: sensorId{id}, readingId{reading}, readingType{type}, readingValue{value} {}
+SensorReading::SensorReading(const std::variant<int, std::string> &sensorId, const std::variant<int, std::string> &readingId, READING_TYPE type, float readingValue)
+: sensorId(sensorId), readingId(readingId), type(type), readingValue(readingValue) {}
 
 SensorReading::~SensorReading()
 {
@@ -11,7 +10,7 @@ SensorReading::~SensorReading()
 std::ostream &operator<<(std::ostream &os, const SensorReading &rhs) {
     os << "sensorId: "<< std::visit([](auto arg){return arg;}, rhs.sensorId)
        << " readingId: " << std::visit([](auto arg){return arg;}, rhs.readingId)
-       << " readingType: " <<displayType(rhs.readingType)
+       << " readingType: " <<displayType(rhs.type)
        << " readingValue: " << rhs.readingValue;
     return os;
 }
@@ -25,3 +24,5 @@ std::string displayType(enum class READING_TYPE type){
         return "ERROR";
     }
 }
+
+
