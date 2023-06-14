@@ -1,6 +1,5 @@
 #ifndef FUNCTIONALITIES_H
 #define FUNCTIONALITIES_H
-
 #include "Flight.h"
 #include <list>
 #include <iostream>
