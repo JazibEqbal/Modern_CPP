@@ -6,30 +6,30 @@
 #include <list>
 #include <algorithm>
 
-auto FindSensorId = [](std::list<SensorReading *> &obj)
-{
-    float max = 0.0f;
-    auto itr = obj.begin();
-    auto type = obj.front()->getSensorId();
-    for (auto itr= obj.begin(); itr != obj.end(); itr++)
-    {
-       [=](Type *arg) mutable{
-                    if((*itr)->getReadingValue() > max){
-                    max = (*itr)->getReadingValue();
-                    type = (*itr)->getSensorId();
-            } };
-    };
-    // while(itr != obj.end()){
-    //     std::visit([](auto arg){
-    //         if((*itr)->getReadingValue() > max){
-    //             max = (*itr)->getReadingValue();
-    //             type = arg->getSensorId();
-    //         }
-    //     });
-    //     itr++;
-    // }
-    return type;
-};
+// auto FindSensorId = [](std::list<SensorReading *> &obj)
+// {
+//     float max = 0.0f;
+//     auto itr = obj.begin();
+//     auto type = obj.front()->getSensorId();
+//     for (auto itr= obj.begin(); itr != obj.end(); itr++)
+//     {
+//        [=](Type *arg) mutable{
+//                     if((*itr)->getReadingValue() > max){
+//                     max = (*itr)->getReadingValue();
+//                     type = (*itr)->getSensorId();
+//             } };
+//     };
+//     // while(itr != obj.end()){
+//     //     std::visit([](auto arg){
+//     //         if((*itr)->getReadingValue() > max){
+//     //             max = (*itr)->getReadingValue();
+//     //             type = arg->getSensorId();
+//     //         }
+//     //     });
+//     //     itr++;
+//     // }
+//     return type;
+// };
 
 // auto FindAverageSensorReading = [](std::array<SensorReading *, 5> &obj, std::list<Type *> &id)
 // {
@@ -101,5 +101,4 @@ int main()
     SensorReading *s5 = new SensorReading(1, "1x", READING_TYPE::ACCEPTABLE, 100.0f);
     std::list<SensorReading *> data = {s1, s2, s3, s4, s5};
 
-    FindSensorId(data);
 }

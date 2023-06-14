@@ -7,22 +7,6 @@
 #include <list>
 #include "functionalities.h"
 
-std::string cCarUnit(enum class CAR_UNIT_TYPE type)
-{
-    if (type == CAR_UNIT_TYPE::BASE)
-    {
-        return "BASE";
-    }
-    else if (type == CAR_UNIT_TYPE::TOP_MODEL)
-    {
-        return "TOP_MODEL";
-    }
-    else
-    {
-        return "EXTENDED";
-    }
-}
-
 int main()
 {
     //creating car objects
@@ -55,7 +39,7 @@ int main()
     auto BindHighestSeat = std::bind(HighestSeatCountInCategory, list, std::placeholders::_2);
 
     //calling the functions
-    std::cout<<cCarUnit(HighestCarType(list))<<"\n";
+    std::cout<<displayCarUnit(HighestCarType(list))<<"\n";
     std::cout<<HighestSeatCountInCategory(list,CAR_UNIT_TYPE::BASE)<<"\n";
 
     //clearing the memory
