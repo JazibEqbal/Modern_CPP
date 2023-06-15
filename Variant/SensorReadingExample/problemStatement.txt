@@ -12,7 +12,7 @@ create 5 instances of SensonReading class.
 
 create lambda functions to do the following
 
-a) find sensor id for the sensor with the highest reading
+a) find sensor id for the sensor with the highest reading value
 
 b) find avg sensor reading value for all sensors whose IDs are passed in a 
    data container to the lambda function

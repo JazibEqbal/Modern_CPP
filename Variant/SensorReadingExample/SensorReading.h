@@ -13,7 +13,6 @@ private:
     std::variant<int, std::string> readingId;
     READING_TYPE type;
     float readingValue;
-
 public:
     SensorReading() = default;
     SensorReading(const SensorReading& other) = default;
