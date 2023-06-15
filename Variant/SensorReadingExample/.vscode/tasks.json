@@ -9,15 +9,14 @@
 				"-std=c++17",
 				"-fdiagnostics-color=always",
 				"Main.cpp",
-				"Vehicle.cpp",
-				"Bike.cpp",
-				"Car.cpp",
+				"SensorReading.cpp",
+				"functionalities.cpp",
 				"-g",
 				"-o",
 				"a.out"
 			],
 			"options": {
-				"cwd": "/home/kpit/Desktop/ModernCpp/Sample"
+				"cwd": "/home/jazib/Desktop/Modern_CPP/Variant/SensorReadingExample"
 			},
 			"problemMatcher": [
 				"$gcc"
