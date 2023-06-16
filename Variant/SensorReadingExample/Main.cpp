@@ -4,102 +4,64 @@
 #include <variant>
 #include <array>
 #include <list>
-#include<memory>
+#include <memory>
 #include <algorithm>
+#include "functionalities.h"
 
-// auto FindSensorId = [](std::list<SensorReading *> &obj)
-// {
-//     float max = 0.0f;
-//     auto itr = obj.begin();
-//     auto type = obj.front()->getSensorId();
-//     for (auto itr= obj.begin(); itr != obj.end(); itr++)
-//     {
-//        [=](Type *arg) mutable{
-//                     if((*itr)->getReadingValue() > max){
-//                     max = (*itr)->getReadingValue();
-//                     type = (*itr)->getSensorId();
-//             } };
-//     };
-//     // while(itr != obj.end()){
-//     //     std::visit([](auto arg){
-//     //         if((*itr)->getReadingValue() > max){
-//     //             max = (*itr)->getReadingValue();
-//     //             type = arg->getSensorId();
-//     //         }
-//     //     });
-//     //     itr++;
-//     // }
-//     return type;
-// };
+using myVariant = std::variant<int, std::string>;
+using myPointer = std::list<std::unique_ptr<SensorReading>>;
 
-// auto FindAverageSensorReading = [](std::array<SensorReading *, 5> &obj, std::list<Type *> &id)
-// {
-//     float value = 0.0f;
-//     int count = 0;
-//     for (auto &it : obj)
-//     {
-//         for (auto sensor : id)
-//         {
-//             std::visit([](auto arg)
-//                        {
-//                 if(arg->getSensorId() == sensor.){
-//                 value = arg->getReadingValue();
-//                 count++;
-//                 } },
-//                        it);
-//         }
-//     }
-//     return value / count;
-// };
-
-// auto FindReadingType = [](std::array<SensorReading *, 5> &obj, Type id)
-// {
-//     std::visit([](auto arg)
-//                {
-//                 if(arg->getSensorId() == id){
-//                     return arg->getType();
-//                 } },
-//                obj);
-// };
-
-// auto FindSensorReadingAboveThreshold = [](std::array<SensorReading *, 5> &obj, float threshold)
-// {
-//     std::list<SensorReading *> list(obj.size());
-//         std::visit([](auto arg)
-//                    { std::copy_if(list.begin(),
-//                                   list.end(),
-//                                   [](SensorReading *s)
-//                                   {
-//                                       return s->getReadingValue() > threshold;
-//                                   }); },
-//                    obj);
-//     return list;
-// };
-
-// auto FindFirstNSensors = [](std::array<SensorReading *, 5> &obj, int N)
-// {
-//     std::list<SensorReading *> list(obj.size());
-
-//     int count = 0;
-//     std::visit([](auto arg)
-//                {
-//         for(auto *a:obj){
-//             if(count <= N){
-//                 list.push_back(a);
-//             }
-//             count++;
-//         } },
-//                obj);
-//     return list;
-// };
-
-using mypointer =  std::unique_ptr<SensorReading>;
 int main()
 {
-    mypointer s1 = std::make_unique<SensorReading>(1, "1x", READING_TYPE::DEFAULT, 200.0f);
-    mypointer s2 = std::make_unique<SensorReading>(2, "2x", READING_TYPE::ACCEPTABLE, 400.0f);
-    mypointer s3 = std::make_unique<SensorReading>(3, "3x", READING_TYPE::DEFAULT, 600.0f);
+    myPointer readings;
+    readings.emplace_back(std::make_unique<SensorReading>(123, "A1", READING_TYPE::ACCEPTABLE, 5.67));
+    readings.emplace_back(std::make_unique<SensorReading>("abc", "B", READING_TYPE::DEFAULT, 8.99));
+    readings.emplace_back(std::make_unique<SensorReading>(56, "C", READING_TYPE::ERROR, 5.14));
+    readings.emplace_back(std::make_unique<SensorReading>(4156, "C", READING_TYPE::ACCEPTABLE, 9.14));
+    readings.emplace_back(std::make_unique<SensorReading>(6, "D4", READING_TYPE::ERROR, 3.14));
 
-    std::list<mypointer> v{s1,s2,s3};
-    findSensorIdWithHighestReading(v);
+    myVariant maxsensorId = findSensorIdWithHighestReading(readings);
+
+    if (std::holds_alternative<int>(maxsensorId))
+    {
+        std::cout << "Sensor ID with the highest reading value: " << std::get<int>(maxsensorId) << std::endl;
+    }
+    else if (std::holds_alternative<std::string>(maxsensorId))
+    {
+        std::cout << "Sensor ID with the highest reading value: " << std::get<std::string>(maxsensorId) << std::endl;
+    }
+    else
+    {
+        std::cout << "No sensor ID found with the highest reading value" << std::endl;
+    }
+
+    std::list<myVariant> sensorIds = {"A1", "B2", "C3"};
+    float averageValue = findAverageSensorReadingValue(readings, sensorIds);
+    std::cout << "Average sensor reading value for specified IDs: " << averageValue << std::endl;
+
+    myVariant sensorId = "D4";
+    READING_TYPE status = findSenorId(readings, sensorId);
+    std::cout << "Reading status for sensor ID " << static_cast<int>(status) << std::endl;
+
+    myPointer aboveThresholdReadings = findReadingsAboveThreshold(readings, 2.5f);
+    for (auto &it : aboveThresholdReadings)
+    {
+        std::cout << "sensorId: " << std::visit([](auto arg)
+                                                { return arg; },
+                                                it->getSensorId());
+        std::cout << " readingId: " << std::visit([](auto arg)
+                                                  { return arg; },
+                                                  it->getReadingId());
+    }
+
+    std::list<std::unique_ptr<SensorReading>> firstNSensors = findFirstNSensors(readings, 3);
+    for (const auto &it : firstNSensors)
+    {
+        std::cout << "sensorId: " << std::visit([](auto arg)
+                                                { return arg; },
+                                                it->getSensorId());
+        std::cout << " value: " << std::visit([](auto arg)
+                                              { return arg; },
+                                              it->getReadingValue());
+    }
 }

@@ -1,76 +1,114 @@
 #include "functionalities.h"
+#include "SensorReading.h"
+#include <iostream>
+#include <functional>
+#include <numeric>
+#include <limits>
+#include <variant>
+#include <memory>
+#include <list>
+#include "ReadingType.h"
 
-std::function<std::variant<int, std::string>(std::list<std::unique_ptr<SensorReading>> &obj)> findSensorIdWithHighestReading =
-    [](std::list<std::unique_ptr<SensorReading>> &readings)
+using myVariant = std::variant<int, std::string>;
+using myPointer = std::list<std::unique_ptr<SensorReading>>;
+
+std::function<myVariant(myPointer &)> findSensorIdWithHighestReading =
+    [](myPointer &readings)
 {
-    std::variant<int, std::string> maxSensorId;
-    auto max = readings.front().get()->getReadingValue();
+    if (readings.empty())
+    {
+        return myVariant{};
+    }
+    myVariant maxSensorId;
+    float maxValue = readings.front()->getReadingValue();
 
     for (auto &it : readings)
-    { // std::visit is a function that applies a lambda function to the values stored in a std::variant
-        std::visit([&](auto &sensorId, float &readingValue)
+    {
+        std::visit([&](const auto &sensorId, float value)
                    {
-            if (readingValue > max) {
-                max = readingValue;
-                maxSensorId = sensorId;
-            } },
-                   it.get()->getSensorId(), it.get()->getReadingValue()); // retrives the current value id and value  and sets argument to this
-    }
+                if (value > maxValue) {
+                    maxValue = value;
+                    maxSensorId = sensorId;
+                } },
+                   it->getSensorId(), it->getReadingValue());
+    };
+
     return maxSensorId;
 };
 
-std::function<float(std::list<std::unique_ptr<SensorReading>> &obj, std::variant<int, std::string> id)> avgReadingValue =
-    [](std::list<std::unique_ptr<SensorReading>> &obj, std::variant<int, std::string> id)
+// Lambda function to find the average sensor reading value for the given sensor IDs
+std::function<float(myPointer &obj, std::list<myVariant> &id)> findAverageSensorReadingValue =
+    [](const myPointer &readings, const std::list<myVariant> &sensorIds)
 {
-    float avg = 0.0f;
-    std::for_each(obj.begin(), obj.end(), [&](std::unique_ptr<SensorReading> &s)
-                  { std::visit([&](float reading, auto &sensor)
-                               {
-                    if(s.get()->getSensorId() == id) {
-                        avg += reading;
-                    } },
-                               s.get()->getReadingValue(), s.get()->getSensorId()); });
-    return avg;
-};
+    if (readings.empty() || sensorIds.empty())
+    {
+        return 0.0f;
+    }
+    int count = 0;
+    float totalValue = 0.0f;
 
-std::function<READING_TYPE(std::list<std::unique_ptr<SensorReading>> &obj, std::variant<int, std::string> id)> findSenorId =
-    [](std::list<std::unique_ptr<SensorReading>> &obj, std::variant<int, std::string> id)
-{
-    READING_TYPE type;
-    std::for_each(obj.begin(), obj.end(), [](std::unique_ptr<SensorReading> &s)
-                  { std::visit([&](auto &sensorid)
-                               {
-                    if(s.get()->getSensorId() == id){
-                        type = s.get()->getType();
-                    } },
-                               s.get()->getSensorId()); });
-    return type;
-};
-
-std::function<std::list<SensorReading>(std::list<std::unique_ptr<SensorReading>> &obj, float val)> instancesAboveThreshold =
-    [](std::list<std::unique_ptr<SensorReading>> &obj, float val)
-{
-    std::list<SensorReading> list;
-
-    std::for_each(obj.begin(), obj.end(), [](std::unique_ptr<SensorReading> &s)
-                  { std::visit([&](auto &sensor, float value)
-                               {
-                if(value > val){
-                    list.push_back(s);
+    for (auto &it : readings)
+    {
+        std::visit([&](const auto &sensorId, float value)
+                   {
+                if (std::find(sensorIds.begin(), sensorIds.end(), sensorId) != sensorIds.end()) {
+                    totalValue += value;
+                    count++;
                 } },
-                               s.get()->getSensorId(), s.get()->getReadingValue()); });
-    return list;
+                   it->getSensorId(), it->getReadingValue());
+    }
+    return (count > 0) ? (totalValue / count) : 0.0f;
 };
 
-// std::function<std::list<SensorReading>(std::list<std::unique_ptr<SensorReading>> &obj, int n)> firstNSensors =
-//     [](std::list<std::unique_ptr<SensorReading>> &obj, int n)
-// {
-//     std::list<SensorReading> list(obj.size());
-//     int count = 0;
-//     std::for_each(obj.begin(), obj.end(), [](std::unique_ptr<SensorReading> &s)
-//                   { std::visit([&]()
-//                                {
-//                 if(count <= n){
+// Lambda function to find the reading status for one sensor whose ID is passed as a parameter
+std::function<READING_TYPE(myPointer &obj, myVariant)> findSenorId =
+    [](myPointer &obj, myVariant sensorid)
+{
+    READING_TYPE status = READING_TYPE::DEFAULT;
 
-//                 } }) })
-// };
+    for (auto &it : obj)
+    {
+        std::visit([&](myVariant &id)
+                   {
+                if (sensorid == id){
+                    status = it->getType();
+                } },
+                   it->getSensorId());
+    }
+    return status;
+};
+
+std::function<myPointer(const myPointer &, float)> findReadingsAboveThreshold =
+    [](const std::list<std::unique_ptr<SensorReading>> &readings, float threshold)
+{
+    myPointer result;
+
+    for (const auto &reading : readings)
+    {
+        std::visit([&](const auto &value)
+                   {
+                if (value > threshold) {
+                    result.emplace_back(std::make_unique<SensorReading>(*reading));
+                } },
+                   reading->getReadingValue());
+    }
+    return result;
+};
+
+// Lambda function to find the first N sensors from the Data container
+std::function<myPointer(const myPointer &, int)> findFirstNSensors =
+    [](const myPointer &readings, int N)
+{
+    int count = 0;
+    myPointer result;
+
+    auto it = readings.begin();
+    for (int i = 0; i < count; i++)
+    {
+        std::visit([&result](const auto &data)
+                   { result.emplace_back(std::make_unique<SensorReading>(data)); },
+                   (*it)->getSensorId());
+        it++;
+    }
+    return result;
+};
