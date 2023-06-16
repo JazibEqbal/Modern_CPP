@@ -1,14 +1,14 @@
 #include "functionalities.h"
 
-std::function<std::variant<int, std::string>(std::vector<std::unique_ptr<SensorReading>> &obj)> findSensorIdWithHighestReading =
-    [](std::vector<std::unique_ptr<SensorReading>> &readings)
+std::function<std::variant<int, std::string>(std::list<std::unique_ptr<SensorReading>> &obj)> findSensorIdWithHighestReading =
+    [](std::list<std::unique_ptr<SensorReading>> &readings)
 {
     std::variant<int, std::string> maxSensorId;
     auto max = readings.front().get()->getReadingValue();
 
     for (auto &it : readings)
-    {
-        std::visit([&](auto &sensorId, float &readingValue) // std::visit is a function that applies a lambda function to the values stored in a std::variant
+    { // std::visit is a function that applies a lambda function to the values stored in a std::variant
+        std::visit([&](auto &sensorId, float &readingValue)
                    {
             if (readingValue > max) {
                 max = readingValue;
@@ -62,15 +62,15 @@ std::function<std::list<SensorReading>(std::list<std::unique_ptr<SensorReading>>
     return list;
 };
 
-std::function<std::list<SensorReading>(std::list<std::unique_ptr<SensorReading>> &obj, int n)> firstNSensors =
-    [](std::list<std::unique_ptr<SensorReading>> &obj, int n)
-{
-    std::list<SensorReading> list(obj.size());
-    int count = 0;
-    std::for_each(obj.begin(), obj.end(), [](std::unique_ptr<SensorReading> &s)
-                  { std::visit([&]()
-                               {
-                if(count <= n){
+// std::function<std::list<SensorReading>(std::list<std::unique_ptr<SensorReading>> &obj, int n)> firstNSensors =
+//     [](std::list<std::unique_ptr<SensorReading>> &obj, int n)
+// {
+//     std::list<SensorReading> list(obj.size());
+//     int count = 0;
+//     std::for_each(obj.begin(), obj.end(), [](std::unique_ptr<SensorReading> &s)
+//                   { std::visit([&]()
+//                                {
+//                 if(count <= n){
 
-                } }) })
-};
+//                 } }) })
+// };

@@ -1,0 +1,32 @@
+create a class Automobile with following-
+
+    - data member serialNumber which could be string or int
+    - carModel of type string
+    - carPrice
+    - carSeatCount
+    - carCategory ehich could be SUV,SEDAN, HATCHBACK
+
+create a data container to store the following
+- a pair of location of type string and a list of automobile objects attached to it(indicating automobile
+units available at the showroom's location)
+
+create separate threads to the following -- store result of each thread into a separate variable
+
+- create 5 objects of Automobile
+    -- create a separate function where objects are created and added to a data container
+
+- add 2 objects to location "Phase 1" , 2 objects to location "Phase 2" and 1 object to location "Phase3"
+    -- use emplace or insert like function to perform this task
+
+- calculate avg carPrice of all units
+    -- use functional programming with lambdas and stl algorithms like accumulate to calculate answer.
+
+- calculate avg carPrice for all units whose location keys are provided as an argument in a list
+    -- use find function to unordered_map along with STL algorithms to find this answer
+    -- can this be a good functionality to use std::optional?(think and choose)
+
+- return a list of all automobile objects which are above 1000000 carPrice
+    -- can this be a good functionality to use std::optional?(think and choose)
+
+- take an input from the user for serialNumber and find the carModel for given serialNumber if exists
+    -- async thread? will it work? (think and choose)

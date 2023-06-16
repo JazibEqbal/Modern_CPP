@@ -10,7 +10,7 @@
 #include<list>
 #include "ReadingType.h"
 
-extern std::function<std::variant<int,std::string>(std::vector<std::unique_ptr<SensorReading>> &obj) > findSensorIdWithHighestReading;
+extern std::function<std::variant<int,std::string>(std::list<std::unique_ptr<SensorReading>> &obj) > findSensorIdWithHighestReading;
 
 //find avg sensor reading value for all sensors whose IDs are passed in a data container to the lambda function
 extern std::function<float(std::list<std::unique_ptr<SensorReading>> &obj, std::variant<int,std::string> id) > avgReadingValue;
@@ -26,11 +26,9 @@ extern std::function<std::list<SensorReading>(std::list<std::unique_ptr<SensorRe
 //find the first N sensors amongst the Data container where 0<=N<=size of the container
 // and N is provided as an argument to the lambda
 
-extern std::function<std::list<SensorReading>(std::list<std::unique_ptr<SensorReading>> &obj, int n) > firstNSensors;
+//extern std::function<std::list<SensorReading>(std::list<std::unique_ptr<SensorReading>> &obj, int n) > firstNSensors;
 
 #endif // FUNCTIONALITIES_H
-
-
 
 // auto FindFirstNSensors = [](std::array<SensorReading *, 5> &obj, int N)
 // {

@@ -1,9 +1,10 @@
 #include <iostream>
 #include "SensorReading.h"
-#include "Readings.h"
+#include "ReadingType.h"
 #include <variant>
 #include <array>
 #include <list>
+#include<memory>
 #include <algorithm>
 
 // auto FindSensorId = [](std::list<SensorReading *> &obj)
@@ -92,13 +93,13 @@
 //     return list;
 // };
 
+using mypointer =  std::unique_ptr<SensorReading>;
 int main()
 {
-    SensorReading *s1 = new SensorReading(1, "1x", READING_TYPE::ACCEPTABLE, 100.0f);
-    SensorReading *s2 = new SensorReading(2, "2x", READING_TYPE::DEFAULT, 200.0f);
-    SensorReading *s3 = new SensorReading(1, "1x", READING_TYPE::ACCEPTABLE, 100.0f);
-    SensorReading *s4 = new SensorReading(2, "2x", READING_TYPE::DEFAULT, 200.0f);
-    SensorReading *s5 = new SensorReading(1, "1x", READING_TYPE::ACCEPTABLE, 100.0f);
-    std::list<SensorReading *> data = {s1, s2, s3, s4, s5};
+    mypointer s1 = std::make_unique<SensorReading>(1, "1x", READING_TYPE::DEFAULT, 200.0f);
+    mypointer s2 = std::make_unique<SensorReading>(2, "2x", READING_TYPE::ACCEPTABLE, 400.0f);
+    mypointer s3 = std::make_unique<SensorReading>(3, "3x", READING_TYPE::DEFAULT, 600.0f);
 
+    std::list<mypointer> v{s1,s2,s3};
+    findSensorIdWithHighestReading(v);
 }
