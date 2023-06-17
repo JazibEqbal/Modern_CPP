@@ -7,24 +7,26 @@
 #include <algorithm>
 #include "ReadingType.h"
 
+using vType = std::variant<int, std::string>;
+
 class SensorReading {
 private:
-    std::variant<int, std::string> sensorId;
-    std::variant<int, std::string> readingId;
+    vType sensorId;
+    vType readingId;
     READING_TYPE type;
     float readingValue;
 public:
     SensorReading() = default;
     SensorReading(const SensorReading& other) = default;
-    SensorReading(const std::variant<int, std::string>& sensorId, const std::variant<int, std::string>& readingId, READING_TYPE type, float readingValue);
+    SensorReading(const vType& sensorId, const vType& readingId, READING_TYPE type, float readingValue);
     SensorReading(SensorReading&& other) noexcept
         : sensorId(std::move(other.sensorId)), readingId(std::move(other.readingId)), type(other.type), readingValue(other.readingValue) {}
+    ~SensorReading();
+    vType getSensorId() const { return sensorId; }
+    void setSensorId(const vType &sensorId_) { sensorId = sensorId_; }
 
-    std::variant<int, std::string> getSensorId() const { return sensorId; }
-    void setSensorId(const std::variant<int, std::string> &sensorId_) { sensorId = sensorId_; }
-
-    std::variant<int, std::string> getReadingId() const { return readingId; }
-    void setReadingId(const std::variant<int, std::string> &readingId_) { readingId = readingId_; }
+    vType getReadingId() const { return readingId; }
+    void setReadingId(const vType &readingId_) { readingId = readingId_; }
 
     READING_TYPE getType() const { return type; }
     void setType(const READING_TYPE &type_) { type = type_; }
@@ -35,5 +37,6 @@ public:
     friend std::ostream &operator<<(std::ostream &os, const SensorReading &rhs);
     
 };
+std::string displayType(enum class READING_TYPE type);
 
 #endif // SENSORREADING_H
