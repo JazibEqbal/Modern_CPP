@@ -21,6 +21,9 @@ std::function<myVariant(myPointer &)> findSensorIdWithHighestReading =
     }
     myVariant maxSensorId;
     float maxValue = readings.front()->getReadingValue();
+   // float max = std::max_element(readings.begin(),readings.end(),[&](SensorReading &p,SensorReading &p1){
+    //     return p.getReadingValue() < p1.getReadingValue();
+    // });
 
     for (auto &it : readings)
     {

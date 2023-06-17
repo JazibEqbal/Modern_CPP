@@ -1,4 +1,6 @@
 #include "functionalities.h"
+using listConatiner = std::list<std::unique_ptr<Automobile>>;
+using conatiner = std::unordered_map<std::string, listConatiner>;
 
 std::function<void(conatiner &data)> createObjects = [](conatiner &data)
 {
@@ -50,32 +52,32 @@ std::function<void(conatiner &data, std::list<std::string> locations)> avgLocati
     std::cout << sum / count << "\n";
 };
 
-std::optional<std::function<void(conatiner &data)>> listABoveThreshold =
-    [](conatiner &data)
-{
-    std::list<std::unique_ptr<Automobile>> list(data.size());
-    for (auto &[k, v] : data)
-    {
-        if (auto itr = v.begin(); itr != v.end())
-        {
-            if (itr->get()->getCarPrice() > 1000000.0f)
-            {
-                list.emplace_back(itr);
-            }
-        }
-    }
-    if (list.size() == 0)
-    {
-        std::cout << "None is above threshold\n";
-    }
-    else
-    {
-        for (auto &it : list)
-        {
-            std::cout << it.get()->getCarModel() << " ";
-        }
-    }
-};
+// std::optional<std::function<void(conatiner &data)>> listABoveThreshold =
+//     [](conatiner &data)
+// {
+//     std::list<std::unique_ptr<Automobile>> list(data.size());
+//     for (auto &[k, v] : data)
+//     {
+//         if (auto itr = v.begin(); itr != v.end())
+//         {
+//             if (itr->get()->getCarPrice() > 1000000.0f)
+//             {
+//                 list.emplace_back(itr);
+//             }
+//         }
+//     }
+//     if (list.size() == 0)
+//     {
+//         std::cout << "None is above threshold\n";
+//     }
+//     else
+//     {
+//         for (auto &it : list)
+//         {
+//             std::cout << it.get()->getCarModel() << " ";
+//         }
+//     }
+// };
 
 // std::function<std::string(conatiner &obj, std::variant<int, std::string> number)> findCarModel =
 //     [](conatiner &obj, std::variant<int, std::string> number)
