@@ -11,6 +11,9 @@
 #include<thread>
 #include<memory>
 
+using listConatiner = std::list<std::unique_ptr<Automobile>>;
+using conatiner = std::unordered_map<std::string, listConatiner>;
+
 int main(){
     conatiner data;
     createObjects(data);
@@ -21,6 +24,6 @@ int main(){
     std::thread t2(avgLocationCarPrice,std::ref(data), list);
     t2.join();
 
-    std::thread t3(listABoveThreshold,std::ref(data));
-    t3.join();
+    // std::thread t3(listABoveThreshold,std::ref(data));
+    // t3.join();
 }
