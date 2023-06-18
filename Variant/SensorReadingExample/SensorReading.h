@@ -17,9 +17,9 @@ private:
     float readingValue;
 public:
     SensorReading() = default;
-    SensorReading(const SensorReading& other) = default;
-    SensorReading(const vType& sensorId, const vType& readingId, READING_TYPE type, float readingValue);
-    SensorReading(SensorReading&& other) noexcept
+    SensorReading(const SensorReading& other) = delete;
+    SensorReading(vType& sensorId, vType& readingId, READING_TYPE type, float readingValue);
+    SensorReading(SensorReading&& other)
         : sensorId(std::move(other.sensorId)), readingId(std::move(other.readingId)), type(other.type), readingValue(other.readingValue) {}
     ~SensorReading();
     vType getSensorId() const { return sensorId; }
