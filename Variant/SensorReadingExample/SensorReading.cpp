@@ -1,7 +1,7 @@
 #include "SensorReading.h"
 using vType = std::variant<int, std::string>;
 
-SensorReading::SensorReading(const vType &sensorId, const vType &readingId, READING_TYPE type, float readingValue)
+SensorReading::SensorReading(vType &sensorId, vType &readingId, READING_TYPE type, float readingValue)
     : sensorId(sensorId), readingId(readingId), type(type), readingValue(readingValue) {}
 
 SensorReading::~SensorReading()
