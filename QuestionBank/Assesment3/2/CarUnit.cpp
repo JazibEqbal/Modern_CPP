@@ -6,20 +6,21 @@ CarUnit::CarUnit(std::string number, int batch, CAR_UNIT_TYPE unitType, int pric
 
 CarUnit::~CarUnit()
 {
-    std::cout<<"Car destroyed\n";
+    std::cout << "Car destroyed\n";
 }
 
-std::ostream &operator<<(std::ostream &os, const CarUnit &rhs) {
+std::ostream &operator<<(std::ostream &os, const CarUnit &rhs)
+{
     os << "carUnitNumber: " << rhs.carUnitNumber
        << " carUnitBatch: " << rhs.carUnitBatch
-       << " carUnitType: " <<displayCarUnit(rhs.carUnitType)
+       << " carUnitType: " << displayCarUnit(rhs.carUnitType)
        << " carUnitCostPrice: " << rhs.carUnitCostPrice
        << " carUnitFuelTankCapacity: " << rhs.carUnitFuelTankCapacity
        << " carUnitSeatCount: " << rhs.carUnitSeatCount;
     return os;
 }
 
-//display enum function to display carUnitType
+// display enum function to display carUnitType
 std::string displayCarUnit(enum class CAR_UNIT_TYPE type)
 {
     if (type == CAR_UNIT_TYPE::BASE)
@@ -29,7 +30,9 @@ std::string displayCarUnit(enum class CAR_UNIT_TYPE type)
     else if (type == CAR_UNIT_TYPE::TOP_MODEL)
     {
         return "TOP_MODEL";
-    } else if(type == CAR_UNIT_TYPE::SPORTS){
+    }
+    else if (type == CAR_UNIT_TYPE::SPORTS)
+    {
         return "SPORTS";
     }
     else

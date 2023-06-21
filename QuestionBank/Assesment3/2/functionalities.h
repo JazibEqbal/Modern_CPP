@@ -11,12 +11,13 @@
 #include<memory>
 #include<thread>
 #include<future>
+#include<list>
 #include<thread>
 
 using mypointer = std::shared_ptr<CarUnit>;
 using container  = std::vector<mypointer>;
 
-extern std::function<void(container &data) > carUnitPrice;
+extern std::function<std::list<float>(container &data) > carUnitPrice;
 
 extern std::function<CAR_UNIT_TYPE(container &data, std::future<std::string>& fu) > matchingCarUnitType;
 

@@ -14,12 +14,10 @@
 #include <list>
 #include <thread>
 #include <future>
-#include <mutex>
 
 using CarPointer = std::shared_ptr<Car>; // shared pointer of Car Type
 using container = std::list<CarPointer>; // list of Car Pointers
 
-std::mutex mt; // creating a mutex object
 /*
     a) if container is empty throwing error of empty passed list
     b) if threshold is negative throwing an error
@@ -29,31 +27,31 @@ std::mutex mt; // creating a mutex object
         -- else returning the desired list
 */
 
-std::function<std::optional<std::list<CarPointer>>(container &data, float threshold)> AboveThreshold = [](container &data, float threshold)
-{
-    std::list<CarPointer> list(data.size());
+// std::function<std::optional<container>(container &data, float threshold)> AboveThreshold = [](container &data, float threshold)
+// {
+//     container list(data.size());
 
-    if (data.empty())
-    {
-        throw std::runtime_error("Data passed is empty");
-    }
-    if (threshold < 0)
-    {
-        throw std::runtime_error("Threshold can't be a negative value");
-    }
-    auto itr = std::copy_if(data.begin(), data.end(), list.begin(), [&](CarPointer &obj)
-                            { return obj->getVehicleInsurancePlan().get()->getInsuranceAmount() > threshold; });
-    list.resize(std::distance(list.begin(), itr)); // resizing
+//     if (data.empty())
+//     {
+//         throw std::runtime_error("Data passed is empty");
+//     }
+//     if (threshold < 0)
+//     {
+//         throw std::runtime_error("Threshold can't be a negative value");
+//     }
+//     auto itr = std::copy_if(data.begin(), data.end(), list.begin(), [&](CarPointer &obj)
+//                             { return obj->getVehicleInsurancePlan().get()->getInsuranceAmount() > threshold; });
+//     list.resize(std::distance(list.begin(), itr)); // resizing
 
-    if (list.size() == 0)
-    {
-        return std::optional<std::list<CarPointer>>{};
-    }
-    else
-    {
-        return list;
-    }
-};
+//     if (list.size() == 0)
+//     {
+//         return std::optional<std::list<CarPointer>>{};
+//     }
+//     else
+//     {
+//         return list;
+//     }
+// };
 
 /*
     a) if container is empty throwing error of empty passed list
@@ -62,8 +60,8 @@ std::function<std::optional<std::list<CarPointer>>(container &data, float thresh
     d) adding car price to total if passed object vehicle type is matching to current object type
     e) returning the total
 */
-std::function<std::optional<std::list<float>>(container &data,VEHICLE_TYPE type) > accumulatePriceOfMatchedVehicleType =
-    [](container &data, VEHICLE_TYPE type)
+std::function<std::optional<std::list<float>>(container &data,std::future<VEHICLE_TYPE> &type) > accumulatePriceOfMatchedVehicleType =
+    [](container &data, std::future<VEHICLE_TYPE> &fu)
 {
     std::list<float> list(data.size());
     float total = 0.0f;
@@ -71,9 +69,7 @@ std::function<std::optional<std::list<float>>(container &data,VEHICLE_TYPE type)
     {
         throw std::runtime_error("Data passed is empty");
     }
-    std::this_thread::sleep_for(std::chrono::seconds(2)); // slleping thread for 2 seconds
-    std::lock_guard lk(mt);                               // applying lock guard
-
+    auto type = fu.get();
     auto itr =std::copy_if(data.begin(),data.end(),list.begin(),[&](CarPointer &obj){
         return obj->getCarPrice() && obj->getVehicleType() == type;
     });
@@ -96,26 +92,23 @@ std::function<std::optional<std::list<float>>(container &data,VEHICLE_TYPE type)
         -- else returning the desired list
 */
 
-std::function<std::optional<std::list<std::string>>(std::future<container &> &data)> matchingCarColour =
-    [](std::future<container &> &data)
+std::function<std::optional<std::list<std::string>>(std::future<container> &data)> matchingCarColour =
+    [](std::future<container> &data)
 {
     auto res = data.get();
     std::list<std::string> list(res.size());
-
-    std::this_thread::sleep_for(std::chrono::seconds(2)); // thread will sleep here for context switching
 
     if (res.empty()) // checking exceptions
     {
         throw std::runtime_error("Data passed is empty");
     }
-    std::lock_guard lk(mt); // applying lock guard
     auto itr = std::copy_if(res.begin(), res.end(), list.begin(), [&](CarPointer &obj)
                             { return obj->getCarPrice() && obj->getVehicleType() == VEHICLE_TYPE::PRIVATE; }); // resizing the list
     list.resize(std::distance(list.begin(), itr));
 
     if (list.size() == 0)
     {
-        return std::optional<std::list<std::string>>{}; // returning empty list if list passed is empty
+        return std::optional<std::list<std::string>>{}; // returning empty list if no value matches the VehicleType
     }
     else
     {
@@ -130,23 +123,23 @@ std::function<std::optional<std::list<std::string>>(std::future<container &> &da
     d) dividing total for average by count
 */
 
-std::function<std::optional<float>(container &data)> averageInsuranceAmount =
-    [](container &data)
-{
-    float total = 0.0f;
-    int count = 0;
-    if (data.empty())
-    {
-        throw std::runtime_error("Data passed is empty");
-    }
+// std::function<std::optional<float>(container &data)> averageInsuranceAmount =
+//     [](container &data)
+// {
+//     float total = 0.0f;
+//     int count = 0;
+//     if (data.empty())
+//     {
+//         throw std::runtime_error("Data passed is empty");
+//     }
 
-    total = std::accumulate(data.begin(), data.end(), 0.0f, [&](float value, CarPointer &obj, int c)
-                            {
-        return value + obj->getVehicleInsurancePlan().get()->getInsuranceAmount() 
-        && obj->getVehicleType() == VEHICLE_TYPE::COMMERCIAL 
-        && obj->getVehicleRegistration() == 20203
-        && obj->getVehicleInsurancePlan().get()->getInsuranceType() == INSURANCE_TYPE::ZERO_DEBT; 
-        c++;
-        count=c; });
-    return total / count;
-};
+//     total = std::accumulate(data.begin(), data.end(), 0.0f, [&](float value, CarPointer &obj, int c)
+//                             {
+//         return value + obj->getVehicleInsurancePlan().get()->getInsuranceAmount() 
+//         && obj->getVehicleType() == VEHICLE_TYPE::COMMERCIAL 
+//         && obj->getVehicleRegistration() == 20203
+//         && obj->getVehicleInsurancePlan().get()->getInsuranceType() == INSURANCE_TYPE::ZERO_DEBT; 
+//         c++;
+//         count=c; });
+//     return total / count;
+// };

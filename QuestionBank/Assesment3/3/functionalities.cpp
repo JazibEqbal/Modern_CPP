@@ -30,7 +30,7 @@ std::function<float(containerTransaction &data) > getTotalOfTransactionAmount =
 [](containerTransaction &data){
     float total = 0;
     total += std::accumulate(data.begin(),data.end(),0.0f,[](myAccountpointer &obj,float val){
-        return val + obj.get()->getAccountTransactionSet()
+        return val + obj.get()
     })
 };
 

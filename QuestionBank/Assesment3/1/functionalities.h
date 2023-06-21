@@ -16,16 +16,17 @@
 #include<vector>
 #include<thread>
 #include<mutex>
+#include<future>
 
 using CarPointer = std::shared_ptr<Car>; //shared pointer of Car Type
 using container  = std::list<CarPointer>; // list of Car Pointers
 
-extern std::function<std::optional<std::list<CarPointer>>(container &data, float threshold) > AboveThreshold;
+//extern std::function<std::optional<container>(container &data, float threshold) > AboveThreshold;
 
-extern std::function<std::optional<std::list<float>>(container &data,VEHICLE_TYPE type) > accumulatePriceOfMatchedVehicleType;
+extern std::function<std::optional<std::list<float>>(container &data,std::future<VEHICLE_TYPE> &type) > accumulatePriceOfMatchedVehicleType;
 
-extern std::function<std::optional<std::list<std::string>>(std::future<container&> &data)> matchingCarColour;
+extern std::function<std::optional<std::list<std::string>>(std::future<container> &data)> matchingCarColour;
 
-extern std::function<std::optional<float>(container &data) > averageInsuranceAmount;
+// extern std::function<std::optional<float>(container &data) > averageInsuranceAmount;
 
 #endif // FUNCTIONALITIES_H
