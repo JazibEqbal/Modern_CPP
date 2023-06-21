@@ -22,6 +22,7 @@ int main(){
     data.emplace_back(std::make_shared<CarUnit>("1",1,CAR_UNIT_TYPE::BASE,50.0f,12,6));
     data.emplace_back(std::make_shared<CarUnit>("2",2,CAR_UNIT_TYPE::EXTENDED,20.0f,7,6));
     data.emplace_back(std::make_shared<CarUnit>("3",3,CAR_UNIT_TYPE::BASE,50.0f,14,3));
+    data.emplace_back(std::make_shared<CarUnit>("4",4,CAR_UNIT_TYPE::BASE,50.0f,14,3));
 
     carUnitPrice(data);
 
@@ -35,8 +36,7 @@ int main(){
 
     std::string ans;
     std::cin>>ans;
-    pr.set_value(ans);    std::this_thread::sleep_for(std::chrono::milliseconds(30));
-
+    pr.set_value(ans);    
 
     int value;
     std::cin>>value;
@@ -45,12 +45,14 @@ int main(){
     r1.get();
     r2.get();
 
-    for (int i = 0; i < 5; i++)
-    {
-        arr[i] = std::thread(registrationCost,data.front()); 
+    mypointer p = std::make_shared<CarUnit>("1",1,CAR_UNIT_TYPE::BASE,50.0f,12,6);
+    for(int i=0;i<5;i++){
+        arr[i] = std::thread(registrationCost,std::ref(p));
     }
     for (int i = 0; i < 5; i++)
     {
         arr[i].join();  //calls the function
     }
+
+    allMatchingInstanceOfCar(50.0f,data);
 }

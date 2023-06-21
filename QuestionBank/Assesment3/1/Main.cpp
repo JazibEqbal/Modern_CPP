@@ -50,41 +50,49 @@ int main()
     container data;
     std::shared_ptr<Insurance> insurance = std::make_shared<Insurance>("1", 2300.0f, INSURANCE_TYPE::REGULAR);
 
+    std::shared_ptr<Vehicle> vehicle1 = std::make_shared<Vehicle>(1,222,VEHICLE_TYPE::COMMERCIAL,std::ref(insurance));
+    std::shared_ptr<Vehicle> vehicle2 = std::make_shared<Vehicle>(2,555,VEHICLE_TYPE::PRIVATE,std::ref(insurance));
+
     data.emplace_back(std::make_shared<Car>(1, 111, VEHICLE_TYPE::COMMERCIAL, std::ref(insurance), CAR_TYPE::SEDAN, 100.0f, "BLACK"));
     data.emplace_back(std::make_shared<Car>(2, 222, VEHICLE_TYPE::PRIVATE, std::ref(insurance), CAR_TYPE::SUV, 200.0f, "RED"));
     data.emplace_back(std::make_shared<Car>(3, 333, VEHICLE_TYPE::COMMERCIAL, std::ref(insurance), CAR_TYPE::SEDAN, 300.0f, "BLUE"));
 
-    auto ans = AboveThreshold(data, 100.0f);
-    if (ans.has_value())
-    {
-        for (auto &it : ans.value())
-        {
-            std::cout << it << " ";
-        }
-    }
-    else
-    {
-        std::cout << "No one is above threshold\n";
-    }
-
+    // auto result = AboveThreshold(data, 100.0f);
+    // if (result.has_value())
+    // {
+    //     for (auto &it : result.value())
+    //     {
+    //         std::cout << it << " ";
+    //     }
+    // }
+    // else
+    // {
+    //     std::cout << "No one is above threshold\n";
+    // }
+    std::promise<VEHICLE_TYPE> pr1;
+    std::future<VEHICLE_TYPE> input = pr1.get_future();
+    std::future<std::optional<std::list<float>>> r2 = std::async(std::launch::async,accumulatePriceOfMatchedVehicleType,std::ref(data),std::ref(input));
     auto ans = getEnum();
+    pr1.set_value(ans);
+    // std::thread t2(accumulatePriceOfMatchedVehicleType, std::ref(data), std::ref(ans));
 
-    std::thread t2(accumulatePriceOfMatchedVehicleType, data, ans);
+    std::promise<container> pr2;
+    std::future<container> inputData = pr2.get_future();
+    std::future<std::optional<std::list<std::string>>> r1 = std::async(std::launch::async,matchingCarColour,std::ref(inputData));
+    pr2.set_value(data);
+    r1.get();
+    r2.get();
+    // t2.join();
 
-    std::thread t1(matchingCarColour,data);
-
-    t1.join();
-    t2.join();
-
-    auto res = averageInsuranceAmount(data);
-    if (res.has_value())
-    {
-        std::cout << res.value() << "\n";
-    }
-    else
-    {
-        std::cout << "No value to display...\n";
-    }
+    // auto res = averageInsuranceAmount(data);
+    // if (res.has_value())
+    // {
+    //     std::cout << res.value() << "\n";
+    // }
+    // else
+    // {
+    //     std::cout << "No value to display...\n";
+    // }
 }
 
 // pr.set_value(ans);

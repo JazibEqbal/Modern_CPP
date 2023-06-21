@@ -18,9 +18,9 @@ using container = std::vector<mypointer>;
     adding 10% tax to each object
     storing them in a vector variable
 */
-std::function<void(container &data)> carUnitPrice = [](container &data)
+std::function<std::list<float>(container &data) > carUnitPrice = [](container &data)
 {
-    std::vector<mypointer> v(data.size());
+    std::list<float> v(data.size());
 
     if (data.empty()) // throwing error if list passed is empty
     {
@@ -35,8 +35,9 @@ std::function<void(container &data)> carUnitPrice = [](container &data)
                    });
     for (auto &it : v)
     {
-        std::cout << it;
+        std::cout <<"Tax is: "<< it<<"\n";
     }
+    return v;
 };
 
 /*
@@ -73,7 +74,7 @@ std::function<std::vector<int>(container &data, std::future<int> &fu)> capacityA
     {
         throw std::runtime_error("List passed is empty");
     }
-    auto threshold = fu.get();
+    int threshold = fu.get();
     if (threshold < 0)
     {
         throw std::runtime_error("Threshold can't be a negative value");
@@ -82,7 +83,7 @@ std::function<std::vector<int>(container &data, std::future<int> &fu)> capacityA
     auto itr = std::copy_if(data.begin(), data.end(), res.begin(), [&](mypointer &obj)
                             { if (obj->getCarUnitCostPrice() > threshold){
                                 return obj->getCarUnitFuelTankCapacity();
-                            }; });
+                            } });
     res.resize(std::distance(res.begin(), itr));
     return res;
 };
