@@ -1,0 +1,10 @@
+#ifndef TRANSACTIONTYPEEE_H
+#define TRANSACTIONTYPEEE_H
+
+enum class TRANSACTION_TYPE{
+    CARD,
+    CASH,
+    UPI
+};
+
+#endif // TRANSACTIONTYPEEE_H

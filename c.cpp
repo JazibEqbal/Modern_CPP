@@ -1,15 +1,8 @@
-#include<iostream>
-#include<functional>
-#include<list>
-
-void operation(){
-    int n=2;
-    auto f1 = [](int n) { return n= n*n;};
-    std::cout<<f1(n);
-    std::cout<<n<<"\n";
-}
+#include <iostream>
+#include <thread>
 
 int main(){
-    operation();
-    return 0;
+    int n1=10;
+    auto f1=[](int arg){std::cout << arg;};
+    std::thread t1(f1, std::ref(n1)    );
 }
