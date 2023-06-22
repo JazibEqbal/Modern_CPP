@@ -60,23 +60,23 @@ std::function<std::optional<container>(container &data, float threshold)> AboveT
     d) adding car price to total if passed object vehicle type is matching to current object type
     e) returning the total
 */
-std::function<std::optional<std::list<float>>(container &data,std::future<VEHICLE_TYPE> &type) > accumulatePriceOfMatchedVehicleType =
-    [](container &data, std::future<VEHICLE_TYPE> &fu)
+std::function<std::optional<std::list<float>>(container &data, VEHICLE_TYPE type)> accumulatePriceOfMatchedVehicleType =
+    [](container &data, VEHICLE_TYPE type)
 {
     std::list<float> list(data.size());
-    float total = 0.0f;
     if (data.empty())
     {
         throw std::runtime_error("Data passed is empty");
     }
-    auto type = fu.get();
-    auto itr =std::copy_if(data.begin(),data.end(),list.begin(),[&](CarPointer &obj){
-        return obj->getCarPrice() && obj->getVehicleType() == type;
-    });
+    auto itr = std::transform(data.begin(), data.end(), list.begin(), [&](CarPointer &obj)
+                              { return obj.get()->getCarPrice() && obj->getVehicleType() == type; });
     list.resize(std::distance(list.begin(), itr));
-    if(list.size() == 0){
-        return  std::optional<std::list<float>>{};
-    }else {
+    if (list.size() == 0)
+    {
+        return std::list<float>{};
+    }
+    else
+    {
         return list;
     }
 };
@@ -92,29 +92,29 @@ std::function<std::optional<std::list<float>>(container &data,std::future<VEHICL
         -- else returning the desired list
 */
 
-// std::function<std::optional<std::list<std::string>>(std::future<container> &data)> matchingCarColour =
-//     [](std::future<container> &data)
-// {
-//     auto res = data.get();
-//     std::list<std::string> list(res.size());
+std::function<std::optional<std::list<std::string>>(std::future<container> &data)> matchingCarColour =
+    [](std::future<container> &data)
+{
+    auto res = data.get();
+    std::list<std::string> list(res.size());
 
-//     if (res.empty()) // checking exceptions
-//     {
-//         throw std::runtime_error("Data passed is empty");
-//     }
-//     auto itr = std::copy_if(res.begin(), res.end(), list.begin(), [&](CarPointer &obj)
-//                             { return obj->getCarPrice() && obj->getVehicleType() == VEHICLE_TYPE::PRIVATE; }); // resizing the list
-//     list.resize(std::distance(list.begin(), itr));
+    if (res.empty()) // checking exceptions
+    {
+        throw std::runtime_error("Data passed is empty");
+    }
+    auto itr = std::transform(res.begin(), res.end(), list.begin(), [&](CarPointer &obj)
+                              { return obj->getCarPrice() && obj->getVehicleType() == VEHICLE_TYPE::PRIVATE; }); // resizing the list
+    list.resize(std::distance(list.begin(), itr));
 
-//     if (list.size() == 0)
-//     {
-//         return std::optional<std::list<std::string>>{}; // returning empty list if no value matches the VehicleType
-//     }
-//     else
-//     {
-//         return list;
-//     }
-// };
+    if (list.size() == 0)
+    {
+        return std::optional<std::list<std::string>>(); // returning empty list if no value matches the VehicleType
+    }
+    else
+    {
+        return std::optional<std::list<std::string>>(list);
+    }
+};
 
 /*
     a) if container is empty throwing error of empty passed list
@@ -123,23 +123,25 @@ std::function<std::optional<std::list<float>>(container &data,std::future<VEHICL
     d) dividing total for average by count
 */
 
-// std::function<std::optional<float>(container &data)> averageInsuranceAmount =
-//     [](container &data)
-// {
-//     float total = 0.0f;
-//     int count = 0;
-//     if (data.empty())
-//     {
-//         throw std::runtime_error("Data passed is empty");
-//     }
+std::function<std::optional<float>(container &data)> averageInsuranceAmount =
+    [](container &data)
+{
+    float total = 0.0f;
+    int count = 0;
+    if (data.empty())
+    {
+        throw std::runtime_error("Data passed is empty");
+    }
 
-//     total = std::accumulate(data.begin(), data.end(), 0.0f, [&](float value, CarPointer &obj, int c)
-//                             {
-//         return value + obj->getVehicleInsurancePlan().get()->getInsuranceAmount() 
-//         && obj->getVehicleType() == VEHICLE_TYPE::COMMERCIAL 
-//         && obj->getVehicleRegistration() == 20203
-//         && obj->getVehicleInsurancePlan().get()->getInsuranceType() == INSURANCE_TYPE::ZERO_DEBT; 
-//         c++;
-//         count=c; });
-//     return total / count;
-// };
+    for (auto &obj : data)
+    {
+        if (obj->getVehicleType() == VEHICLE_TYPE::COMMERCIAL &&
+            obj->getVehicleRegistration() == 2023 &&
+            obj->getVehicleInsurancePlan().get()->getInsuranceType() == INSURANCE_TYPE::ZERO_DEBT)
+        {
+            total += obj->getVehicleInsurancePlan().get()->getInsuranceAmount();
+            count++;
+        }
+    }
+    return total == 0 ? 0.0f : total / count;
+};
