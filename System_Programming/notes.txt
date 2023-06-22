@@ -1,0 +1,15 @@
+KERNEL manages hardware, processes, I/O, Security etc.
+
+Most kernel os are written in C language -- bcz it was very close to the hardware and high level 
+                                            language and functionally usable
+                                    
+a process can run infintely threads but on one core can run 2 threads at a time
+
+systemd -- a parent service that starts upon booting
+
+every process follows parent-child relationship except systemd(itself act as a parent on behalf of kernel)
+
+when we ask a os to do something we make a sys call
+
+with threading you share memory but with multithreading you don'that
+

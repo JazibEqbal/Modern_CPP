@@ -57,7 +57,7 @@ int main()
     data.emplace_back(std::make_shared<Car>(2, 222, VEHICLE_TYPE::PRIVATE, std::ref(insurance), CAR_TYPE::SUV, 200.0f, "RED"));
     data.emplace_back(std::make_shared<Car>(3, 333, VEHICLE_TYPE::COMMERCIAL, std::ref(insurance), CAR_TYPE::SEDAN, 300.0f, "BLUE"));
 
-    // auto result = AboveThreshold(data, 100.0f);
+    auto result = AboveThreshold(data, 100.0f);
     // if (result.has_value())
     // {
     //     for (auto &it : result.value())
@@ -69,19 +69,19 @@ int main()
     // {
     //     std::cout << "No one is above threshold\n";
     // }
-    std::promise<VEHICLE_TYPE> pr1;
-    std::future<VEHICLE_TYPE> input = pr1.get_future();
-    std::future<std::optional<std::list<float>>> r2 = std::async(std::launch::async,accumulatePriceOfMatchedVehicleType,std::ref(data),std::ref(input));
-    auto ans = getEnum();
-    pr1.set_value(ans);
-    // std::thread t2(accumulatePriceOfMatchedVehicleType, std::ref(data), std::ref(ans));
+    // std::promise<VEHICLE_TYPE> pr1;
+    // std::future<VEHICLE_TYPE> input = pr1.get_future();
+    // std::future<std::optional<std::list<float>>> r2 = std::async(std::launch::async,accumulatePriceOfMatchedVehicleType,std::ref(data),std::ref(input));
+    // auto ans = getEnum();
+    // pr1.set_value(ans);
+    // // std::thread t2(accumulatePriceOfMatchedVehicleType, std::ref(data), std::ref(ans));
 
-    std::promise<container> pr2;
-    std::future<container> inputData = pr2.get_future();
-    std::future<std::optional<std::list<std::string>>> r1 = std::async(std::launch::async,matchingCarColour,std::ref(inputData));
-    pr2.set_value(data);
-    r1.get();
-    r2.get();
+    // std::promise<container> pr2;
+    // std::future<container> inputData = pr2.get_future();
+    // std::future<std::optional<std::list<std::string>>> r1 = std::async(std::launch::async,matchingCarColour,std::ref(inputData));
+    // pr2.set_value(data);
+    // r1.get();
+    // r2.get();
     // t2.join();
 
     // auto res = averageInsuranceAmount(data);

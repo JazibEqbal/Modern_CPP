@@ -27,31 +27,31 @@ using container = std::list<CarPointer>; // list of Car Pointers
         -- else returning the desired list
 */
 
-// std::function<std::optional<container>(container &data, float threshold)> AboveThreshold = [](container &data, float threshold)
-// {
-//     container list(data.size());
+std::function<std::optional<container>(container &data, float threshold)> AboveThreshold = [](container &data, float threshold)
+{
+    container list(data.size());
 
-//     if (data.empty())
-//     {
-//         throw std::runtime_error("Data passed is empty");
-//     }
-//     if (threshold < 0)
-//     {
-//         throw std::runtime_error("Threshold can't be a negative value");
-//     }
-//     auto itr = std::copy_if(data.begin(), data.end(), list.begin(), [&](CarPointer &obj)
-//                             { return obj->getVehicleInsurancePlan().get()->getInsuranceAmount() > threshold; });
-//     list.resize(std::distance(list.begin(), itr)); // resizing
+    if (data.empty())
+    {
+        throw std::runtime_error("Data passed is empty");
+    }
+    if (threshold < 0)
+    {
+        throw std::runtime_error("Threshold can't be a negative value");
+    }
+    auto itr = std::copy_if(data.begin(), data.end(), list.begin(), [&](CarPointer &obj)
+                            { return obj->getVehicleInsurancePlan().get()->getInsuranceAmount() > threshold; });
+    list.resize(std::distance(list.begin(), itr)); // resizing
 
-//     if (list.size() == 0)
-//     {
-//         return std::optional<std::list<CarPointer>>{};
-//     }
-//     else
-//     {
-//         return list;
-//     }
-// };
+    if (list.size() == 0)
+    {
+        return container();
+    }
+    else
+    {
+        return list;
+    }
+};
 
 /*
     a) if container is empty throwing error of empty passed list
@@ -92,29 +92,29 @@ std::function<std::optional<std::list<float>>(container &data,std::future<VEHICL
         -- else returning the desired list
 */
 
-std::function<std::optional<std::list<std::string>>(std::future<container> &data)> matchingCarColour =
-    [](std::future<container> &data)
-{
-    auto res = data.get();
-    std::list<std::string> list(res.size());
+// std::function<std::optional<std::list<std::string>>(std::future<container> &data)> matchingCarColour =
+//     [](std::future<container> &data)
+// {
+//     auto res = data.get();
+//     std::list<std::string> list(res.size());
 
-    if (res.empty()) // checking exceptions
-    {
-        throw std::runtime_error("Data passed is empty");
-    }
-    auto itr = std::copy_if(res.begin(), res.end(), list.begin(), [&](CarPointer &obj)
-                            { return obj->getCarPrice() && obj->getVehicleType() == VEHICLE_TYPE::PRIVATE; }); // resizing the list
-    list.resize(std::distance(list.begin(), itr));
+//     if (res.empty()) // checking exceptions
+//     {
+//         throw std::runtime_error("Data passed is empty");
+//     }
+//     auto itr = std::copy_if(res.begin(), res.end(), list.begin(), [&](CarPointer &obj)
+//                             { return obj->getCarPrice() && obj->getVehicleType() == VEHICLE_TYPE::PRIVATE; }); // resizing the list
+//     list.resize(std::distance(list.begin(), itr));
 
-    if (list.size() == 0)
-    {
-        return std::optional<std::list<std::string>>{}; // returning empty list if no value matches the VehicleType
-    }
-    else
-    {
-        return list;
-    }
-};
+//     if (list.size() == 0)
+//     {
+//         return std::optional<std::list<std::string>>{}; // returning empty list if no value matches the VehicleType
+//     }
+//     else
+//     {
+//         return list;
+//     }
+// };
 
 /*
     a) if container is empty throwing error of empty passed list
