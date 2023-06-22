@@ -60,14 +60,15 @@ std::function<std::optional<container>(container &data, float threshold)> AboveT
     d) adding car price to total if passed object vehicle type is matching to current object type
     e) returning the total
 */
-std::function<std::optional<std::list<float>>(container &data, VEHICLE_TYPE type)> accumulatePriceOfMatchedVehicleType =
-    [](container &data, VEHICLE_TYPE type)
+std::function<std::optional<std::list<float>>(container &,std::future<VEHICLE_TYPE> &) > accumulatePriceOfMatchedVehicleType =
+    [](container &data, std::future<VEHICLE_TYPE> &t)
 {
     std::list<float> list(data.size());
     if (data.empty())
     {
         throw std::runtime_error("Data passed is empty");
     }
+    VEHICLE_TYPE type = t.get();
     auto itr = std::transform(data.begin(), data.end(), list.begin(), [&](CarPointer &obj)
                               { return obj.get()->getCarPrice() && obj->getVehicleType() == type; });
     list.resize(std::distance(list.begin(), itr));

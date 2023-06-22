@@ -74,7 +74,7 @@ int main()
     auto ans =getEnum();
     std::promise<VEHICLE_TYPE> pr1;
     std::future<VEHICLE_TYPE> input = pr1.get_future();
-    std::future<std::optional<std::list<float>>> r1 = std::async(std::launch::async,accumulatePriceOfMatchedVehicleType,std::ref(data),ans);
+    std::future<std::optional<std::list<float>>> r1 = std::async(std::launch::async,accumulatePriceOfMatchedVehicleType,std::ref(data),std::ref(input));
     
     pr1.set_value(ans);
     
