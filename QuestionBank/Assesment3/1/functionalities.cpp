@@ -102,9 +102,14 @@ std::function<std::optional<std::list<std::string>>(std::future<container> &data
     {
         throw std::runtime_error("Data passed is empty");
     }
-    auto itr = std::transform(res.begin(), res.end(), list.begin(), [&](CarPointer &obj)
-                              { return obj->getCarPrice() && obj->getVehicleType() == VEHICLE_TYPE::PRIVATE; }); // resizing the list
-    list.resize(std::distance(list.begin(), itr));
+    auto itr = std::transform(res.begin(), res.end(), list.begin(), [&](CarPointer &obj){
+                        if (obj.get()->getVehicleType() == VEHICLE_TYPE::PRIVATE){
+                                return obj->getCarColour();
+                       }else{
+                            return std::string();
+                       }
+            });
+    list.resize(std::distance(list.begin(), itr)); // resizing the list
 
     if (list.size() == 0)
     {
