@@ -23,7 +23,7 @@ using container  = std::list<CarPointer>; // list of Car Pointers
 
 extern std::function<std::optional<container>(container &data, float threshold) > AboveThreshold;
 
-extern std::function<std::optional<std::list<float>>(container &data,VEHICLE_TYPE type) > accumulatePriceOfMatchedVehicleType;
+extern std::function<std::optional<std::list<float>>(container &,std::future<VEHICLE_TYPE> &) > accumulatePriceOfMatchedVehicleType;
 
 extern std::function<std::optional<std::list<std::string>>(std::future<container> &data)> matchingCarColour;
 

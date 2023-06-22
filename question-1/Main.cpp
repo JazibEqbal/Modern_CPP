@@ -39,13 +39,13 @@ int main(){
     std::string str;
     std::cout<<"enter car type from following:\n 1.COMMERCIAL\n2.PRIVATE\n3.SPECIAL_PURPOSE\n";
     std::cin>>str;
-    auto data=converToEnum(str);
+    auto data=converToEnum(str); //A FUTURE VALUE use promise instead and run 
    
-   std::future<std::optional<std::list<float>>> res= std::async(std::launch::async,returnCarPriceList,std::ref(carobjectlist),data);
+    std::future<std::optional<std::list<float>>> res= std::async(std::launch::async,returnCarPriceList,std::ref(carobjectlist),data);
   
 
      // third function
-    auto i=returnCarColorContainer(carobjectlist);
+    auto i=returnCarColorContainer(carobjectlist); // make this async also
 
 
      //fourth function

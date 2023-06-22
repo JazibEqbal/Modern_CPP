@@ -35,7 +35,13 @@ std::function<std::optional<container>(container &, float)> carsAboveThreshold =
         return container(resultList);
     }
 };
+/*
 
+
+    VehicleType should be a future value as we are getting it from user so make it a future and then try to call it from main 
+
+
+*/
 std::function<std::optional<std::list<float>>(container&, VehicleType)> returnCarPriceList = [](container &carlist, VehicleType type)
 {
     if (carlist.empty())
@@ -69,6 +75,7 @@ std::function<std::optional<std::list<float>>(container&, VehicleType)> returnCa
 };
 
 
+//FOR BETTER UNDERSTANDING MAKE BELOW FUNCTION also a async. make container a future object and then call it from main
 
 
 
@@ -99,6 +106,7 @@ std::function<std::optional<std::list<std::string>>(container &)> returnCarColor
         return std::optional<std::list<std::string>> (result);
     }
 };
+
 
 std::function<float(container &)> averageInsuranceAmount = [](container &carobjlist)
 {
