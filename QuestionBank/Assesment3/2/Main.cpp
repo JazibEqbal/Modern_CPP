@@ -20,11 +20,15 @@ std::thread arr[5];
 int main(){
     container data;
     data.emplace_back(std::make_shared<CarUnit>("1",1,CAR_UNIT_TYPE::BASE,50.0f,12,6));
-    data.emplace_back(std::make_shared<CarUnit>("2",2,CAR_UNIT_TYPE::EXTENDED,20.0f,7,6));
-    data.emplace_back(std::make_shared<CarUnit>("3",3,CAR_UNIT_TYPE::BASE,50.0f,14,3));
+    data.emplace_back(std::make_shared<CarUnit>("2",2,CAR_UNIT_TYPE::EXTENDED,20.0f,70,8));
+    data.emplace_back(std::make_shared<CarUnit>("3",3,CAR_UNIT_TYPE::BASE,10.0f,140,7));
     data.emplace_back(std::make_shared<CarUnit>("4",4,CAR_UNIT_TYPE::BASE,50.0f,14,3));
 
-    carUnitPrice(data);
+    auto res = carUnitPrice(data);
+    for (auto &it : res)
+    {
+        std::cout <<"Tax is: "<< it<<"\n";
+    }
 
     std::promise<std::string> pr;
     std::future<std::string> input = pr.get_future();
@@ -36,7 +40,7 @@ int main(){
 
     std::string ans;
     std::cin>>ans;
-    pr.set_value(ans);    
+    pr.set_value(ans);
 
     int value;
     std::cin>>value;
@@ -54,5 +58,10 @@ int main(){
         arr[i].join();  //calls the function
     }
 
-    allMatchingInstanceOfCar(50.0f,data);
+    auto res2 = allMatchingInstanceOfCar(50.0f,data);
+    for (auto &it : res2)
+    {
+        std::cout <<"Satisfied Car Units are: "<< *it<<"\n";
+    }
+
 }
