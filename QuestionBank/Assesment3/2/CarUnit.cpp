@@ -1,6 +1,6 @@
 #include "CarUnit.h"
 
-CarUnit::CarUnit(std::string number, int batch, CAR_UNIT_TYPE unitType, int price, int tankCapacity, int seat)
+CarUnit::CarUnit(std::string number, int batch, CAR_UNIT_TYPE unitType, float price, int tankCapacity, int seat)
     : carUnitNumber{number}, carUnitBatch{batch}, carUnitType{unitType}, carUnitCostPrice{price},
       carUnitFuelTankCapacity{tankCapacity}, carUnitSeatCount{seat} {}
 
@@ -21,7 +21,7 @@ std::ostream &operator<<(std::ostream &os, const CarUnit &rhs)
 }
 
 // display enum function to display carUnitType
-std::string displayCarUnit(enum class CAR_UNIT_TYPE type)
+std::string displayCarUnit(CAR_UNIT_TYPE type)
 {
     if (type == CAR_UNIT_TYPE::BASE)
     {

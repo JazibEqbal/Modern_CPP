@@ -18,7 +18,7 @@ using container = std::vector<mypointer>;
     adding 10% tax to each object
     storing them in a vector variable
 */
-std::function<std::list<float>(container &data) > carUnitPrice = [](container &data)
+std::function<std::optional<std::list<float>>(container &)> carUnitPrice = [](container &data)
 {
     std::list<float> v(data.size());
 
@@ -33,7 +33,14 @@ std::function<std::list<float>(container &data) > carUnitPrice = [](container &d
                    {
                        return 0.1 * obj->getCarUnitCostPrice();
                    });
-    return v;
+    if (v.size() == 0)
+    {
+        return std::list<float>();
+    }
+    else
+    {
+        return v;
+    }
 };
 
 /*
@@ -42,7 +49,7 @@ std::function<std::list<float>(container &data) > carUnitPrice = [](container &d
     c) findind if passed number matches carUnitNumber
     d) returning the carType for matching result
 */
-std::function<CAR_UNIT_TYPE(container &data, std::future<std::string> &fu)> matchingCarUnitType =
+std::function<void(container &data, std::future<std::string> &fu)> matchingCarUnitType =
     [](container &data, std::future<std::string> &fu)
 {
     if (data.empty()) // throwing error if list passed is empty
@@ -54,34 +61,53 @@ std::function<CAR_UNIT_TYPE(container &data, std::future<std::string> &fu)> matc
 
     auto itr = std::find_if(data.begin(), data.end(), [&](mypointer &obj)
                             { return obj->getCarUnitNumber() == number; });
-    return (*itr)->getCarUnitType();
+    if (*itr == nullptr)
+    {
+        std::cout << "No car unit found\n";
+    }
+    else
+    {
+        std::cout << "Car unit with number " << number << " is: " << displayCarUnit((*itr)->getCarUnitType()) << "\n";
+    }
 };
 
-/*
-    a) creating vector to store results
-    b) waiting to get input from user
-    c) copying if it satisfies the given condition
-*/
-std::function<std::vector<int>(container &data, std::future<int> &fu)> capacityAboveThreshold =
-    [](container &data, std::future<int> &fu)
+// /*
+//     a) creating vector to store results
+//     b) waiting to get input from user
+//     c) copying if it satisfies the given condition
+// */
+std::function<void(container &data, std::future<float> &fu)> capacityAboveThreshold =
+    [](container &data, std::future<float> &fu)
 {
-    std::vector<int> res(data.size());
+    std::vector<float> res(data.size());
     if (data.empty()) // checking exception if list passed is empty
     {
         throw std::runtime_error("List passed is empty");
     }
-    int threshold = fu.get();
+    auto threshold = fu.get();
     if (threshold < 0)
     {
         throw std::runtime_error("Threshold can't be a negative value");
     }
 
     auto itr = std::transform(data.begin(), data.end(), res.begin(), [&](mypointer &obj)
-                            { if (obj->getCarUnitCostPrice() > threshold){
+                              { if (obj->getCarUnitCostPrice() > threshold){
                                 return obj->getCarUnitFuelTankCapacity();
-                            } });
+                            }else{
+                                return 0;
+                            }});
     res.resize(std::distance(res.begin(), itr));
-    return res;
+    std::remove(res.begin(),res.end(),0.0f);
+    if (res.size() == 0)
+    {
+        std::cout<<"No car unit is abobe threshold\n";
+    }else{
+        for(auto &it: res){
+            if(it !=0){
+                std::cout<<it<<" ";
+            }
+        }
+    }
 };
 
 /*
@@ -105,15 +131,15 @@ std::function<int(mypointer &)> registrationCost = [](mypointer &obj)
     return cost;
 };
 
-/*
-    a) creating vector to store results
-    b) waiting to get input from user
-    c) copying if it satisfies the given condition
-    d) resizing the list
-    e) returning the final result
-*/
-std::function<std::vector<mypointer>(int price, container &data)> allMatchingInstanceOfCar =
-    [](int price, container &data)
+// /*
+//     a) creating vector to store results
+//     b) waiting to get input from user
+//     c) copying if it satisfies the given condition
+//     d) resizing the list
+//     e) returning the final result
+// */
+std::function<void(std::future<float> &,container &) >  allMatchingInstanceOfCar =
+    [](std::future<float> &fu, container &data)
 {
     std::vector<mypointer> vector(data.size());
 
@@ -121,9 +147,16 @@ std::function<std::vector<mypointer>(int price, container &data)> allMatchingIns
     {
         throw std::runtime_error("List passed is empty");
     }
-
+    auto price = fu.get();
     auto itr = std::copy_if(data.begin(), data.end(), vector.begin(), [&](mypointer &obj)
                             { return obj->getCarUnitCostPrice() <= price && obj->getCarUnitFuelTankCapacity() > 40 && obj->getCarUnitSeatCount() > 4; });
     vector.resize(std::distance(vector.begin(), itr)); // resizing vector size here
-    return vector;
+    if (vector.size() == 0)
+    {
+        std::cout<<"No car unit is satisfies\n";
+    }else{
+        for(auto &it: vector){
+            std::cout<<*it<<"\n";
+        }
+    }
 };
