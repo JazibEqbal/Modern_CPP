@@ -1,0 +1,37 @@
+ls -l   --in detail
+-------------------------------------------
+
+nano file_name -- to take notes as a notepad from terminal
+
+--------------------------------------------
+cat -- to read from file
+
+cat >> -- to append in a file
+
+cat > --to override
+--------------------------------------------
+
+/etc/passwd --file with database of all user accounts in the system
+
+7 columns in this file--
+1) username
+2) accountStatus: x means password is set, account is active. !! means password is not set
+3) user ID: unique number for the account
+4) Group ID: ID for the private group created for this account
+5) GECOS name(alias)
+6) home directory of the user: home location where user creates file
+7) Shell used by user: name of the shell used
+
+----------------------------------------------
+1               2                  3               4         r=4 x=1 w=2
+-              rwx                r-x             r-x
+                |
+          read and write
+
+1) type of file(- means regular file)
+2) permission for owner of the file: read & write
+3) permission for Group members of the owner of the file: read & write
+4) permissions for all other accounts of the system: read
+
+
+& - launch a command and automatic puts that process in background and it is running
