@@ -17,14 +17,14 @@
 using mypointer = std::shared_ptr<CarUnit>;
 using container  = std::vector<mypointer>;
 
-extern std::function<std::list<float>(container &data) > carUnitPrice;
+extern std::function<std::optional<std::list<float>>(container &) > carUnitPrice;
 
-extern std::function<CAR_UNIT_TYPE(container &data, std::future<std::string>& fu) > matchingCarUnitType;
+extern std::function<void(container &, std::future<std::string>& ) > matchingCarUnitType;
 
-extern std::function<std::vector<int>(container &data,std::future<int>& fu) > capacityAboveThreshold;
+extern std::function<void(container &, std::future<float> &)> capacityAboveThreshold;
 
 extern std::function<int(mypointer &) > registrationCost;
 
-extern std::function<std::vector<mypointer>(int price,container &data) > allMatchingInstanceOfCar;
+extern std::function<void(std::future<float> &,container &) >  allMatchingInstanceOfCar;
 
 #endif // FUNCTIONALITIES_H
