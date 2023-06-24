@@ -42,10 +42,10 @@ extern std::function<Variant(containerAccount &, int, Variant)> nthTransactionId
 // 6
 extern std::function<float(containerAccount &, Variant)> averageTransactionAmount;
 
-//7
+// 7
 extern std::function<float(std::future<containerAccount> &)> balanceInterestAmount;
 
-//8
-extern std::function<bool(myAccountpointer&) > isAccountValid;
+// 8
+extern std::function<bool(myAccountpointer &)> isAccountValid;
 
 #endif // FUNCTIONALITIES_H

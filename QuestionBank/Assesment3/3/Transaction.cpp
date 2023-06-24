@@ -1,7 +1,7 @@
 #include "Transaction.h"
 
 Transaction::Transaction(myVariant id, float amount, TRANSACTION_TYPE type) : transactionId{id}, transactionAmount{amount},
-                                                                            transactionType{type} {}
+                                                                              transactionType{type} {}
 
 Transaction::~Transaction()
 {

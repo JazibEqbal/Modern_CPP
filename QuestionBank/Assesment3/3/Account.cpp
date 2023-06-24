@@ -13,9 +13,8 @@ std::ostream &operator<<(std::ostream &os, const Account &rhs) {
     std::visit([&](auto arg)
                { os << arg; },
                rhs.accountId);
-     os  << " accountTransactionSet: ";
      for(auto &it : rhs.accountTransactionSet){
-        os << it<<" ";//
+        os << *it<<" ";
      }
       os << " accountBalance: " << rhs.accountBalance;
     return os;
