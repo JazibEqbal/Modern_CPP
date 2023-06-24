@@ -35,17 +35,10 @@ std::function<int(containerTransaction &, std::future<TRANSACTION_TYPE> &)> getT
     return count;
 };
 
-std::function<float(containerAccount &)> totalTransactionAmount = [](containerAccount &accounts)
-{
-    if (accounts.empty())
-    {
-        throw std::runtime_error("Account list is empty\n");
-    }
-    float total = 0.0f;
-    for (auto &acc : accounts)
-    {
-        for (auto &transaction : acc->getAccountTransactionSet())
-        {
+std::function<float(containerAccount&) > totalTransactionAmount = [](containerAccount& accounts){
+    float total=0.0f;
+    for(auto &acc: accounts){
+        for(auto &transaction: acc->getAccountTransactionSet().get()){
             total += transaction->getTransactionAmount();
         }
     }
@@ -61,12 +54,9 @@ std::function<Variant(containerAccount &, TRANSACTION_TYPE)> findMaxAccountBalan
     }
     float maxBalance = 0.0f;
     Variant v;
-    for (auto &acc : accounts)
-    {
-        for (auto &trans : acc->getAccountTransactionSet())
-        {
-            if (trans->getTransactionType() == type)
-            {
+    for(auto &acc: accounts){
+        for(auto &trans: acc->getAccountTransactionSet().get()){
+            if(trans->getTransactionType() == type){
                 maxBalance = acc->getAccountBalance();
                 v = acc->getAccountId();
             }
@@ -90,8 +80,7 @@ std::function<std::optional<containerAccount>(containerAccount &, float)> accoun
     for (auto &ac : accounts)
     {
         float total = 0.0f;
-        for (auto &transaction : ac->getAccountTransactionSet())
-        {
+        for(auto &transaction: ac->getAccountTransactionSet().get()){
             total += transaction->getTransactionAmount();
             if (total > threshold)
             {
@@ -124,7 +113,7 @@ std::function<Variant(containerAccount &, int, Variant)> nthTransactionId =
     for (auto &it : accounts)
     {
         auto itr = std::next(accounts.begin(), N);
-        for (auto &trans : it->getAccountTransactionSet())
+        for (auto &trans : it->getAccountTransactionSet().get())
         {
             if ((itr)->get()->getAccountId() == v)
             {
@@ -138,21 +127,13 @@ std::function<Variant(containerAccount &, int, Variant)> nthTransactionId =
     }
 };
 
-std::function<float(containerAccount &, Variant)> averageTransactionAmount =
-    [](containerAccount &accounts, Variant v)
-{
-    if (accounts.empty())
-    {
-        throw std::runtime_error("Account list is empty\n");
-    }
-    float total = 0.0f;
-    int count = 0;
-    for (auto &acc : accounts)
-    {
-        for (auto &transaction : acc->getAccountTransactionSet())
-        {
-            if (acc->getAccountId() == v)
-            {
+std::function<float(containerAccount&,Variant) > averageTransactionAmount = 
+[](containerAccount& accounts,Variant v){
+    float total =0.0f;
+    int count=0;
+    for(auto &acc: accounts){
+        for(auto &transaction: acc->getAccountTransactionSet().get()){
+            if(acc->getAccountId() == v){
                 total += transaction->getTransactionAmount();
                 count++;
             }
@@ -180,13 +161,11 @@ std::function<float(std::future<containerAccount> &)> balanceInterestAmount =
     return cumulativeInterest;
 };
 
-std::function<bool(myAccountpointer &)> isAccountValid = [](myAccountpointer &account)
-{
-    bool isTransactionValid = std::all_of(account->getAccountTransactionSet().begin(), account->getAccountTransactionSet().end(),
-                                          [](myTransactionpointer &transaction)
-                                          {
-                                              return transaction->getTransactionAmount() > 500.0f;
-                                          });
+std::function<bool(myAccountpointer&) > isAccountValid = [](myAccountpointer& account){
+    bool isTransactionValid = std::all_of(account->getAccountTransactionSet().get().begin(),account->getAccountTransactionSet().get().end(),
+    [](myTransactionpointer& transaction){
+        return transaction->getTransactionAmount() > 500.0f;
+    });
 
-    return (account->getAccountBalance() > 10000.0f && account->getAccountTransactionSet().size() >= 3 && isTransactionValid);
+    return (account->getAccountBalance() > 10000.0f && account->getAccountTransactionSet().get().size() >= 3 && isTransactionValid);
 };
