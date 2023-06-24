@@ -10,7 +10,7 @@
 #include<memory>
 
 using myAccountVariant= std::variant<int,std::string>;
-using wrappertransaction = std::vector<std::shared_ptr<Transaction>>;
+using wrappertransaction =std::reference_wrapper<std::vector<std::shared_ptr<Transaction>>>;
 class Account
 {
 private:
