@@ -1,33 +1,51 @@
 #ifndef FUNCTIONALITIES_H
 #define FUNCTIONALITIES_H
-#include<iostream>
-#include<optional>
-#include<functional>
-#include<algorithm>
-#include<vector>
-#include<memory>
-#include<thread>
-#include<future>
-#include<variant>
-#include<thread>
-#include "Accout.h"
-#include "Trasaction.h"
-#include "TransactionTypeee.h"
+#include "Transaction.h"
+#include "Account.h"
+#include "TransactionType.h"
+#include <iostream>
+#include <optional>
+#include <functional>
+#include <algorithm>
+#include <vector>
+#include <memory>
+#include <thread>
+#include <future>
+#include <variant>
+#include <thread>
 
-using myTransactionpointer = std::shared_ptr<Trasaction>;
-using containerTransaction  = std::vector<myTransactionpointer>;
+// Transaction
+using myTransactionpointer = std::shared_ptr<Transaction>;
+using containerTransaction = std::vector<myTransactionpointer>;
 
-using myAccountpointer = std::shared_ptr<Accout>;
+// Account
+using myAccountpointer = std::shared_ptr<Account>;
+using containerAccount = std::vector<myAccountpointer>;
 
-using myAccountpointer = std::shared_ptr<Accout>;
+using Variant = std::variant<int, std::string>;
 
-using accVariant = std::variant<int,std::string>;
+// 1
+extern std::function<int(containerTransaction &, std::future<TRANSACTION_TYPE> &)> getTheCountOfMatchingTransactionType;
 
-extern std::function<int(containerTransaction, enum class TRANSACTION_TYPE) > getTheCountOfMatchingTransactionType;
+// 2
+extern std::function<float(containerAccount &)> totalTransactionAmount;
 
-extern std::function<float(containerTransaction &data) > getTotalOfTransactionAmount;
+// 3
+extern std::function<Variant(containerAccount &, TRANSACTION_TYPE)> findMaxAccountBalanceId;
 
-extern std::function<int(containerTransaction, enum class TRANSACTION_TYPE) > getTheCountOfMatchingTransactionType;
+// 4
+extern std::function<std::optional<containerAccount>(containerAccount &, float)> accountAboveThreshold;
 
+// 5
+extern std::function<Variant(containerAccount &, int, Variant)> nthTransactionId;
+
+// 6
+extern std::function<float(containerAccount &, Variant)> averageTransactionAmount;
+
+//7
+extern std::function<float(std::future<containerAccount> &)> balanceInterestAmount;
+
+//8
+extern std::function<bool(myAccountpointer&) > isAccountValid;
 
 #endif // FUNCTIONALITIES_H
