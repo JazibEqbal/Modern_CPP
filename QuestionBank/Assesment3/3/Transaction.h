@@ -1,22 +1,22 @@
-#ifndef TRASACTION_H
-#define TRASACTION_H
+#ifndef TRANSACTION_H
+#define TRANSACTION_H
 #include<iostream>
 #include<variant>
-#include "TransactionTypeee.h"
+#include "TransactionType.h"
 
 using myVariant = std::variant<int,std::string>;
 
-class Trasaction
+class Transaction
 {
 private:
     myVariant transactionId;
     float transactionAmount;
     TRANSACTION_TYPE transactionType;
 public:
-    Trasaction() = delete;
-    Trasaction(const Trasaction&) = default;
-    Trasaction(myVariant id,float amount,TRANSACTION_TYPE type);
-    ~Trasaction();
+    Transaction() = delete;
+    Transaction(const Transaction&) = default;
+    Transaction(myVariant id,float amount,TRANSACTION_TYPE type);
+    ~Transaction();
 
     myVariant getTransactionId() const { return transactionId; }
     void setTransactionId(const myVariant &transactionId_) { transactionId = transactionId_; }
@@ -26,8 +26,9 @@ public:
 
     TRANSACTION_TYPE getTransactionType() const { return transactionType;};
 
-    friend std::ostream &operator<<(std::ostream &os, const Trasaction &rhs);
+    friend std::ostream &operator<<(std::ostream &os, const Transaction &rhs);
 };
 std::string displayEnum(enum class TRANSACTION_TYPE type);
 
-#endif // TRASACTION_H
+
+#endif // TRANSACTION_H

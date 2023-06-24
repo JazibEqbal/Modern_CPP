@@ -1,13 +1,13 @@
-#include "Trasaction.h"
+#include "Transaction.h"
 
-Trasaction::Trasaction(myVariant id, float amount, TRANSACTION_TYPE type) : transactionId{id}, transactionAmount{amount},
+Transaction::Transaction(myVariant id, float amount, TRANSACTION_TYPE type) : transactionId{id}, transactionAmount{amount},
                                                                             transactionType{type} {}
 
-Trasaction::~Trasaction()
+Transaction::~Transaction()
 {
     std::cout << "Transaction Destroyed\n";
 }
-std::ostream &operator<<(std::ostream &os, const Trasaction &rhs)
+std::ostream &operator<<(std::ostream &os, const Transaction &rhs)
 {
     os << " Transaction Id: ";
     std::visit([&](auto arg)

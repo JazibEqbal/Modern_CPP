@@ -1,21 +1,21 @@
-#include "Accout.h"
+#include "Account.h"
 
-Accout::Accout(myAccountVariant id, wrappertransaction trans, float balance)
+Account::Account(myAccountVariant id, wrappertransaction trans, float balance)
  : accountId{id}, accountTransactionSet{trans}, accountBalance{balance} {}
 
-Accout::~Accout()
+Account::~Account()
 {
     std::cout<<"Account destroyed\n";
 }
 
-std::ostream &operator<<(std::ostream &os, const Accout &rhs) {
+std::ostream &operator<<(std::ostream &os, const Account &rhs) {
         os << " Account Id: ";
     std::visit([&](auto arg)
                { os << arg; },
                rhs.accountId);
      os  << " accountTransactionSet: ";
      for(auto &it : rhs.accountTransactionSet){
-        os << it.get()->getTransactionAmount()<<" ";
+        os << it<<" ";//
      }
       os << " accountBalance: " << rhs.accountBalance;
     return os;
