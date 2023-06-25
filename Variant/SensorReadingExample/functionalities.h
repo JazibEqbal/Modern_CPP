@@ -21,8 +21,10 @@ extern std::function<float(myPointer &obj, std::list<myVariant> &id)> findAverag
 
 extern std::function<READING_TYPE(myPointer &obj, myVariant)> findSenorId;
 
+// extern std::function<myPointer(const myPointer &, float)> findReadingsAboveThreshold;
+
 extern std::function<std::optional<myPointer>(myPointer &,float)> findReadingsAboveThreshold;
 
-extern std::function<std::optional<myPointer>(const myPointer &, int)> findFirstNSensors;
+// extern std::function<myPointer(const myPointer &, int)> findFirstNSensors;
 
 #endif // FUNCTIONALITIES_H

@@ -4,6 +4,7 @@
 #include<algorithm>
 #include<functional>
 #include<numeric>
+#include<thread>
 #include<memory>
 #include<array>
 #include<unordered_map>

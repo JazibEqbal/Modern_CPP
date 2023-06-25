@@ -102,6 +102,7 @@ std::function<void(Conatiner &data) > ApplicantByPropoertyArea = [](Conatiner &d
 
 //Other Way
 std::function<void(Conatiner &data) > HighestLoanAmountAccepted =[](Conatiner &data){
+    
     std::vector<Pointer> v(data.size());
     auto itr = std::copy_if(data.begin(),data.end(),v.begin(),[](Pointer &p){
         return p->isDataLoanStatus();
