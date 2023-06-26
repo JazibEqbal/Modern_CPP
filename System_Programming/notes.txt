@@ -13,3 +13,31 @@ when we ask a os to do something we make a sys call
 
 with threading you share memory but with multithreading you don'that
 
+linux is made up of -- Kernel,GNU Utilities, Desktop environment, applications, Shell
+
+Shell is something which stands between user and os. It understands the commands & breaks it down for os to execute
+
+tty- tely type termunal - without gui
+pts - psuedo terminal - with graphics
+
+adding a new user account- sudo useradd -m -d /home/example -s /bin/bash -u 222 example
+adding password - sudo passwd example
+switch account - su - example
+
+add permissions : chmod o+w destination/file_name | --o for others -- w for write access
+
+set rwx rwx rwx permissions on a file --  chmod +x destination/file_name
+                                          chmod u=rwx,g=rwx,o=rwx /destination
+                                        
+remove x permission from user and group and wx for others - chmod u-x,g-x,o-wx destination/file_name
+
+delete account: sudo userdel -r example
+
+getent passwd example --check if account is there or not
+
+forwarding the error (redirection of files) -- 
+ls -l /tmp/example /tmp/dhfhjdjj(gives error) 2>/tmp/error
+forwards the error from dhfhjdjj to error file
+
+
+~

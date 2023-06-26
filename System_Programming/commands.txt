@@ -26,7 +26,7 @@ cat > --to override
 1               2                  3               4         r=4 x=1 w=2
 -              rwx                r-x             r-x
                 |
-          read and write
+          read and write                           x - access
 
 1) type of file(- means regular file)
 2) permission for owner of the file: read & write
@@ -35,3 +35,6 @@ cat > --to override
 
 
 & - launch a command and automatic puts that process in background and it is running
+
+
+valgrind --leak-check=yes exe_file_name --to check memory leaks
