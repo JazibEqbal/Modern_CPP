@@ -1,0 +1,10 @@
+#ifndef VEHICLETYPE_H
+#define VEHICLETYPE_H
+
+enum class VEHICLE_TYPE{
+    PRIVATE,
+    COMMERCIAL,
+    SPECIAL_PURPOSE
+};
+
+#endif // VEHICLETYPE_H

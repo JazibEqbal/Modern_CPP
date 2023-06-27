@@ -1,0 +1,9 @@
+#ifndef INSURANCETYPE_H
+#define INSURANCETYPE_H
+
+enum class INSURANCE_TYPE{
+    ZERO_DEBT,
+    REGULAR
+};
+
+#endif // INSURANCETYPE_H
