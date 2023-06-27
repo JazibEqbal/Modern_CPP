@@ -9,22 +9,23 @@
 #include<memory>
 #include<numeric>
 #include<list>
+#include<set>
 
 using Pointer = std::shared_ptr<Person>; //shared pointer to object
 using Conatiner = std::vector<Pointer>;  //creating vector of pointer objects
 
 //creating vector of objects
-std::function<void(Conatiner &) > createEnteries = [](Conatiner &obj){
-    obj[0]= std::make_shared<Person>(22,59000,INTENT_TYPE::PERSONAL,35000,16.02f,true);
-    obj[1]= std::make_shared<Person>(25,9600,INTENT_TYPE::MEDICAL,5500,12.87f,true);
-    obj[2]= std::make_shared<Person>(23,65500,INTENT_TYPE::MEDICAL,35000,15.23f,true);
-    obj[3]= std::make_shared<Person>(24,54400,INTENT_TYPE::MEDICAL,35000,14.27f,true);
-    obj[4]= std::make_shared<Person>(21,9900,INTENT_TYPE::VENTURE,2500,7.14f,true);
-    obj[5]= std::make_shared<Person>(26,77100,INTENT_TYPE::EDUCATION,35000,12.42f,true);
-    obj[6]= std::make_shared<Person>(24,78956,INTENT_TYPE::MEDICAL,35000,11.11f,true);
-    obj[7]= std::make_shared<Person>(24,83000,INTENT_TYPE::PERSONAL,35000,8.9f,true);
-    obj[8]= std::make_shared<Person>(21,10000,INTENT_TYPE::VENTURE,1600,14.74f,true);
-    obj[9]= std::make_shared<Person>(22,85000,INTENT_TYPE::VENTURE,35000,10.37f,true);
+std::function<void(Conatiner &) > createEnteries = [](Conatiner &data){
+    data.emplace_back(std::make_shared<Person>(22,59000,INTENT_TYPE::PERSONAL,35000,16.02f,true));
+    data.emplace_back(std::make_shared<Person>(25,9600,INTENT_TYPE::MEDICAL,5500,12.87f,true));
+    data.emplace_back(std::make_shared<Person>(23,65500,INTENT_TYPE::MEDICAL,35000,15.23f,true));
+    data.emplace_back(std::make_shared<Person>(24,54400,INTENT_TYPE::MEDICAL,35000,14.27f,true));
+    data.emplace_back(std::make_shared<Person>(21,9900,INTENT_TYPE::VENTURE,2500,7.14f,true));
+    data.emplace_back(std::make_shared<Person>(26,77100,INTENT_TYPE::EDUCATION,35000,12.42f,true));
+    data.emplace_back(std::make_shared<Person>(24,78956,INTENT_TYPE::MEDICAL,35000,11.11f,true));
+    data.emplace_back(std::make_shared<Person>(24,83000,INTENT_TYPE::PERSONAL,35000,8.9f,true));
+    data.emplace_back(std::make_shared<Person>(21,10000,INTENT_TYPE::VENTURE,1600,14.74f,true));
+    data.emplace_back(std::make_shared<Person>(22,85000,INTENT_TYPE::VENTURE,35000,10.37f,true));
 };
 
 /*
@@ -38,7 +39,7 @@ std::function<void(Conatiner &) > AverageLoanAmount = [](Conatiner &data){
         throw std::runtime_error("List passed is empty");
     }
     int amount=0;
-    amount = std::accumulate(data.begin(),data.end(),0,[](Pointer &obj,float val){
+    amount = std::accumulate(data.begin(),data.end(),0,[](float val,Pointer &obj){
         return val + obj->loanAmnt();
     });
     std::cout<<"Average Loan Amount for entire dataset is: "<<amount/data.size()<<"\n"; //displaying here
@@ -57,18 +58,15 @@ std::function<void(Conatiner &) > ShowUniqueLoanIntentions = [](Conatiner &data)
     {
         throw std::runtime_error("List passed is empty");
     }
-    std::vector<INTENT_TYPE> v(data.size());
-    std::transform(data.begin(),data.end(),v.begin(),[](Pointer &obj){
-        return obj->getIntent();
+    std::set<INTENT_TYPE> set;
+    std::for_each(data.begin(),data.end(),[&](Pointer& d){
+        INTENT_TYPE l=d->getIntent();
+        set.insert(l);
     });
-    std::sort(v.begin(),v.end());
-    std::unique(v.begin(),v.end());
-
-    for(auto &it: v){
-        std::cout<<displayLoanIntent(it);
-    }
+    std::for_each(set.begin(),set.end(),[](INTENT_TYPE obj){
+        std::cout<<displayLoanIntent(obj)<<"\n";
+    });
 };
-
 /*
     - checking if passed set is empty or not, if empty throwing error
     - finding the max element 
@@ -83,9 +81,16 @@ std::function<void(Conatiner &) > HighestInterestRateForAcceptedLoans = [](Conat
         return obj1->loanIntRate() < obj2->loanIntRate() && (obj1->isLoanStatus() && obj2->isLoanStatus());
     });
 
-    std::cout<<(*itr)->loanIntRate()<<"\n";
+    std::cout<<"Highest loan rate: "<<(*itr)->loanIntRate()<<"\n";
 };
-
+    // std::unordered_map<bool,float> maps;
+    // auto itr=std::max_element(data.begin(),data.end(),[](DataPointer& d1,DataPointer& d2){
+    //     if(d1->loanStatus()==true){
+    //         return d1->loanIntRate() < d2->loanIntRate();
+    //     }
+    // });
+    // maps[true]=(*itr)->loanIntRate();
+    // std::cout<<"Highest Accepted Rate :"<<maps[true]<<"\n";
 /*
     - checking if passed set is empty or not, if empty throwing error
     - finding min_element from the entire dataset on age
@@ -98,7 +103,7 @@ std::function<void(Conatiner &) > MinMaxAge = [](Conatiner &data){
         throw std::runtime_error("List passed is empty");
     }
     auto minAge = std::min_element(data.begin(),data.end(),[](Pointer &obj1,Pointer &obj2){
-        return obj1->personAge() > obj2->personAge();
+        return obj1->personAge() < obj2->personAge();
     });
 
     auto maxAge = std::max_element(data.begin(),data.end(),[](Pointer &obj1,Pointer &obj2){
@@ -107,6 +112,10 @@ std::function<void(Conatiner &) > MinMaxAge = [](Conatiner &data){
 
     std::cout<<(*minAge)->personAge()<<"\n";
     std::cout<<(*maxAge)->personAge()<<"\n";
+    //OTHER WAY
+    // auto itr = std::minmax_element(data.begin(), data.end(), [](Pointer &obj1, Pointer &obj2)
+    //                                { return obj1->personAge() < obj2->personAge(); });
+    // std::cout << (*itr.first)->personAge() << " " << (*itr.second)->personAge() << " \n";
 };
 
 /*
@@ -153,6 +162,8 @@ std::function<float(Conatiner&, INTENT_TYPE) > matchingLoanIntent = [](Conatiner
         return obj->loanIntRate() && obj->getIntent() == type;
     });
     list.resize(std::distance(list.begin(),itr));
-    auto total = std::accumulate(list.begin(),list.end(),0.0f);
+    auto total = std::accumulate(list.begin(),list.end(),0.0f,[](float val, Pointer &obj){
+        return val + obj->loanAmnt();
+    });
     return total/list.size();
 };
