@@ -34,5 +34,5 @@ int main()
         std::cout << "No values found\n";
     }
 
-    matchingLoanIntent(data, INTENT_TYPE::EDUCATION);
+   std::cout<<"Average of matching loan intent is: "<<matchingLoanIntent(data, INTENT_TYPE::EDUCATION)<<"\n";
 }

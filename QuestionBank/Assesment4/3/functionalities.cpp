@@ -48,7 +48,7 @@ std::function<void(container &)> vechicleIDMinMax = [](container &data)
         throw std::runtime_error("List passed is empty");
     }
     auto minVehicleId = std::min_element(data.begin(), data.end(), [](CarPointer &obj1, CarPointer &obj2)
-                                         { return obj1->getVehicleInsurancePlan().get()->getInsuranceAmount() >
+                                         { return obj1->getVehicleInsurancePlan().get()->getInsuranceAmount() <
                                                   obj2->getVehicleInsurancePlan().get()->getInsuranceAmount(); });
 
     auto maxVehicleId = std::max_element(data.begin(), data.end(), [](CarPointer &obj1, CarPointer &obj2)
