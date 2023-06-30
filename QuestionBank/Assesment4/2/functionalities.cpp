@@ -7,6 +7,7 @@
 #include <memory>
 #include <numeric>
 #include <list>
+#include <set>
 
 using Pointer = std::shared_ptr<Manufacture>; // shared pointer to object
 using Conatiner = std::vector<Pointer>;       // creating vector of pointer objects
@@ -42,138 +43,145 @@ std::function<int(Conatiner &, int)> countCarUnits = [](Conatiner &data, int pri
     return count;
 };
 
-// /*
-//     - checking if passed set is empty or not, if empty throwing error
-//     - creating list of pointer objects
-//     - copying data into list if it satisfies the criteria
-//     - resizing the list
-//     - finally returning the average by dividing total by size of list
-// */
-// std::function<float(Conatiner &)> averageOfHorsePower = [](Conatiner &data)
-// {
-//     if (data.empty()) // checking exception if list passed is empty
-//     {
-//         throw std::runtime_error("List passed is empty");
-//     }
-//     std::list<Pointer> list(data.size());
+/*
+    - checking if passed set is empty or not, if empty throwing error
+    - creating list of pointer objects
+    - copying data into list if it satisfies the criteria
+    - resizing the list
+    - finally returning the average by dividing total by size of list
+*/
+std::function<float(Conatiner &)> averageOfHorsePower = [](Conatiner &data)
+{
+    if (data.empty()) // checking exception if list passed is empty
+    {
+        throw std::runtime_error("List passed is empty");
+    }
+    Conatiner list(data.size());
 
-//     auto itr = std::copy_if(data.begin(), data.end(), list.begin(), [](Pointer &obj)
-//                             { return obj->horsepower() && (obj->price() > 30000 && (obj->getManufacturer() == MANUFACTURER_TYPE::Cadillac || obj->getManufacturer() == MANUFACTURER_TYPE::Audi)); });
+    auto itr = std::copy_if(data.begin(), data.end(), list.begin(), [](Pointer &obj)
+                            { return obj->horsepower() && obj->price() > 30000 && (obj->getManufacturer() == MANUFACTURER_TYPE::Cadillac || obj->getManufacturer() == MANUFACTURER_TYPE::Audi); });
 
-//     list.resize(std::distance(list.begin(), itr));
+    list.resize(std::distance(list.begin(), itr));
 
-//     auto total = std::accumulate(list.begin(), list.end(), 0.0f);
-//     return total / list.size();
-// };
+    auto total = std::accumulate(list.begin(), list.end(), 0.0f, [](float val, Pointer &obj)
+                                 { return val + obj->horsepower(); });
+    return total / list.size();
+};
 
-// /*
-//     - checking if passed set is empty or not, if empty throwing error
-//     - initializing a total varibale to 0
-//     - accumulating to total based on given conditions
-//     - returning the total
-// */
-// std::function<int(Conatiner &)> combinedInsuranceCost = [](Conatiner &data)
-// {
-//     if (data.empty()) // checking exception if list passed is empty
-//     {
-//         throw std::runtime_error("List passed is empty");
-//     }
-//     int total = 0;
-//     total = std::accumulate(data.begin(),data.end(),0,[&](int value,Pointer &obj){
-//         if(obj->getManufacturer() == MANUFACTURER_TYPE::BMW){
-//             total = value + obj->price() * 0.1;
-//         }else{
-//             total = value + obj->price() * 0.08;
-//         }
-//     });
-//     return total;
-// };
+/*
+    - checking if passed set is empty or not, if empty throwing error
+    - initializing a total varibale to 0
+    - accumulating to total based on given conditions
+    - returning the total
+*/
+std::function<int(Conatiner &)> combinedInsuranceCost = [](Conatiner &data)
+{
+    if (data.empty()) // checking exception if list passed is empty
+    {
+        throw std::runtime_error("List passed is empty");
+    }
+    int total = 0;
+    total = std::accumulate(data.begin(), data.end(), 0, [&](int value, Pointer &obj)
+                            {
+        if(obj->getManufacturer() == MANUFACTURER_TYPE::BMW){
+            return value + obj->price() * 0.1;
+        }else{
+            return value + obj->price() * 0.08;
+        } });
+    return total;
+};
 
-// /*
-//     - checking if passed set is empty or not, if empty throwing error
-//     - creating list of pointer objects
-//     - copying data into list if it satisfies the criteria
-//     - resizing the list
-//     - finding maximum element from the list with maximum horsepower
-//     - returning the model for the max object found
-// */
+/*
+    - checking if passed set is empty or not, if empty throwing error
+    - creating list of pointer objects
+    - copying data into list if it satisfies the criteria
+    - resizing the list
+    - finding maximum element from the list with maximum horsepower
+    - returning the model for the max object found
+*/
 std::function<std::string(Conatiner &)> modelOfMaximumHorsePower = [](Conatiner &data)
 {
     if (data.empty()) // checking exception if list passed is empty
     {
         throw std::runtime_error("List passed is empty");
     }
-    std::list<Pointer> list(data.size());
+    Conatiner result(data.size());
 
-    auto itr = std::copy_if(data.begin(),data.end(),list.begin(),[](Pointer &obj){
-        return obj->horsepower() 
-        && (obj->price() > 30000 && obj->resaleValue() == 20000 && obj->horsepower() > 150);
-    });
-    list.resize(std::distance(list.begin(),itr));
-    auto itrMax = std::max_element(list.begin(), list.end(), [](Pointer &obj1, Pointer &obj2)
-                                { return obj1->horsepower() < obj2->horsepower(); });
+    auto itr = std::copy_if(data.begin(), data.end(), result.begin(), [](Pointer &obj)
+                            { return obj->price() > 30000 && obj->resaleValue() == 20000 && obj->horsepower() > 150; });
 
-    return (*itrMax)->model();
+    result.resize(std::distance(result.begin(), itr));
+    
+    auto itrMax = std::max_element(result.begin(), result.end(), [](Pointer &obj1, Pointer &obj2)
+                                   { return obj1->horsepower() < obj2->horsepower(); });
+    if (itrMax != result.end())
+    {
+        return (*itrMax)->model();
+    }
+
+    return std::string();
 };
 
-// /*
-//     - checking if passed set is empty or not, if empty throwing error
-//     - creating a container of size of data
-//     - transforming data into list based on satisfied criteria
-//     - resizing the container
-//     - sorting the list
-//     - removing duplicates
-//     - check if container size is still 0 or above, if 0 returning empty container else the container of objects
-// */
-std::function<std::optional<std::list<MANUFACTURER_TYPE>>(Conatiner&) > uniqueCarBrands = [](Conatiner &data)
+/*
+    - checking if passed set is empty or not, if empty throwing error
+    - creating a container of size of data
+    - transforming data into list based on satisfied criteria
+    - resizing the container
+    - sorting the list
+    - removing duplicates
+    - check if container size is still 0 or above, if 0 returning empty container else the container of objects
+*/
+std::function<std::optional<std::set<MANUFACTURER_TYPE>>(Conatiner &)> uniqueCarBrands = [](Conatiner &data)
 {
     if (data.empty()) // checking exception if list passed is empty
     {
         throw std::runtime_error("List passed is empty");
     }
-    std::list<MANUFACTURER_TYPE> list(data.size());
-
-    auto itr = std::transform(data.begin(), data.end(), list.begin(), [](Pointer &obj)
-                   {
-            if(obj->horsepower() > 150 && obj->resaleValue() > 35000){
-                return obj->getManufacturer();
-            } });
-    list.resize(std::distance(list.begin(),itr));
-    // std::sort(list.begin(), list.end());
-    std::unique(list.begin(), list.end());
-    if(list.size() == 0){
-        return std::list<MANUFACTURER_TYPE>();
-    }else{
-        return list;
+    std::set<MANUFACTURER_TYPE> set;
+    std::for_each(data.begin(), data.end(), [&](Pointer &d)
+                  {
+        MANUFACTURER_TYPE l=d->getManufacturer();
+        set.insert(l); });
+    if (set.size() == 0)
+    {
+        return std::set<MANUFACTURER_TYPE>();
+    }
+    else
+    {
+        return set;
     }
 };
 
-// /*
-//     - checking if passed set is empty or not, if empty throwing error
-//     - creating a container of size of data
-//     - copying data into list based on satisfied criteria
-//     - resizing the container
-//     - check if container size is still 0 or above, if 0 returning empty container else the container of objects
-// */
-std::function<std::optional<std::list<MANUFACTURER_TYPE>>(Conatiner &, int)> modelsAboveThreshold =
+/*
+    - checking if passed set is empty or not, if empty throwing error
+    - creating a container of size of data
+    - copying data into list based on satisfied criteria
+    - resizing the container
+    - check if container size is still 0 or above, if 0 returning empty container else the container of objects
+*/
+std::function<std::optional<std::list<std::string>>(Conatiner &, int)> modelsAboveThreshold =
     [](Conatiner &data, int threshold)
 {
     if (data.empty()) // checking exception if list passed is empty
     {
         throw std::runtime_error("List passed is empty");
     }
-    std::list<MANUFACTURER_TYPE> list(data.size());
+    std::list<std::string> list(data.size());
 
-    auto itr = std::transform(data.begin(), data.end(), list.begin(), [&](Pointer &obj)
-                            { if(obj->price() > threshold){
-                                return obj->getManufacturer();
-                            } });
+    auto itr = std::transform(data.begin(), data.end(), list.begin(),
+                              [&](Pointer obj)
+                              {
+                                  std::string str;
 
-    list.resize(std::distance(list.begin(), itr));
-
+                                  if (obj->price() > threshold)
+                                  {
+                                      str = obj->model();
+                                  }
+                                  return str;
+                              });
     if (list.size() == 0)
     {
-        return std::list<MANUFACTURER_TYPE>();
+        return std::list<std::string>();
     }
     else
     {
