@@ -1,0 +1,10 @@
+#ifndef DATACATEGORY_H
+#define DATACATEGORY_H
+
+enum DATA_CATEGORY  {
+    URGENT,
+    DEFERRED,
+    ROUTINE
+};
+
+#endif // DATACATEGORY_H
