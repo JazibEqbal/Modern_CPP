@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import filedialog, ttk, Button, Text, Label, Canvas
 from tkinter import *
 
+
 class HTMLFileLoaderApp:
     def __init__(self):
         self.window = tk.Tk()
@@ -95,11 +96,11 @@ class HTMLFileLoaderApp:
             self.text_excel.insert('end', file_path)
 
     def execute(self):
-        progress = 0
+        progress = 0  # declaring a variable to hold value of progress execution
         if len(self.hold_file_path.get()) > 0:  # on clicking execute button it checks if the file if selected or not
             while progress < 100:
-                progress += 10
-                self.progress_var.set(progress)
+                progress += 20  # incrementing progress by 20% each time
+                self.progress_var.set(progress)  # setting the progress value in the variable var of progress bar
                 self.execute_button.config(text=f"{progress}%")  # Update the button text
                 self.window.update_idletasks()
                 self.window.after(500)  # Delay for demonstration purposes
