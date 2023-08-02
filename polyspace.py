@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog, ttk, Button, Text, Label, Canvas
 from tkinter import *
+from PIL import ImageTk, Image
 
 
 class HTMLFileLoaderApp:
@@ -13,38 +14,28 @@ class HTMLFileLoaderApp:
         self.progress_var = tk.DoubleVar()  # to hold value of type float for execution percentage
         self.button_disabled = False
         self.execution_success = False
+        self.zip_button = None
+        self.html_button = None
+        self.excel_button = None
+        self.exit_button = None
+        self.text_html = None
+        self.text_excel = None
+        self.execute_button = None
+        self.progress_bar = None
+        self.output_log = None
+        self.output_reset_log = None
         self.create_widgets()
 
-    # def dis(self):
-    #     if self.hold_file_path.get() > 0:
-    #         self.button_disabled = True
-
-    # def get_file_path(self):
-    #     return self.hold_file_path
-    #
-    # def set_button_status(self, button_disabled):
-    #     self.button_disabled = button_disabled
-
     def create_widgets(self):
-        image = tk.Label(self.window, text='Poly', bg='#CD3167', fg='#fff', font='Times 18 italic')
-        image.place(x=0, y=0, width=80, height=70)
+        img = Image.open("logo.png")
+        logo = ImageTk.PhotoImage(img)
 
-
-        # image = tk.PhotoImage(file="logo.png", height=100, width=200)
-        # x = tk.Label(self.window, image=image)
-        # x.place(x=0, y=0, width=80, height=70)
-
-
-        # canvas = Canvas(self.window)
-        # canvas.place(x=0, y=0, width=80, height=70)
-        # img = tk.PhotoImage(file="logo.png")
-        # canvas.create_image(10, 10, image=img)
-        # def switch(self):
-        #     if len(self.hold_file_path.get() > 0):
-        #         self.html_button["state"] = DISABLED
+        label1 = tk.Label(image=logo)
+        label1.img = logo
+        label1.place(x=0, y=0, width=80, height=70)
 
         self.zip_button = tk.Button(self.window, text='CREATE ZIP', bg='#000', fg='#fff',
-                                    activebackground='#000', activeforeground='#fff')
+                                    activebackground='#000', activeforeground='#fff', command=self.load_zip_file)
         self.zip_button.place(x=0, y=70, width=80, height=30)
 
         self.html_button = tk.Button(self.window, text='Load Html File', bg='#FF34B3', activebackground='#FF34B3',
@@ -61,12 +52,15 @@ class HTMLFileLoaderApp:
                                      activebackground='#808080', command=self.exit_app)
         self.exit_button.place(x=81, y=71, width=90, height=29)
 
+        # html holder button
         self.text_html = Text(self.window)
         self.text_html.place(x=171, y=0, width=479, height=35)
 
+        # xml holder button
         self.text_excel = Text(self.window)
         self.text_excel.place(x=171, y=36, width=479, height=35)
 
+        # execute button
         self.execute_button = tk.Button(self.window, text='EXECUTE', bg='#008000', fg='#fff',
                                         activebackground='#008000', command=self.execute)
         self.execute_button.place(x=171, y=71, width=479, height=29)
@@ -75,25 +69,41 @@ class HTMLFileLoaderApp:
         self.progress_bar = ttk.Progressbar(self.window, variable=self.progress_var, maximum=100, mode='determinate')
         self.progress_bar.place(x=0, y=101, width=650, height=25)
 
-        # self.load_button = tk.Button(self.window, text="Load HTML File", command=self.load_html_file)
-        # self.execute_button = tk.Button(self.window, text="Execute", command=self.execute)
-        # self.file_path_text = tk.Text(self.window, height=1, width=50)
-        # self.progress_bar = ttk.Progressbar(self.window, variable=self.progress_var, maximum=100, mode="determinate")
-        # self.progress_bar.pack(pady=5, fill='x')
-
     def load_html_file(self):
         file_path = filedialog.askopenfilename(filetypes=[("HTML files", "*.html")])
         if file_path:
-            self.hold_file_path.set(file_path)
-            # self.hold_file_path.delete(1.0, 'end')
+            if not self.hold_file_path.get():
+                self.hold_file_path.set(file_path)
+            else:
+                self.hold_file_path.set(file_path)  # over riding/updating
+            self.text_html.delete(1.0, 'end')
             self.text_html.insert('end', file_path)
+            # self.getPath()
 
     def load_excel_file(self):
         file_path = filedialog.askopenfilename(filetypes=[('XML files', '*.xml')])
         if file_path:
-            self.hold_file_path.set(file_path)
-            # self.hold_file_path.delete(1.0, 'end')
+            if not self.hold_file_path.get():
+                self.hold_file_path.set(file_path)
+            else:
+                self.hold_file_path.set(file_path)
+            self.text_excel.delete(1.0, 'end')
             self.text_excel.insert('end', file_path)
+
+    @staticmethod
+    def load_zip_file():
+        file_path = filedialog.askopenfilename(filetypes=[("Zip files", "*.zip")])
+        # if file_path:
+        #     if not self.hold_file_path.get():
+        #         self.hold_file_path.set(file_path)
+        #     else:
+        #         self.hold_file_path.set(file_path)
+        #     self.text_excel.delete(1.0, 'end')
+        #     self.text_excel.insert('end', file_path)
+
+    # function to get the selected file path
+    def get_path(self):
+        return self.hold_file_path.get()
 
     def execute(self):
         progress = 0  # declaring a variable to hold value of progress execution
@@ -120,20 +130,21 @@ class HTMLFileLoaderApp:
         # print('hehe')
 
     def success_msg(self):
-        if self.execution_success:
-            print('succ')
-            self.outputLog = Label(self.window, text='File Parsed Successfully', bg='green')
-            print('ss')
-            self.outputLog.place(x=0, y=127, width=650, height=25)
+        if self.execution_success:  # if execution was 100% then only
+            # print('Before')
+            log_report = f'File Parsed Successfully!. Log report can be found at {self.get_path()}'
+            self.output_log = tk.Label(self.window, text=log_report, bg='green', anchor=W)
+            # print('After')
+            self.output_log.place(x=0, y=127, width=650, height=25)
             self.window.update_idletasks()
             self.window.after(3000)  # adding a delay of 3s so that can user can view the success msg
             self.reset_success_msg()  # calling reset_success_msg() function
 
     def reset_success_msg(self):
-        print('before')
-        self.output_reset_log = Label(self.window, text='reset')
+        # print('before')
+        self.output_reset_log = Label(self.window, text='', anchor=W)
         self.output_reset_log.place(x=0, y=127, width=650, height=25)
-        print('after')
+        # print('after')
 
     def exit_app(self):
         self.window.quit()  # calling quit method to handle click and close the window
