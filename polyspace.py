@@ -18,11 +18,11 @@ class HTMLFileLoaderApp:
     #     if self.hold_file_path.get() > 0:
     #         self.button_disabled = True
 
-    def get_file_path(self):
-        return self.hold_file_path
-
-    def set_button_status(self, button_disabled):
-        self.button_disabled = button_disabled
+    # def get_file_path(self):
+    #     return self.hold_file_path
+    #
+    # def set_button_status(self, button_disabled):
+    #     self.button_disabled = button_disabled
 
     def create_widgets(self):
         image = tk.Label(self.window, text='Poly', bg='#CD3167', fg='#fff', font='Times 18 italic')
@@ -79,10 +79,6 @@ class HTMLFileLoaderApp:
         # self.file_path_text = tk.Text(self.window, height=1, width=50)
         # self.progress_bar = ttk.Progressbar(self.window, variable=self.progress_var, maximum=100, mode="determinate")
         # self.progress_bar.pack(pady=5, fill='x')
-    def set_execution(self, execution_success):
-        self.execution_success = execution_success
-        # print(self.execution_success)
-        # print('hehe')
 
     def load_html_file(self):
         file_path = filedialog.askopenfilename(filetypes=[("HTML files", "*.html")])
@@ -117,8 +113,10 @@ class HTMLFileLoaderApp:
         self.execute_button.config(text="EXECUTE")  # Reset the button text
         self.hold_file_path.set('')  # setting the file path again to zero
 
-    def exit_app(self):
-        self.window.quit()  # calling quit method to handle click and close the window
+    def set_execution(self, execution_success):
+        self.execution_success = execution_success
+        # print(self.execution_success)
+        # print('hehe')
 
     def success_msg(self):
         if self.execution_success:
@@ -132,9 +130,12 @@ class HTMLFileLoaderApp:
 
     def reset_success_msg(self):
         print('before')
-        self.outputResetLog = Label(self.window, text='reset')
-        self.outputResetLog.place(x=0, y=127, width=650, height=25)
+        self.output_reset_log = Label(self.window, text='reset')
+        self.output_reset_log.place(x=0, y=127, width=650, height=25)
         print('after')
+
+    def exit_app(self):
+        self.window.quit()  # calling quit method to handle click and close the window
 
     def run(self):
         self.window.mainloop()
