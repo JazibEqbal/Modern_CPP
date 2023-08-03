@@ -30,20 +30,23 @@ class HTMLFileLoaderApp:
     def create_widgets(self):
         # img = Image.open(r"C:\Users\jazibe\Desktop")
         # logo = ImageTk.PhotoImage(img)
-
-        label1 = tk.Label(self.window, text='Image', bg='#ffb6c1')
         # label1.img = logo
+
+        # image
+        label1 = tk.Label(self.window, text='Image', bg='#ffb6c1')
         label1.place(x=0, y=0, width=80, height=70)
 
+        # zip button
         self.zip_button = tk.Button(self.window, text='CREATE ZIP', bg='#000', fg='#fff',
                                     activebackground='#000', activeforeground='#fff', command=self.load_zip_file)
         self.zip_button.place(x=0, y=70, width=80, height=30)
 
+        # html button
         self.html_button = tk.Button(self.window, text='Load Html File', bg='#FF34B3', activebackground='#FF34B3',
                                      fg='#fff', command=self.load_html_file)
         self.html_button.place(x=81, y=0, width=90, height=35)
-        # self.html_button.bind('<Button>', self.dis)
 
+        # xml button
         self.excel_button = tk.Button(self.window, text='Load Excel File', bg='#FF34B3', activebackground='#FF34B3',
                                       fg='#fff', command=self.load_excel_file)
         self.excel_button.place(x=81, y=35, width=90, height=35)
@@ -53,11 +56,11 @@ class HTMLFileLoaderApp:
                                      activebackground='#808080', command=self.exit_app)
         self.exit_button.place(x=81, y=71, width=90, height=29)
 
-        # html holder button
+        # html holder
         self.text_html = Text(self.window)
         self.text_html.place(x=171, y=0, width=479, height=35)
 
-        # xml holder button
+        # xml holder
         self.text_excel = Text(self.window)
         self.text_excel.place(x=171, y=36, width=479, height=35)
 
@@ -138,7 +141,7 @@ class HTMLFileLoaderApp:
         self.execution_success = execution_success
         # print(self.execution_success)
         # print('here')
-    
+
     # function to show up when process executed 100%
     def success_msg(self):
         if self.execution_success:  # if execution was 100% then only
@@ -158,18 +161,19 @@ class HTMLFileLoaderApp:
         self.window.update_idletasks()
         self.window.after(3000)  # adding a delay of 3s so that can user can view the success msg
         self.reset_msg()  # calling reset_msg() function
-    
+
     # function to reset output log to empty
     def reset_msg(self):
         # print('before')
         self.output_reset_log = Label(self.window, text='', anchor=W)
         self.output_reset_log.place(x=0, y=125, width=650, height=29)
         # print('after')
-    
+
     # function to close app, handled by exit button
     def exit_app(self):
         self.window.quit()  # calling quit method to handle click and close the window
 
+    # function to run the program 
     def run(self):
         self.window.mainloop()
 
