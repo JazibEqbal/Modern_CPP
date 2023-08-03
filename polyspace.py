@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog, ttk, Button, Text, Label, Canvas
 from tkinter import *
-# from PIL import ImageTk, Image
+from PIL import ImageTk, Image
 
 
 class HTMLFileLoaderApp:
@@ -28,13 +28,16 @@ class HTMLFileLoaderApp:
         self.create_widgets()
 
     def create_widgets(self):
-        # img = Image.open(r"C:\Users\jazibe\Desktop")
-        # logo = ImageTk.PhotoImage(img)
-        # label1.img = logo
+        img = Image.open("logo.png")
+        logo = ImageTk.PhotoImage(img)
+
+        label1 = tk.Label(image=logo)
+        label1.img = logo
+        label1.place(x=0, y=0, width=80, height=70)
 
         # image
-        label1 = tk.Label(self.window, text='Image', bg='#ffb6c1')
-        label1.place(x=0, y=0, width=80, height=70)
+        # label1 = tk.Label(self.window, text='Image', bg='#ffb6c1')
+        # label1.place(x=0, y=0, width=80, height=70)
 
         # zip button
         self.zip_button = tk.Button(self.window, text='CREATE ZIP', bg='#000', fg='#fff',
@@ -146,7 +149,7 @@ class HTMLFileLoaderApp:
     def success_msg(self):
         if self.execution_success:  # if execution was 100% then only
             # print('Before')
-            log_report = f'File Parsed Successfully!. Log report can be found at {self.get_path()}'
+            log_report = f'File Parsed Successfully!. Log report can be found at C:/{self.get_path()}'
             self.output_log = tk.Label(self.window, text=log_report, bg='green', anchor=W)
             # print('After')
             self.output_log.place(x=0, y=125, width=650, height=29)
@@ -173,7 +176,7 @@ class HTMLFileLoaderApp:
     def exit_app(self):
         self.window.quit()  # calling quit method to handle click and close the window
 
-    # function to run the program 
+    # function to run the program
     def run(self):
         self.window.mainloop()
 
