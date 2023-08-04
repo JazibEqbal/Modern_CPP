@@ -107,16 +107,15 @@ class HTMLFileLoaderApp:
             self.text_excel.insert('end', file_path)
 
     # function to handle create zip file
-    @staticmethod
     def load_zip_file(self):
         file_path = filedialog.askopenfilename(filetypes=[("Zip files", "*.zip")])
-        # if file_path:
-        #     if not self.hold_file_path.get():
-        #         self.hold_file_path.set(file_path)
-        #     else:
-        #         self.hold_file_path.set(file_path)
-        #     self.text_excel.delete(1.0, 'end')
-        #     self.text_excel.insert('end', file_path)
+        if file_path:
+            if not self.hold_file_path.get():
+                self.hold_file_path.set(file_path)
+            else:
+                self.hold_file_path.set(file_path)
+            self.text_excel.delete(1.0, 'end')
+            self.text_excel.insert('end', file_path)
 
     # function to get the selected file path
     def get_path(self):
@@ -124,7 +123,7 @@ class HTMLFileLoaderApp:
 
     # execute function to handle execute button functions
     def execute(self):
-        progress = 0  # declaring a variable to hold value of progress execution
+        progress = 0.0  # declaring a variable to hold value of progress execution
         if len(self.hold_file_path.get()) > 0:  # on clicking execute button it checks if the file if selected or not
             while progress < 100:
                 progress += 20  # incrementing progress by 20% each time
