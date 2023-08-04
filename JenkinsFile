@@ -11,6 +11,13 @@ pipeline{
    }
     stages{
         stage('Build'){
+             agent {
+                  docker {
+                  image 'node:18.16.0-alpine'
+                  args '-v $HOME/.m2:/root/.m2'  #caching for fast speed and avoid re-installing dependencies for subsequent Pipeline runs
+                  reuseNode true  #to keep all data synchronized in a single workspace
+                  }
+             }
             environment {
                 BITBUCKET_CREDENTIALS = credentials('jenkins-bitbucket-password')  #password
             }
@@ -22,7 +29,7 @@ pipeline{
             steps{
                 checkout scm
                 sh 'make'
-                sh('curl -u $BITBUCKET_CREDENTIALS_USR:$BITBUCKET_CREDENTIALS_PSW https://example.com/')  #correct way ''
+                sh('curl -u $BITBUCKET_CREDENTIALS_USR:$BITBUCKET_CREDENTIALS_PSW https://example.com/')  #correct way
                 echo 'Hello'
                 stash includes: '**/target/*.jar', name: 'app' #Once the Pipeline has completed its execution, stashed files are deleted from the Jenkins controller
             }
