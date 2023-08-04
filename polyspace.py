@@ -1,7 +1,7 @@
 import tkinter as tk
-from tkinter import filedialog, ttk, Button, Text, Label, Canvas
+from tkinter import filedialog, ttk
 from tkinter import *
-from PIL import ImageTk, Image
+# from PIL import ImageTk, Image
 
 
 class HTMLFileLoaderApp:
@@ -22,22 +22,23 @@ class HTMLFileLoaderApp:
         self.text_excel = None
         self.execute_button = None
         self.progress_bar = None
+        self.output = None
         self.output_log = None
-        self.output_reset_log = None
         self.output_failure = None
         self.create_widgets()
+        self.initial_output()
 
     def create_widgets(self):
-        img = Image.open("logo.png")
-        logo = ImageTk.PhotoImage(img)
-
-        label1 = tk.Label(image=logo)
-        label1.img = logo
-        label1.place(x=0, y=0, width=80, height=70)
+        # img = Image.open("logo.png")
+        # logo = ImageTk.PhotoImage(img)
+        #
+        # label1 = tk.Label(image=logo)
+        # label1.img = logo
+        # label1.place(x=0, y=0, width=80, height=70)
 
         # image
-        # label1 = tk.Label(self.window, text='Image', bg='#ffb6c1')
-        # label1.place(x=0, y=0, width=80, height=70)
+        label1 = tk.Label(self.window, text='Image', bg='#ffb6c1', fg='#fff')
+        label1.place(x=0, y=0, width=80, height=70)
 
         # zip button
         self.zip_button = tk.Button(self.window, text='CREATE ZIP', bg='#000', fg='#fff',
@@ -76,12 +77,17 @@ class HTMLFileLoaderApp:
         self.progress_bar = ttk.Progressbar(self.window, variable=self.progress_var, maximum=100, mode='determinate')
         self.progress_bar.place(x=0, y=101, width=650, height=24)
 
+    # output view
+    def initial_output(self):
+        self.output = tk.Label(self.window, text='Output:', bg='#4a5aff', anchor=W, fg='#fff')
+        self.output.place(x=0, y=125, width=650, height=29)
+
     # function to handle load html file
     def load_html_file(self):
         file_path = filedialog.askopenfilename(filetypes=[("HTML files", "*.html")])  # getting the file path in
         # file_path variable and opening a file dialog to select an html file
         if file_path:   # if file_path has got some file path then proceed
-            if not self.hold_file_path.get():   # if file_path is empty writing to it
+            if not self.hold_file_path.get():   # if file_path is empty then writing to it
                 self.hold_file_path.set(file_path)
             else:
                 self.hold_file_path.set(file_path)  # if hold_file_path has a data then over-riding it
@@ -149,8 +155,8 @@ class HTMLFileLoaderApp:
     def success_msg(self):
         if self.execution_success:  # if execution was 100% then only
             # print('Before')
-            log_report = f'File Parsed Successfully!. Log report can be found at C:/{self.get_path()}'
-            self.output_log = tk.Label(self.window, text=log_report, bg='green', anchor=W)
+            log_report = f'File Parsed Successfully!. Log report can be found at {self.get_path()}'
+            self.output_log = tk.Label(self.window, text=log_report, bg='green', anchor=W, fg='#fff')
             # print('After')
             self.output_log.place(x=0, y=125, width=650, height=29)
             self.window.update_idletasks()
@@ -159,7 +165,7 @@ class HTMLFileLoaderApp:
 
     # function to show up when execution fails
     def failure_msg(self):
-        self.output_failure = tk.Label(self.window, text='Failed! Watch logs for fixing it!.', bg='red', anchor=W)
+        self.output_failure = tk.Label(self.window, text='Failed! Watch logs!.', bg='red', anchor=W)
         self.output_failure.place(x=0, y=125, width=650, height=29)
         self.window.update_idletasks()
         self.window.after(3000)  # adding a delay of 3s so that can user can view the success msg
@@ -168,8 +174,7 @@ class HTMLFileLoaderApp:
     # function to reset output log to empty
     def reset_msg(self):
         # print('before')
-        self.output_reset_log = Label(self.window, text='', anchor=W)
-        self.output_reset_log.place(x=0, y=125, width=650, height=29)
+        self.initial_output()
         # print('after')
 
     # function to close app, handled by exit button
