@@ -1,0 +1,62 @@
+JenkinsFile(Declarative Pipeline)
+pipeline{
+    agent any
+
+    environment{
+        SECRET_ID = credentials('secret-id')
+        SECRET_KEY = credentials('secret-key')
+    }
+    environment {
+        EXAMPLE_KEY = credentials('example-credentials-id') // Secret value is 'sec%ret'
+   }
+    stages{
+        stage('Build'){
+            environment {
+                BITBUCKET_CREDENTIALS = credentials('jenkins-bitbucket-password')  #password
+            }
+            options {  # to preserve stash artifacts outside the pipeline whenever there is a failure
+                preserveStashes()
+                // or
+                preserveStashes(buildCount: 5)
+            }
+            steps{
+                checkout scm
+                sh 'make'
+                sh('curl -u $BITBUCKET_CREDENTIALS_USR:$BITBUCKET_CREDENTIALS_PSW https://example.com/')  #correct way ''
+                echo 'Hello'
+                stash includes: '**/target/*.jar', name: 'app' #Once the Pipeline has completed its execution, stashed files are deleted from the Jenkins controller
+            }
+        }
+        stage('Test'){
+            agent {   #multiple agent
+               label 'linux'
+            }
+            steps{
+                unstash 'app'  #retrive whatever is there in stash
+                bat 'echo %EXAMPLE_KEY%'  #correct way
+                sh 'make check || true'
+            }
+            post{
+                always{
+                    junit '**/target/*.xml'
+            }
+        }
+        stage('Deploy'){
+            when{
+                expression{
+                    currentBuild.result == null || currentBuild.result == 'SUCCESS'
+                }
+            }
+            steps{
+                unstash 'app'
+                sh 'make publish'
+            }
+            post{
+                always{
+                    junit '**/target/*.xml'
+            }
+        }
+    }
+}
+
+git([url: 'git://example.com/amazing-project.git', branch: 'master'])  #key:value pair
