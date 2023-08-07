@@ -4,13 +4,14 @@ from tkinter import *
 # from PIL import ImageTk, Image
 
 
-class HTMLFileLoaderApp:
+class PolySpace:
     def __init__(self):
         self.window = tk.Tk()
         self.window.title("PolySpaceReportGeneration")
-        self.window.geometry('650x150+100+100')
-        self.window.resizable(width=False, height=False)
-        self.hold_file_path = tk.StringVar()  # to hold value of string type for setting file path
+        self.window.geometry('650x150+100+100')  # window view size
+        self.window.resizable(width=False, height=False)  # cannot be increased or decreased by the user
+        self.hold_html_file_path = tk.StringVar()  # to hold value of string type for setting file path
+        self.hold_excel_file_path = tk.StringVar()  # to hold value of string type for setting file path
         self.progress_var = tk.DoubleVar()  # to hold value of type float for execution percentage
         self.button_disabled = False
         self.execution_success = False
@@ -79,7 +80,7 @@ class HTMLFileLoaderApp:
 
     # output view
     def initial_output(self):
-        self.output = tk.Label(self.window, text='Output:', bg='#4a5aff', anchor=W, fg='#fff')
+        self.output = tk.Label(self.window, text='LOG:', bg='#4a5aff', anchor=W, fg='#fff')
         self.output.place(x=0, y=125, width=650, height=29)
 
     # function to handle load html file
@@ -87,10 +88,10 @@ class HTMLFileLoaderApp:
         file_path = filedialog.askopenfilename(filetypes=[("HTML files", "*.html")])  # getting the file path in
         # file_path variable and opening a file dialog to select an html file
         if file_path:   # if file_path has got some file path then proceed
-            if not self.hold_file_path.get():   # if file_path is empty then writing to it
-                self.hold_file_path.set(file_path)
+            if not self.hold_html_file_path.get():   # if file_path is empty then writing to it
+                self.hold_html_file_path.set(file_path)
             else:
-                self.hold_file_path.set(file_path)  # if hold_file_path has a data then over-riding it
+                self.hold_html_file_path.set(file_path)  # if hold_file_path has a data then over-riding it
             self.text_html.delete(1.0, 'end')  # clearing the text_html entry
             self.text_html.insert('end', file_path)  # appending file_path to it here
             # self.getPath()
@@ -99,10 +100,10 @@ class HTMLFileLoaderApp:
     def load_excel_file(self):
         file_path = filedialog.askopenfilename(filetypes=[('XML files', '*.xml')])
         if file_path:
-            if not self.hold_file_path.get():
-                self.hold_file_path.set(file_path)
+            if not self.hold_excel_file_path.get():
+                self.hold_excel_file_path.set(file_path)
             else:
-                self.hold_file_path.set(file_path)
+                self.hold_excel_file_path.set(file_path)
             self.text_excel.delete(1.0, 'end')
             self.text_excel.insert('end', file_path)
 
@@ -119,30 +120,30 @@ class HTMLFileLoaderApp:
 
     # function to get the selected file path
     def get_path(self):
-        return self.hold_file_path.get()  # returning the hold_file_path data
+        return self.hold_html_file_path.get() + self.hold_excel_file_path.get()  # returning the hold_file_path data
 
     # execute function to handle execute button functions
     def execute(self):
         progress = 0.0  # declaring a variable to hold value of progress execution
-        if len(self.hold_file_path.get()) > 0:  # on clicking execute button it checks if the file if selected or not
+        if len(self.hold_html_file_path.get()) > 0 and len(self.hold_excel_file_path.get()) > 0:  # on clicking execute button it checks if the file if selected or not
             while progress < 100:
                 progress += 20  # incrementing progress by 20% each time
                 self.progress_var.set(progress)  # setting the progress value in the variable var of progress bar
                 self.execute_button.config(text=f"{progress}%")  # Update the button text
                 self.window.update_idletasks()
-                self.window.after(500)  # Delay for demonstration purposes
+                self.window.after(300)  # Delay for demonstration purposes
                 if progress == 100:  # checking if progress is 100% done or not, if done then only showing success msg
                     self.set_execution(True)
                     self.success_msg()  # calling success function
-                # if progress == 60:  # just for demonstrating failure output
-                #     self.failure_msg()
-                #     break
-
-        self.text_html.delete(1.0, 'end')  # deleting text inside html text area after execution
-        self.text_excel.delete(1.0, 'end')  # deleting text inside excel text area after execution
-        self.progress_var.set(0)  # initially progress bar is set to 0
-        self.execute_button.config(text="EXECUTE")  # Reset the button text
-        self.hold_file_path.set('')  # setting the file path again to zero
+                    # self.text_html.delete(1.0, 'end')  # deleting text inside html text area after execution
+                    # self.text_excel.delete(1.0, 'end')  # deleting text inside excel text area after execution
+                    # self.progress_var.set(0)  # initially progress bar is set to 0
+                    self.execute_button.config(text="100.0%", fg='#000')  # Reset the button text
+                    self.hold_html_file_path.set('')  # setting the file path again to zero
+                    self.hold_excel_file_path.set('')
+        else:
+            self.output_failure = tk.Label(self.window, text='Please provide all inputs.', bg='red', anchor=W)
+            self.output_failure.place(x=0, y=125, width=650, height=29)
 
     # function to update the execution_success variable to true
     def set_execution(self, execution_success):
@@ -153,14 +154,12 @@ class HTMLFileLoaderApp:
     # function to show up when process executed 100%
     def success_msg(self):
         if self.execution_success:  # if execution was 100% then only
-            # print('Before')
-            log_report = f'File Parsed Successfully!. Log report can be found at {self.get_path()}'
-            self.output_log = tk.Label(self.window, text=log_report, bg='green', anchor=W, fg='#fff')
-            # print('After')
+            log_report = f'SUCCESS: LOG: Report can be found at {self.get_path()}'
+            self.output_log = tk.Label(self.window, text=log_report, bg='green', anchor=W, fg='#000')
             self.output_log.place(x=0, y=125, width=650, height=29)
             self.window.update_idletasks()
             self.window.after(3000)  # adding a delay of 3s so that can user can view the success msg
-            self.reset_msg()  # calling reset_msg() function
+            # self.reset_msg()  # calling reset_msg() function
 
     # function to show up when execution fails
     def failure_msg(self):
@@ -186,5 +185,5 @@ class HTMLFileLoaderApp:
 
 
 if __name__ == "__main__":
-    app = HTMLFileLoaderApp()
+    app = PolySpace()
     app.run()
