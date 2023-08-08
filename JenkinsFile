@@ -1,16 +1,28 @@
 JenkinsFile(Declarative Pipeline)
 pipeline{
-    agent any
+    # top level agents
+    # Agent - connects to Jenkins Controller(what will execute in the Jenkins environment)
+
+    agent any # Execute the Pipeline, or stage, on any available agent
+    agent none # none agent means each stage must have their own agent
+    agent { label 'my-defined-label' }  #  The label or label condition on which to run the Pipeline or individual stage.
 
     environment{
         SECRET_ID = credentials('secret-id')
         SECRET_KEY = credentials('secret-key')
     }
+
     environment {
         EXAMPLE_KEY = credentials('example-credentials-id') // Secret value is 'sec%ret'
    }
+   options {
+        // Timeout counter starts AFTER agent is allocated
+        timeout(time: 1, unit: 'SECONDS')
+        retry(3)  # automatic re-try after failure
+     }
     stages{
         stage('Build'){
+        # stage level agents
              agent {
                   docker {
                   image 'node:18.16.0-alpine'
@@ -49,6 +61,12 @@ pipeline{
             }
         }
         stage('Deploy'){
+            agent {
+                node {
+                    label 'my-defined-label'
+                    customWorkspace '/some/other/path'
+                }
+            }
             when{
                 expression{
                     currentBuild.result == null || currentBuild.result == 'SUCCESS'
@@ -58,9 +76,12 @@ pipeline{
                 unstash 'app'
                 sh 'make publish'
             }
+            #  run upon the completion of a Pipeline’s or stage’s run 
+            #  (depending on the location of the post section within the Pipeline)
             post{
                 always{
                     junit '**/target/*.xml'
+                    echo "post executed"
             }
         }
     }
